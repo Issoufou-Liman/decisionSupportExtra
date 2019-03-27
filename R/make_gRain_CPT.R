@@ -1,4 +1,4 @@
-#' Make and format Conditional Probability tables for use in Bayesian Networks
+#' Make and format Conditional Probability table (CPT) for use in Bayesian Network
 #'
 #' Take the required arguments for \code{\link[decisionSupport]{make_CPT}}, compute the nodes states probabilities and format them as ready to use inputs for \code{\link[gRain]{cptable}}.
 #' @param parent_effects see \code{\link[decisionSupport]{make_CPT}} for detail.
@@ -9,10 +9,10 @@
 #' @param child_states see \code{\link[decisionSupport]{make_CPT}} for details.
 #' @param parent_names see \code{\link[decisionSupport]{make_CPT}} for details.
 #' @param parent_states see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param option character string. CPTs formatting option; either 'grain' or "bnlearn" (NOT currently implemented).
+#' @param option character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).
 #' @return A matrix containing the Conditional probabilities.
 #' @details \code{\link[decisionSupport]{make_CPT}} does not seems to work well     with simple case (i.e. single parent - single child relationship) which case     does not worth it!
-#' @seealso \code{\link[decisionSupport]{make_CPT}} for more details.
+#' @seealso \code{\link[decisionSupport]{make_CPT}}.
 #' @references
 #' Sjoekvist S & Hansson F, 2013. \emph{Modelling expert judgement into a Bayesian
 #' Belief Network - a method for consistent and robust determination of
@@ -55,7 +55,7 @@ make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior,
   # computing the Cconditional probabilities using decisionSupport::makeCPT
   test <- decisionSupport::make_CPT(parent_effects=parent_effects, parent_weights=parent_weights, b=b, child_prior=child_prior, ranking_child = ranking_child,
     child_states =child_states, parent_names = parent_names, parent_states = parent_states)
-  # create an appropriate size array for gRain or bnlearn CPTs
+  # create an appropriate size array for gRain or bnlearn CPT
   dim <- c(length(child_states), sapply(parent_states, length))
   ar <- array(data = rep(NA, length(test)),
     dim = dim,
@@ -65,7 +65,7 @@ make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior,
   tmp <- as.list(as.data.frame(test$column_legend, stringsAsFactors = FALSE))
   tmp <- lapply(tmp, as.character)
   ## second combining each set of parents states with a child state.
-  ar_ids <-     lapply(tmp, function(j){
+  ar_ids <- lapply(tmp, function(j){
     lapply(rownames(test$CPT), function(i){
       c(i, j)
     })

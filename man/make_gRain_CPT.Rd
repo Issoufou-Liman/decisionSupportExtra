@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_gRain_CPT.R
 \name{make_gRain_CPT}
 \alias{make_gRain_CPT}
-\title{Make and format Conditional Probability tables for use in Bayesian Networks}
+\title{Make and format Conditional Probability table (CPT) for use in Bayesian Network}
 \usage{
 make_gRain_CPT(parent_effects, parent_weights, b, child_prior,
   ranking_child = NULL, child_states = NULL, parent_names = NULL,
@@ -25,7 +25,7 @@ make_gRain_CPT(parent_effects, parent_weights, b, child_prior,
 
 \item{parent_states}{see \code{\link[decisionSupport]{make_CPT}} for details.}
 
-\item{option}{character string. CPTs formatting option; either 'grain' or "bnlearn" (NOT currently implemented).}
+\item{option}{character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).}
 }
 \value{
 A matrix containing the Conditional probabilities.
@@ -73,5 +73,5 @@ Support of Decision Making under Uncertainty. R package version 1.103.8.
 \url{https://CRAN.R-project.org/package=decisionSupport}
 }
 \seealso{
-\code{\link[decisionSupport]{make_CPT}} for more details.
+\code{\link[decisionSupport]{make_CPT}}.
 }
