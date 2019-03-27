@@ -48,24 +48,25 @@
 #' network
 #' plot (network)
 #' @export
-make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior,
-  ranking_child = NULL, child_states = NULL, parent_names = NULL,
-  parent_states = NULL, option = c('grain', 'bnlearn')){
-  option <- match.arg(option) # only work for gRain::cptable for now. I will add an option for bnlearn::custom.fit
+make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior, ranking_child = NULL, child_states = NULL, 
+                           parent_names = NULL, parent_states = NULL, option = c('grain', 'bnlearn')){
+  # only work for gRain::cptable for now. 
+  # TO DO: add an option for bnlearn::custom.fit
+  option <- match.arg(option) 
   # computing the Cconditional probabilities using decisionSupport::makeCPT
-  test <- decisionSupport::make_CPT(parent_effects=parent_effects, parent_weights=parent_weights, b=b, child_prior=child_prior, ranking_child = ranking_child,
-    child_states =child_states, parent_names = parent_names, parent_states = parent_states)
+  test <- decisionSupport::make_CPT (parent_effects = parent_effects, parent_weights = parent_weights, 
+                                    b = b, child_prior = child_prior, ranking_child = ranking_child, 
+                                    child_states = child_states, parent_names = parent_names, 
+                                    parent_states = parent_states)
   # create an appropriate size array for gRain or bnlearn CPTs
   dim <- c(length(child_states), sapply(parent_states, length))
-  ar <- array(data = rep(NA, length(test)),
-    dim = dim,
-    dimnames = c(list(child_states), parent_states))
+  ar <- array(data = rep(NA, length(test)), dim = dim, dimnames = c(list(child_states), parent_states))
   # making the array indexing by extracting the different combinaisons of node states by:
   ## first extracting the combinaisons of parents' states;
   tmp <- as.list(as.data.frame(test$column_legend, stringsAsFactors = FALSE))
   tmp <- lapply(tmp, as.character)
   ## second combining each set of parents states with a child state.
-  ar_ids <-     lapply(tmp, function(j){
+  ar_ids <- lapply(tmp, function(j){
     lapply(rownames(test$CPT), function(i){
       c(i, j)
     })
