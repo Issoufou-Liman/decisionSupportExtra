@@ -1,0 +1,31 @@
+Package: decisionSupportExtra
+Type: Package
+Title: Extra Tools for Quantitative Support of Decision Making under Uncertainty
+Version: 0.1.0
+Authors@R: c(
+    person("Issoufou", "Liman", , c("issoufoul@gmail.com", "L.issoufou@cgiar.org"), c("aut", "cre")),
+    person("Cory", "Whitney", , role = "aut"),
+    person("James", "Kungu", , role = "aut"),
+    person("Eike", "Luedeling", , role = "aut")
+    )
+    person("Issoufou", "Liman", , email = c("issoufoul@gmail.com", "L.issoufou@cgiar.org"),
+    role = c("aut", "cre"))
+Depends:
+    R (>= 3.5.3)
+Imports:
+    decisionSupport (>= 1.103.8)
+Suggests:
+    gRain (>= 1.3-0),
+    bnlearn (>= 4.4.1),
+    testthat,
+    knitr,
+    rmarkdown
+Description: Supporting functions for the decisonSupport package which provides
+    utilities for quantitative decision making under uncertainity using  
+    Monte Carlo simulations.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
