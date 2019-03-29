@@ -1,5 +1,5 @@
 ---
-title: "Facilitation Expert elicitation With decisionSupportExtra package"
+title: "Facilitating Expert elicitation With decisionSupportExtra package"
 author: "Issoufou Liman, World Agroforestry Center (ICRAF) and Kenyatta University ([issoufoul@gmail.com / L.issoufou@cgiar.org](mailto:issoufoul@gmail.com; L.issoufou@cgiar.org))"
 date: "`r Sys.Date()`"
 csl: elsevier-harvard.csl
