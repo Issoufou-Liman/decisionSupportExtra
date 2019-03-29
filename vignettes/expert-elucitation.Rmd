@@ -4,7 +4,7 @@ author: "Issoufou Liman"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Expert elicitation}
+  %\VignetteIndexEntry{Facilitation Expert elicitation With decisionSupportExtra package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
