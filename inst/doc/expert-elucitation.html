@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Issoufou Liman" />
+<meta name="author" content="Issoufou Liman, World Agroforestry Center (ICRAF) and Kenyatta University (issoufoul@gmail.com / L.issoufou@cgiar.org)" />
 
 <meta name="date" content="2019-03-29" />
 
@@ -302,15 +302,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Facilitation Expert elicitation With decisionSupportExtra package</h1>
-<h4 class="author">Issoufou Liman</h4>
+<h4 class="author">Issoufou Liman, World Agroforestry Center (ICRAF) and Kenyatta University (<a href="mailto:issoufoul@gmail.com;%20L.issoufou@cgiar.org">issoufoul@gmail.com / L.issoufou@cgiar.org</a>)</h4>
 <h4 class="date">2019-03-29</h4>
 
 
 
-<p>Most systems described using models are complex and often tools, data and information are limited to describe systems’ behaviors with sufficient degree of complexity. The real question is: how much data is enough? The minimum available should be enough to guide decisions. In this regards, Models should focus on data uncertainty and disregard the nature (qualitative or quantitative) or sources (primary or secondary) of data inputs. The <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> support the <a href="https://cran.r-project.org/web/packages/decisionSupport/index.html">decisonSupport</a> package on this philosophy. There are many modelling frameworks such as Bayesian network or Monte Carlo models that could work well with imperfect information. While Such frameworks are available through several R packages (see <code>gR</code> or <code>Bayesian</code> etc. <code>CRAN Task Views</code>), acquiring the right minimal data for running models can be tedious. Such data can be acquired via expert elicitation. The latter, nonetheless, requires calibration trainning while being challenging, particularly when dealing with complex causal models such as Bayesian network. This <code>vignette</code> describe how the <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> can be used to orchestrate expert-based data either in forms of conditional probability tables for Bayesian networks or in forms of ranges for Monte carlo models.</p>
-<div id="vignette-info" class="section level2">
-<h2>Vignette Info</h2>
-<p>Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
+<p>Most systems described using models are complex and often tools, data and information are limited to describe systems’ behaviors with sufficient degree of complexity. The real question is: how much data is enough? The minimum available should be enough to guide decisions. In this regards, Models should focus on data uncertainty and disregard the nature (qualitative or quantitative) or sources (primary or secondary) of data inputs. The <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> support the <a href="https://cran.r-project.org/web/packages/decisionSupport/index.html">decisonSupport</a> package <span class="citation">(Luedeling and Göhring, 2017)</span> on this philosophy. There are many modelling frameworks such as Bayesian network or Monte Carlo models that could work well with imperfect information. While Such frameworks are available through several R packages (see <code>gR</code> or <code>Bayesian</code> etc. <code>CRAN Task Views</code>), acquiring the right minimal data for running models can be tedious. Such data can be acquired via expert elicitation. The latter, nonetheless, requires calibration trainning while being challenging, particularly when dealing with complex causal models such as Bayesian network. This <code>vignette</code> describe how the <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> can be used to orchestrate expert-based data either in forms of conditional probability tables for Bayesian networks or in forms of ranges for Monte carlo models.</p>
+<div id="conditional-probability-table-cpt-for-multinomial-bayesian-networks-bns" class="section level2">
+<h2>1. Conditional Probability table (CPT) for Multinomial Bayesian Networks (BNs)</h2>
+<p>Discrete BNs along with other types of BNs were decribed extensively in the litterature Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
 </div>
 <div id="styles" class="section level2">
 <h2>Styles</h2>
@@ -498,6 +498,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <blockquote>
 <p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
 </blockquote>
+</div>
+<div id="reference" class="section level1 unnumbered">
+<h1>reference</h1>
+<div id="refs" class="references">
+<div id="ref-ref1">
+<p>Luedeling, E., Göhring, L., 2017. R package decisionSupport: Quantitative support of decision making under uncertainty.</p>
+</div>
+</div>
 </div>
 <div class="footnotes">
 <hr />
