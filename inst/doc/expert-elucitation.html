@@ -307,10 +307,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<p>Most systems described using models are complex and often tools, data and information are limited to describe systems’ behaviors with sufficient degree of complexity. The real question is: how much data is enough? The minimum available should be enough to guide decisions. In this regards, Models should focus on data uncertainty and disregard the nature (qualitative or quantitative) or sources (primary or secondary) of data inputs. The <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> support the <a href="https://cran.r-project.org/web/packages/decisionSupport/index.html">decisonSupport</a> package <span class="citation">(Luedeling and Göhring, 2017)</span> on this philosophy. There are many modelling frameworks such as Bayesian network or Monte Carlo models that could work well with imperfect information. While Such frameworks are available through several R packages (see <code>gR</code> or <code>Bayesian</code> etc. <code>CRAN Task Views</code>), acquiring the right minimal data for running models can be tedious. Such data can be acquired via expert elicitation. The latter, nonetheless, requires calibration trainning while being challenging, particularly when dealing with complex causal models such as Bayesian network. This <code>vignette</code> describe how the <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> can be used to orchestrate expert-based data either in forms of conditional probability tables for Bayesian networks or in forms of ranges for Monte carlo models.</p>
+<p>Most systems described using models are complex and often tools, data and information are limited to describe systems’ behaviors with sufficient degree of complexity. The real question is: how much data is enough? The minimum available should be enough to guide decisions. In this regards, Models should focus on data uncertainty and disregard the nature (qualitative or quantitative) or sources (primary or secondary) of data inputs. The <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> support the <a href="https://cran.r-project.org/web/packages/decisionSupport/index.html">decisonSupport</a> package <span class="citation">(Luedeling and Goehring, <a href="#ref-ref1" role="doc-biblioref">2018</a>)</span> on this philosophy. There are many modelling frameworks such as Bayesian network or Monte Carlo models that could work well with imperfect information. While Such frameworks are available through several R packages (see <code>gR</code> or <code>Bayesian</code> etc. <code>CRAN Task Views</code>); such as <code>gRain</code> <span class="citation">(Højsgaard, <a href="#ref-ref5" role="doc-biblioref">2012</a>)</span>, <code>bnlearn</code> <span class="citation">(Scutari, <a href="#ref-ref2" role="doc-biblioref">2010</a>)</span>, or <code>decisionSupport</code><span class="citation">(Luedeling and Goehring, <a href="#ref-ref1" role="doc-biblioref">2018</a>; Luedeling et al., <a href="#ref-ref4" role="doc-biblioref">2015</a>)</span>; acquiring the right minimal data for running models can be tedious. Such data can be acquired via expert elicitation. The latter, nonetheless, requires calibration trainning while being challenging, particularly when dealing with complex causal models such as Bayesian network. This <code>vignette</code> describe how the <a href="https://github.com/Issoufou-Liman/decisionSupportExtra">decisionSupportExtra</a> can be used to orchestrate expert-based data either in forms of conditional probability tables for Bayesian networks or in forms of ranges for Monte carlo models.</p>
 <div id="conditional-probability-table-cpt-for-multinomial-bayesian-networks-bns" class="section level2">
 <h2>1. Conditional Probability table (CPT) for Multinomial Bayesian Networks (BNs)</h2>
-<p>Discrete BNs along with other types of BNs were decribed extensively in the litterature Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
+<p>Discrete <span class="citation">(Hansson and Sjökvist, <a href="#ref-Hansson2013" role="doc-biblioref">2013</a>)</span> BNs along with other types of BNs were decribed extensively in the litterature Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
 </div>
 <div id="styles" class="section level2">
 <h2>Styles</h2>
@@ -502,8 +502,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="reference" class="section level1 unnumbered">
 <h1>reference</h1>
 <div id="refs" class="references">
+<div id="ref-Hansson2013">
+<p>Hansson, F., Sjökvist, S., 2013. Modelling Expert Judgement into a Bayesian Belief Network - A Method for Consistent and Robust Determination of Conditional Probability Tables (Master Thesis). LUND University; <a href="http://lup.lub.lu.se/luur/download?func=downloadFile&amp;recordOId=3866733&amp;fileOId=3866740">Link to Thesis</a>.</p>
+</div>
+<div id="ref-ref5">
+<p>Højsgaard, S., 2012. Graphical independence networks with the gRain package for R. Journal of Statistical Software 46, 1–26. <a href="https://doi.org/10.18637/jss.v046.i10">https://doi.org/10.18637/jss.v046.i10</a></p>
+</div>
 <div id="ref-ref1">
-<p>Luedeling, E., Göhring, L., 2017. R package decisionSupport: Quantitative support of decision making under uncertainty.</p>
+<p>Luedeling, E., Goehring, L., 2018. DecisionSupport: Quantitative support of decision making under uncertainty. <a href="https://CRAN.R-project.org/package=decisionSupport">Link to package</a>.</p>
+</div>
+<div id="ref-ref4">
+<p>Luedeling, E., Oord, A., Kiteme, B., Ogalleh, S., Malesu, M., Shepherd, K.D., De Leeuw, J., 2015. Fresh groundwater for wajir – ex-ante assessment of uncertain benefits for multiple stakeholders in a water supply project in northern kenya. Frontiers in Environmental Science 3, 16. <a href="https://doi.org/10.3389/fenvs.2015.00016">https://doi.org/10.3389/fenvs.2015.00016</a></p>
+</div>
+<div id="ref-ref2">
+<p>Scutari, M., 2010. Learning bayesian networks with the bnlearn R package. Journal of Statistical Software 35, 1–22. <a href="https://doi.org/10.18637/jss.v035.i03">https://doi.org/10.18637/jss.v035.i03</a></p>
 </div>
 </div>
 </div>

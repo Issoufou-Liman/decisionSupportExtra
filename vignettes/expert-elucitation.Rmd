@@ -4,7 +4,12 @@ author: "Issoufou Liman, World Agroforestry Center (ICRAF) and Kenyatta Universi
 date: "`r Sys.Date()`"
 csl: elsevier-harvard.csl
 output: rmarkdown::html_vignette
+header-includes:
+   # \documentclass{article}
+   # \usepackage{apacite}
+   \usepackage{hyperref}
 bibliography: bibliographie.bib
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{Facilitation Expert elicitation With decisionSupportExtra package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,11 +24,11 @@ library(decisionSupport)
 library(decisionSupportExtra)
 ```
 
-Most systems described using models are complex and often tools, data and information are limited to describe systems' behaviors with sufficient degree of complexity. The real question is: how much data is enough? The minimum available should be enough to guide decisions. In this regards, Models should focus on data uncertainty and disregard the nature (qualitative or quantitative) or sources (primary or secondary) of data inputs. The [decisionSupportExtra](https://github.com/Issoufou-Liman/decisionSupportExtra) support the [decisonSupport](https://cran.r-project.org/web/packages/decisionSupport/index.html) package [@ref1] on this philosophy. There are many modelling frameworks such as Bayesian network or Monte Carlo models that could work well with imperfect information. While Such frameworks are available through several R packages (see `gR` or `Bayesian` etc. `CRAN Task Views`), acquiring the right minimal data for running models can be tedious. Such data can be acquired via expert elicitation. The latter, nonetheless, requires calibration trainning while being challenging, particularly when dealing with complex causal models such as Bayesian network. This `vignette` describe how the [decisionSupportExtra](https://github.com/Issoufou-Liman/decisionSupportExtra)  can be used to orchestrate expert-based data either in forms of conditional probability tables for Bayesian networks or in forms of ranges for Monte carlo models.
+Most systems described using models are complex and often tools, data and information are limited to describe systems' behaviors with sufficient degree of complexity. The real question is: how much data is enough? The minimum available should be enough to guide decisions. In this regards, Models should focus on data uncertainty and disregard the nature (qualitative or quantitative) or sources (primary or secondary) of data inputs. The [decisionSupportExtra](https://github.com/Issoufou-Liman/decisionSupportExtra) support the [decisonSupport](https://cran.r-project.org/web/packages/decisionSupport/index.html) package [@ref1] on this philosophy. There are many modelling frameworks such as Bayesian network or Monte Carlo models that could work well with imperfect information. While Such frameworks are available through several R packages (see `gR` or `Bayesian` etc. `CRAN Task Views`); such as `gRain` [@ref5], `bnlearn` [@ref2], or `decisionSupport`[@ref1; @ref4]; acquiring the right minimal data for running models can be tedious. Such data can be acquired via expert elicitation. The latter, nonetheless, requires calibration trainning while being challenging, particularly when dealing with complex causal models such as Bayesian network. This `vignette` describe how the [decisionSupportExtra](https://github.com/Issoufou-Liman/decisionSupportExtra)  can be used to orchestrate expert-based data either in forms of conditional probability tables for Bayesian networks or in forms of ranges for Monte carlo models.
 
 ## 1. Conditional Probability table (CPT) for Multinomial Bayesian Networks (BNs)
 
-Discrete BNs along with other types of BNs were decribed extensively in the litterature  Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+Discrete [@Hansson2013] BNs along with other types of BNs were decribed extensively in the litterature  Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
 
 ## Styles
 
