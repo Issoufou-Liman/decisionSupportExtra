@@ -1,5 +1,5 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-# decisionSupportExtra <img src="man/figures/logo.png" align="right" width="120" />
+# decisionSupportExtra <img src="man/figures/logo.png" align="right" width="200" />
 [![Travis Build
 Status](https://travis-ci.org/Issoufou-Liman/decisionSupportExtra.svg?branch=master)](https://travis-ci.org/Issoufou-Liman/decisionSupportExtra)
 [![AppVeyor Build
