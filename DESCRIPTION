@@ -1,6 +1,6 @@
 Package: decisionSupportExtra
 Type: Package
-Title: Extra Tools for Quantitative Support of Decision Making under Uncertainty
+Title: Miscellaneous Functions for Quantitative Support of Decision Making under Uncertainty
 Version: 0.1.0
 Authors@R: c(
     person("Issoufou", "Liman", , c("issoufoul@gmail.com", "L.issoufou@cgiar.org"), c("aut", "cre")),
