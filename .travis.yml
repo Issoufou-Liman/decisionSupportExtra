@@ -10,3 +10,4 @@ r_packages:
 
 install:
   - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
+  - R -e 'install.packages("rmarkdown", dependencies = T)'
