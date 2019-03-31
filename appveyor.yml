@@ -45,7 +45,7 @@ environment:
     USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
 
   matrix:
-    - R_VERSION: devel ## Bioconductor requires R 3.6 and is needed to install gRain etc.
+    - R_VERSION: release ## Bioconductor requires R 3.6 and is needed to install gRain etc.
       R_ARCH: x64
       GCC_PATH: mingw_64
 
