@@ -7,4 +7,3 @@ dist: trusty
 
 install:
   - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
-  - R -e 'install.packages("knitr", "rmarkdown"); remotes::install_deps(dependencies = TRUE)'
