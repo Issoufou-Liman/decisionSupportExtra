@@ -9,7 +9,7 @@ init:
 
 environment:
   global:
-    - BIOC_USE_DEVEL="FALSE"
+    BIOC_USE_DEVEL: FALSE
 
 install:
   # GenomicRanges and other deps installed from the release repo.
