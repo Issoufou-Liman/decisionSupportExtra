@@ -17,7 +17,7 @@ Imports:
     ggplot2 (>= 3.1.0),
     scales (>= 1.0.0),
     reshape2 (>= 1.4.3),
-    methods (>= 3.5.3)
+    methods
 Suggests:
     gRain (>= 1.3-0),
     bnlearn (>= 4.4.1),
