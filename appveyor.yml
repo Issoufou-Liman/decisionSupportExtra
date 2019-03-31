@@ -27,8 +27,8 @@ environment:
     USE_RTOOLS: true
     BIOC_USE_DEVEL: FALSE
 
-matrix:
-  - R_VERSION: release
+  matrix:
+    - R_VERSION: release
 
 on_failure:
   - 7z a failure.zip *.Rcheck\*
