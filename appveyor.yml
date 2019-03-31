@@ -28,7 +28,7 @@ build_script:
   - git config --global user.name "travis"
   - git config --global user.email "travis@example.org"
   - travis-tool.sh install_bioc_deps
-  - travis-tool.sh install_bioc grasp2db
+  - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests
