@@ -5,5 +5,8 @@ cache: packages
 sudo: true
 dist: trusty
 
+r_packages:
+  - rmarkdown
+
 install:
   - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
