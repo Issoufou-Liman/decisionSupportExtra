@@ -17,9 +17,14 @@ cache:
 
 build_script:
   - travis-tool.sh install_deps
+  - travis-tool.sh install_bioc_deps
 
 test_script:
   - travis-tool.sh run_tests
+
+environment:
+  global:
+    BIOC_USE_DEVEL: FALSE
 
 on_failure:
   - 7z a failure.zip *.Rcheck\*
