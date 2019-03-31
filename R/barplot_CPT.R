@@ -40,27 +40,27 @@
 #' barplot_CPT (network, "Soil_water_holding_capacity")
 #' @export
 barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pages = 1, show_states_only = FALSE, separator = "\n"){
-  if(is(bn, "CPTgrain")){
+  if(methods::is(bn, "CPTgrain")){
     x <- reshape2::melt(bn[["cptlist"]][[target_node]])
-  } else if (is(bn, "bn.fit")){
+  } else if (methods::is(bn, "bn.fit")){
     x <- as.data.frame(bn[[target_node]][['prob']])
   }
   if(is.null(ncol_facet)){
     ncol_facet <- (ncol(x)-2)
   }
   my_theme <- ggplot2::theme_minimal() +
-    ggplot2::theme(text = element_text(family = 'serif', face = 'plain'),
-      panel.spacing=unit(0.075, "lines"),
-      panel.border = element_rect(color = "lightgrey", fill = NA, size = 0.5),
-      axis.ticks = element_line(colour = 'black', size = 0.05),
-      legend.title = element_blank(),
+    ggplot2::theme(text = ggplot2::element_text(family = 'serif', face = 'plain'),
+      panel.spacing=ggplot2::unit(0.075, "lines"),
+      panel.border = ggplot2::element_rect(color = "lightgrey", fill = NA, size = 0.5),
+      axis.ticks = ggplot2::element_line(colour = 'black', size = 0.05),
+      legend.title = ggplot2::element_blank(),
       legend.position="top",
       legend.justification = 'right',
-      legend.margin=margin(0, 0, 0, 0),
-      legend.box.margin=margin(-22, 0, -10, 0),
-      strip.background = element_rect(color = "gray", size = 0.075),
-      strip.text = element_text(colour = 'black'),
-      plot.subtitle=element_text(size=9.5, face="italic", color="blue")
+      legend.margin=ggplot2::margin(0, 0, 0, 0),
+      legend.box.margin=ggplot2::margin(-22, 0, -10, 0),
+      strip.background = ggplot2::element_rect(color = "gray", size = 0.075),
+      strip.text = ggplot2::element_text(colour = 'black'),
+      plot.subtitle=ggplot2::element_text(size=9.5, face="italic", color="blue")
     )
 
   fmt_dcimals <- function(decimals=0){
@@ -73,7 +73,7 @@ barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pa
 
   facet_formula <- paste(tmp, collapse = '+')
   facet_formula <- paste0(".", '~', facet_formula)
-  facet_formula <- as.formula(facet_formula)
+  facet_formula <- stats::as.formula(facet_formula)
   p <- function(data){
 
     g <- ggplot2::ggplot(data = data, ggplot2::aes_string(x=names(data)[1], y=names(data)[ncol(data)]))+
