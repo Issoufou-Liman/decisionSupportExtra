@@ -24,6 +24,7 @@ test_script:
 
 environment:
   global:
+    USE_RTOOLS: true
     BIOC_USE_DEVEL: FALSE
 
 on_failure:
