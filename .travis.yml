@@ -2,11 +2,8 @@
 
 language: R
 cache: packages
-<<<<<<< HEAD
 sudo: true
 dist: trusty
 
 install:
   - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
-=======
->>>>>>> 55d5e1cdca36872025927b52c5ba76f43d5d69ef
