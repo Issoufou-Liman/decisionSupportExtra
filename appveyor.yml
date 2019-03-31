@@ -7,14 +7,8 @@ init:
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
-environment:
-  global:
-    BIOC_USE_DEVEL: FALSE
-
 install:
-  # GenomicRanges and other deps installed from the release repo.
-  travis-tool.sh install_bioc GenomicRanges
-  travis-tool.sh install_bioc_deps
+  ps: Bootstrap
 
 cache:
   - C:\RLibrary
@@ -23,7 +17,6 @@ cache:
 
 build_script:
   - travis-tool.sh install_deps
-  - travis-tool.sh install_bioc_deps
 
 test_script:
   - travis-tool.sh run_tests
