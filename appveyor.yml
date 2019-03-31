@@ -13,8 +13,8 @@ environment:
 
 install:
   # GenomicRanges and other deps installed from the release repo.
-  - ./travis-tool.sh install_bioc GenomicRanges
-  - ./travis-tool.sh install_bioc_deps
+  travis-tool.sh install_bioc GenomicRanges
+  travis-tool.sh install_bioc_deps
 
 cache:
   - C:\RLibrary
