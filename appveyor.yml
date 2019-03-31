@@ -17,6 +17,7 @@ cache:
 
 build_script:
   - travis-tool.sh install_deps
+  - travis-tool.sh install_bioc_deps
 
 test_script:
   - travis-tool.sh run_tests
@@ -43,14 +44,3 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
-
-environment:
-  NOT_CRAN: true
-  global:
-    R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-    USE_RTOOLS: true
-    WARNINGS_ARE_ERRORS: 1
-
-  matrix:
-    - R_VERSION: release
-arch: x64
