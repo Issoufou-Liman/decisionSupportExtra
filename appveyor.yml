@@ -9,6 +9,9 @@ init:
 
 install:
   ps: Bootstrap
+  - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
+  - R -e 'install.packages(c("rmarkdown", "decisionSupport", "ggplot2", "gRain", "bnlearn", "testthat"), dependencies = T)'
+
 
 cache:
   - C:\RLibrary
