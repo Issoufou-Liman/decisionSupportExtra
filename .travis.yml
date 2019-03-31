@@ -1,5 +1,10 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
 cache: packages
+sudo: true
+dist: trusty
+
+install:
+  - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
+  - R -e 'install.packages("knitr", "rmarkdown"); remotes::install_deps(dependencies = TRUE)'
