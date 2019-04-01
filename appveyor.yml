@@ -34,9 +34,10 @@ environment:
     _R_CHECK_FORCE_SUGGESTS_: 0
     R_ARCH: x64
     USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
+    BIOC_USE_DEVEL = FALSE
 
   matrix:
-    - R_VERSION: devel
+    - R_VERSION: >= 3.4.0
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
