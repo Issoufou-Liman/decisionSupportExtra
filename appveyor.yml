@@ -9,7 +9,7 @@ init:
 
 install:
   ps: Bootstrap
-  - R -e biocLite(c("graph","RBGL","Rgraphviz")
+  - R -e 'biocLite(c("graph","RBGL","Rgraphviz")'
 
 cache:
   - C:\RLibrary
