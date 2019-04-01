@@ -13,7 +13,7 @@ install:
 
 build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
-  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL','Rgraphviz'))"
+  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL','Rgraphviz'), siteRepos = 'https://bioconductor.org/packages/3.5/bioc')"
   - travis-tool.sh install_deps
   - travis-tool.sh r_binary_install curl
 
@@ -36,7 +36,7 @@ environment:
     USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
 
   matrix:
-    - R_VERSION: devel
+    - R_VERSION: release
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
