@@ -13,7 +13,7 @@ install:
 
 build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
-  - Rscript -e "install_bioc(c('graph','RBGL','Rgraphviz'))"
+  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL','Rgraphviz'))"
   - travis-tool.sh install_deps
   - travis-tool.sh r_binary_install curl
 
