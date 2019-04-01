@@ -10,9 +10,9 @@ init:
 install:
   ps: Bootstrap
 
-before_build:
-  - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
-  - R -e 'install.packages(c("rmarkdown", "decisionSupport", "ggplot2", "gRain", "bnlearn", "testthat"), dependencies = T)'
+build_script:
+  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
+  - travis-tool.sh install_deps
 
 cache:
   - C:\RLibrary
