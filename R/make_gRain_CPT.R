@@ -50,13 +50,15 @@
 #' network <- grain(network)
 #' network
 #' plot (network)
+#' @importFrom decisionSupport make_CPT
+#' @importFrom gRain cptable
 #' @export
 make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior,
   ranking_child = NULL, child_states = NULL, parent_names = NULL,
   parent_states = NULL, option = c('grain', 'bnlearn')){
   option <- match.arg(option) # only work for gRain::cptable for now. I will add an option for bnlearn::custom.fit
   # computing the Cconditional probabilities using decisionSupport::makeCPT
-  test <- decisionSupport::make_CPT(parent_effects=parent_effects, parent_weights=parent_weights, b=b, child_prior=child_prior, ranking_child = ranking_child,
+  test <- make_CPT(parent_effects=parent_effects, parent_weights=parent_weights, b=b, child_prior=child_prior, ranking_child = ranking_child,
     child_states =child_states, parent_names = parent_names, parent_states = parent_states)
   # create an appropriate size array for gRain or bnlearn CPT
   dim <- c(length(child_states), sapply(parent_states, length))

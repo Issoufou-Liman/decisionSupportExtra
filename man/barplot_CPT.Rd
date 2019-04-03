@@ -8,7 +8,7 @@ barplot_CPT(bn, target_node, bar_width = 0.25, ncol_facet = NULL,
   n_pages = 1, show_states_only = FALSE, separator = "\\n")
 }
 \arguments{
-\item{bn}{A grain object  from gRain package (see \code{\link[gRain]{grain-main}}) or a \code{\link[bnlearn]{bn.fit}} object from bnlearn package.}
+\item{bn}{A grain object from gRain package (see \code{\link[gRain]{grain-main}}) or a \code{\link[bnlearn]{bn.fit}} object from bnlearn package.}
 
 \item{target_node}{A single character indicating the name of the node which CPT is to be plotted.}
 
