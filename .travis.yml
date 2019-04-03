@@ -8,13 +8,13 @@ dist: trusty
 r_packages:
   - rmarkdown
   - covr
-  - decisionSupport
-  - ggplot2
-  - gRain
+##   - decisionSupport
+##   - ggplot2
+##   - gRain
   - bnlearn
   - testthat
-  - fitdistrplus
-  - rriskDistributions
+##   - fitdistrplus
+##   - rriskDistributions
 
 bioc_packages:
   - BiocInstaller

@@ -15,10 +15,15 @@ cache:
 
 # Adapt as necessary starting from here
 
-build_script:
- - Rscript -e "source('http://bioconductor.org/biocLite.R')"
- - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
- - travis-tool.sh install_deps
+bioc_packages:
+ - BiocInstaller
+ - graph
+ - RBGL
+ - Rgraphviz
+## build_script:
+##  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
+##  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
+##  - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests
