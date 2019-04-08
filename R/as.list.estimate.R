@@ -23,6 +23,8 @@
 #' correlation_matrix = data.matrix (read.csv (text = estimateTextCor,
 #' row.names = 1, strip.white = TRUE)))
 #' as.list (estimateCor)
+#' @importFrom decisionSupport estimate
+#' @importFrom decisionSupport as.estimate
 #' @export
 as.list.estimate <- function(x, ...){
   # removing the class attr

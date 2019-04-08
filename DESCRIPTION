@@ -20,6 +20,7 @@ Imports:
     reshape2 (>= 1.4.3),
     gRain (>= 1.3-0),
     rriskDistributions (>= 2.1.2),
+    plyr (>= 1.8.4),
     methods
 Suggests:
     bnlearn (>= 4.4.1),
