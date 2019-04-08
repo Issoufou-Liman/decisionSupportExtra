@@ -87,3 +87,6 @@ Support of Decision Making under Uncertainty. R package version 1.103.8.
 \seealso{
 \code{\link[decisionSupport]{make_CPT}}.
 }
+\author{
+Issoufou Liman
+}

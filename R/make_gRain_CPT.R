@@ -9,6 +9,7 @@
 ## #' @param child_states see \code{\link[decisionSupport]{make_CPT}} for details.
 ## #' @param parent_names see \code{\link[decisionSupport]{make_CPT}} for details.
 ## #' @param parent_states see \code{\link[decisionSupport]{make_CPT}} for details.
+#' @author Issoufou Liman
 #' @inheritParams decisionSupport::make_CPT
 #' @param option character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).
 #' @return A matrix containing the Conditional probabilities.

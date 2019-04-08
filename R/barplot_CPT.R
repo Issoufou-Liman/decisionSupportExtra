@@ -2,6 +2,7 @@
 #'
 #' Take a bayesian network, a node of interest along with other optional ggplot paramaters to produce a barchart corresponding to the CPT of the node of interest given the Bayesian network.
 #'
+#' @author Issoufou Liman
 #' @param bn A grain object from gRain package (see \code{\link[gRain]{grain-main}}) or a \code{\link[bnlearn]{bn.fit}} object from bnlearn package.
 #' @param target_node A single character indicating the name of the node which CPT is to be plotted.
 #' @param bar_width numeric. The width of the bars in the barplot (see \code{\link[ggplot2]{geom_bar}}).

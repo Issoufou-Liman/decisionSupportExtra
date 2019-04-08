@@ -2,6 +2,7 @@
 #'
 #' Take some data along with other tuning parameters to return the formated estimates as returned by \code{\link[decisionSupport]{estimate}} to be used in the \code{\link[decisionSupport]{mcSimulation}}.
 
+#' @author Issoufou Liman
 #' @param data The base data or list of base data such that fun (data), or do.call (fun, data) will either return a data.frame or a numeric vector coercible to data.frame. see example.
 #' @param fun Thefunction to be applied to data.
 #' @param distr charater vector. The expected probability distribution function.

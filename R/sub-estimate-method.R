@@ -2,6 +2,7 @@
 #'
 #' subset operator for estimate class from decisionSupport package.
 #'
+#' @author Issoufou Liman
 #' @param x estimate object
 #' @param i,j elements to extract or replace by index or dimnames.
 #' @param drop logical. If TRUE the result is coerced to the lowest possible dimension. The default is to drop if only one column is left, but not to drop if only one row is left.
@@ -23,6 +24,12 @@
 #' strip.white = TRUE, stringsAsFactors = FALSE),
 #' correlation_matrix = data.matrix (read.csv (text = estimateTextCor,
 #' row.names = 1, strip.white = TRUE)))
+#' ## extracting the first row.
+#' estimateCor [1, ]
+#' ## extracting all the rows keep everything intact.
+#' estimateCor [1:4, ]
+#' ## Trying to drop mandatory column is ignored.
+#' estimateCor [, 1]
 #' @rdname sub-estimate-method
 #' @importFrom decisionSupport estimate
 #' @importFrom decisionSupport as.estimate
@@ -53,6 +60,6 @@
   x <- x[i, j, drop = drop]
   cor_x <- cor_x [rownames(cor_x) %in% rownames(x), colnames(cor_x) %in% rownames(x)]
   if(any(is.null(dimnames(cor_x)))) cor_x <- NULL
-  x <- decisionSupport::as.estimate(x, correlation_matrix = cor_x)
+  x <- as.estimate(x, correlation_matrix = cor_x)
   return(x)
 }

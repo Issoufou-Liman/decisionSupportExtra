@@ -36,4 +36,13 @@ estimateCor <- as.estimate (read.csv (header=TRUE, text=estimateTextMarg,
 strip.white = TRUE, stringsAsFactors = FALSE),
 correlation_matrix = data.matrix (read.csv (text = estimateTextCor,
 row.names = 1, strip.white = TRUE)))
+## extracting the first row.
+estimateCor [1, ]
+## extracting all the rows keep everything intact.
+estimateCor [1:4, ]
+## Trying to drop mandatory column is ignored.
+estimateCor [, 1]
+}
+\author{
+Issoufou Liman
 }

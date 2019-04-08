@@ -86,3 +86,6 @@ calc_gamma; fit_gamma; calc_norm
 \seealso{
 \code{\link[decisionSupport]{estimate}}.
 }
+\author{
+Issoufou Liman
+}

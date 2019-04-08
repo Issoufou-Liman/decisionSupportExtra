@@ -64,3 +64,6 @@ barplot_CPT (network, "Soil_water_holding_capacity")
 \seealso{
 \code{\link[decisionSupportExtra]{make_gRain_CPT}}.
 }
+\author{
+Issoufou Liman
+}
