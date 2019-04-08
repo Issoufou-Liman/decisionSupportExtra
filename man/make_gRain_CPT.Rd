@@ -9,21 +9,30 @@ make_gRain_CPT(parent_effects, parent_weights, b, child_prior,
   parent_states = NULL, option = c("grain", "bnlearn"))
 }
 \arguments{
-\item{parent_effects}{see \code{\link[decisionSupport]{make_CPT}} for detail.}
+\item{parent_effects}{list of vectors describing the effects of all parent node
+states on the value of the child variable. For example, if parent 1 has
+four states, the respective vector might look like this: c(3,1,0,0). This
+would imply that the first state of the parent is strongly associated with
+high values for the child, the second less strongly, and the 3rd and
+4th value are associated with equally low values.}
 
-\item{parent_weights}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{parent_weights}{weight factors for the parent nodes}
 
-\item{b}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{b}{parameter for the strength of the parent's influence on
+the child node. A value of 1 causes no response; 3 is quite strong.}
 
-\item{child_prior}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{child_prior}{prior distribution for the states of the child node.}
 
-\item{ranking_child}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{ranking_child}{vector of length length(child_prior) containing rankings for
+the child node states on a -1..1 scale. If this is null, evenly spaced rankings on
+this -1..1 scale are assigned automatically.}
 
-\item{child_states}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{child_states}{optional vector specifying the names of the child states.}
 
-\item{parent_names}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{parent_names}{optional vector specifying parent node names.}
 
-\item{parent_states}{see \code{\link[decisionSupport]{make_CPT}} for details.}
+\item{parent_states}{list of the same structure as parent_effects containing
+names for all states of all parents.}
 
 \item{option}{character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).}
 }

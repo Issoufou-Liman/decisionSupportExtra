@@ -1,14 +1,15 @@
 #' Make and format Conditional Probability table (CPT) for use in Bayesian Network
 #'
 #' Take the required arguments for \code{\link[decisionSupport]{make_CPT}}, compute the nodes states probabilities and format them as ready to use inputs for \code{\link[gRain]{cptable}}.
-#' @param parent_effects see \code{\link[decisionSupport]{make_CPT}} for detail.
-#' @param parent_weights see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param b see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param child_prior see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param ranking_child see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param child_states see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param parent_names see \code{\link[decisionSupport]{make_CPT}} for details.
-#' @param parent_states see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param parent_effects see \code{\link[decisionSupport]{make_CPT}} for detail.
+## #' @param parent_weights see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param b see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param child_prior see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param ranking_child see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param child_states see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param parent_names see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param parent_states see \code{\link[decisionSupport]{make_CPT}} for details.
+#' @inheritParams decisionSupport::make_CPT
 #' @param option character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).
 #' @return A matrix containing the Conditional probabilities.
 #' @details \code{\link[decisionSupport]{make_CPT}} does not seems to work well     with simple case (i.e. single parent - single child relationship) which case     does not worth it!
