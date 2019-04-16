@@ -41,4 +41,4 @@ or
 devtools::install_github("Issoufou-Liman/decisionSupportExtra", build_opts = c("--no-resave-data", "-no-manual"), force = TRUE)
 ```
 
-to build the vignette.
+to build the vignette from source.
