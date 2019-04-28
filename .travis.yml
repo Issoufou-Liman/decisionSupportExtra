@@ -9,7 +9,7 @@ addons:
   apt:
     update: true
     packages:
-    - r-cran-tkrplot
+    - tk
 
 r_packages:
   - rmarkdown
