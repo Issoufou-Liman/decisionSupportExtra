@@ -8,7 +8,35 @@
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
 #' @return a matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details the rownames are specify the conditionning used for each query.
-#' @example run the bayesian network and the function, then try using the code below the function.
+#' @example
+#' library (gRain)
+#' library(bnlearn)
+#' ## setting a bayesian network with gRain
+#' Soil_type <- cptable (~Soil_type, values = c(0.05, 0.55, 0.4),
+#' levels = c('Sandy', 'Loamy', 'Clayey'))
+#' Manure_application <- cptable(~Manure_application, values = c(0.3, 0.7),
+#' levels = c('FALSE', 'TRUE'))
+#' Soil_water_holding_capacity_tmp <- make_gRain_CPT(
+#'  parent_effects = list(c(0, 2.5, 3), c(0, 2)),
+#'  parent_weights = c(2,1),
+#'  b = 3,
+#'  child_prior = c(0.2,0.5,0.3),
+#'  child_states = c('Low', 'Medium', 'High'),
+#'  parent_states = list(c('Sandy', 'Loamy', 'Clayey'), c('FALSE', 'TRUE'))
+#' )
+#' Soil_water_holding_capacity_values <- Soil_water_holding_capacity_tmp$values
+#' Soil_water_holding_capacity_levels <- Soil_water_holding_capacity_tmp$levels
+#' Soil_water_holding_capacity <- cptable (
+#' ~Soil_water_holding_capacity|Soil_type:Manure_application,
+#' values = Soil_water_holding_capacity_values,
+#' levels = Soil_water_holding_capacity_levels)
+#' ## Compile conditional probability tables
+#' network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_capacity))
+#' ## Graphical Independence Network ####
+#' network <- grain(network)
+#' ## converting the grain bayesian network to bn.fit
+#' network <- as.bn.fit(network)
+#' sample_cpdist (network, "Soil_water_holding_capacity")
 #' @importFrom bnlearn nodes
 #' @importFrom bnlearn parents
 #' @importFrom gRain nodeStates
