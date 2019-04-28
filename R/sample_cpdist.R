@@ -1,3 +1,5 @@
+#' Sampling from posterior distribution of a Bayesian network at a node of interest
+#'
 #' Take a bayesian network, a node of interst, and a return value type option and returns either the
 #' probability/sampled data (depending on the op argument specified) of the different  states of the
 #' node of interst given the different conbinaition of its and its parents states.
@@ -6,8 +8,9 @@
 #' @param op a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution
 #' @param evidence a name value pair:a named character vector which values are node states and names are node names.
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
-#' @return a matrix containing either the probabilities or raw data sampled from the posterior distribution
-#' @details the rownames are specify the conditionning used for each query.
+#' @return A matrix containing either the probabilities or raw data sampled from the posterior distribution
+#' @details Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
+#' @seealso \code{\link[bnlearn]{cpdist}}
 #' @examples
 #' library (gRain)
 #' library(bnlearn)
