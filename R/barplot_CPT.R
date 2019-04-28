@@ -45,6 +45,7 @@
 #' @importFrom methods is
 #' @importFrom stats as.formula
 #' @importFrom reshape2 melt
+#' @importFrom scales pretty_breaks
 #' @import ggplot2
 #' @export
 barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pages = 1, show_states_only = FALSE, separator = "\n"){
@@ -87,7 +88,7 @@ barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pa
     g <- ggplot(data = data, aes_string(x=names(data)[1], y=names(data)[ncol(data)]))+
       geom_bar(stat = 'identity', width = bar_width)+
       coord_flip()+
-      scale_y_continuous(labels = fmt_dcimals(2), breaks = scales::pretty_breaks(n=9), expand = c(0, 0.015)) +
+      scale_y_continuous(labels = fmt_dcimals(2), breaks = pretty_breaks(n=9), expand = c(0, 0.015)) +
       my_theme
     if(ncol(data) > 2){
       title = 'Conditional Probabilities'
