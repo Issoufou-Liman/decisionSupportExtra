@@ -5,6 +5,12 @@ cache: packages
 sudo: true
 dist: trusty
 
+addons:
+  apt:
+    update: true
+    packages:
+    - r-cran-tkrplot
+
 r_packages:
   - rmarkdown
   - covr
@@ -13,6 +19,7 @@ r_packages:
 ##   - gRain
   - bnlearn
   - testthat
+  - qpdf
 ##   - fitdistrplus
 ##   - rriskDistributions
 

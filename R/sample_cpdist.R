@@ -9,10 +9,14 @@
 #' @return a matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details the rownames are specify the conditionning used for each query.
 #' @example run the bayesian network and the function, then try using the code below the function.
+#' @importFrom bnlearn nodes
+#' @importFrom bnlearn parents
+#' @importFrom gRain nodeStates
+#' @importFrom bnlearn as.grain
 sample_cpdist <- function(bn, node, op=c("sampler", "proba"), evidence = NULL, n_generation = NULL){
   op <- match.arg(op)
   # getting all nodes before the target
-  query_list <- bnlearn::parents(x = bn, node = node)
+  query_list <- parents(x = bn, node = node)
   # removing nodes corresponding to evidence
   if(!is.null(evidence)){
     # sanity check on evidence
@@ -34,7 +38,7 @@ sample_cpdist <- function(bn, node, op=c("sampler", "proba"), evidence = NULL, n
       }
     }
   }
-  query_list <- gRain::nodeStates(x = bnlearn::as.grain(x=bn), query_list)
+  query_list <- nodeStates(x = as.grain(x=bn), query_list)
   query_list <- expand.grid(query_list, stringsAsFactors = FALSE)
   prior <- query_list
 
