@@ -7,7 +7,6 @@ dist: trusty
 
 addons:
   apt:
-    update: false
     packages:
     - tcl8.5-dev
     - tk8.5-dev
