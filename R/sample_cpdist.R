@@ -8,7 +8,7 @@
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
 #' @return a matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details the rownames are specify the conditionning used for each query.
-#' @example
+#' @examples
 #' library (gRain)
 #' library(bnlearn)
 #' ## setting a bayesian network with gRain
