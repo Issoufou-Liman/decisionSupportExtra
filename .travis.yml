@@ -10,6 +10,7 @@ addons:
     update: true
     packages:
     - tk
+    - tcltk
 
 r_packages:
   - rmarkdown
@@ -19,7 +20,7 @@ r_packages:
 ##   - gRain
   - bnlearn
   - testthat
-  - qpdf
+##  - qpdf
 ##   - fitdistrplus
 ##   - rriskDistributions
 
