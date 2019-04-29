@@ -10,6 +10,9 @@ addons:
     packages:
     - tcl8.5-dev
     - tk8.5-dev
+    -   x11proto-xf86vidmode-dev
+    -   xvfb
+    -   libxxf86vm-dev
 
 r_packages:
   - rmarkdown
