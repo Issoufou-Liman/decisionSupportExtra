@@ -5,12 +5,6 @@ cache: packages
 sudo: true
 dist: trusty
 
-addons:
-  apt:
-    packages:
-    - tcl8.5-dev
-    - tk8.5-dev
-
 r_packages:
   - rmarkdown
   - covr
