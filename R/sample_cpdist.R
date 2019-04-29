@@ -3,6 +3,8 @@
 #' Take a bayesian network, a node of interst, and a return value type option and returns either the
 #' probability/sampled data (depending on the op argument specified) of the different  states of the
 #' node of interst given the different conbinaition of its and its parents states.
+#'
+#' @author Issoufou Liman
 #' @param bn an object of class bn.fit.
 #' @param node a vector of character strings, the labels of the nodes whose conditional distribution we are interested in.
 #' @param op a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution

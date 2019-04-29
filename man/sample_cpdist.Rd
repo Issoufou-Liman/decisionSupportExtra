@@ -2,9 +2,7 @@
 % Please edit documentation in R/sample_cpdist.R
 \name{sample_cpdist}
 \alias{sample_cpdist}
-\title{Take a bayesian network, a node of interst, and a return value type option and returns either the
-probability/sampled data (depending on the op argument specified) of the different  states of the
-node of interst given the different conbinaition of its and its parents states.}
+\title{Sampling from posterior distribution of a Bayesian network at a node of interest}
 \usage{
 sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
   n_generation = NULL)
@@ -21,7 +19,7 @@ sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
 \item{n_generation}{how far to go in the network topology for building the conditionning specification for the query?}
 }
 \value{
-a matrix containing either the probabilities or raw data sampled from the posterior distribution
+A matrix containing either the probabilities or raw data sampled from the posterior distribution
 }
 \description{
 Take a bayesian network, a node of interst, and a return value type option and returns either the
@@ -29,7 +27,7 @@ probability/sampled data (depending on the op argument specified) of the differe
 node of interst given the different conbinaition of its and its parents states.
 }
 \details{
-the rownames are specify the conditionning used for each query.
+Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
 }
 \examples{
 library (gRain)
@@ -60,4 +58,10 @@ network <- grain(network)
 ## converting the grain bayesian network to bn.fit
 network <- as.bn.fit(network)
 sample_cpdist (network, "Soil_water_holding_capacity")
+}
+\seealso{
+\code{\link[bnlearn]{cpdist}}
+}
+\author{
+Issoufou Liman
 }
