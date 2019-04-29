@@ -8,14 +8,7 @@ dist: trusty
 r_packages:
   - rmarkdown
   - covr
-##   - decisionSupport
-##   - ggplot2
-##   - gRain
-  - bnlearn
   - testthat
-##  - qpdf
-##   - fitdistrplus
-##   - rriskDistributions
 
 bioc_packages:
   - BiocInstaller
@@ -31,6 +24,6 @@ bioc_packages:
 ##   - tar -xzvf tcltk_0.1-1.tar.gz
 ##   - pushd tcltk_0.1-1 && ./configure --prefix=/usr && make && sudo make install && popd
 ##   - R -e 'install.packages ("/tmp/tcltk_0.1-1.tar.gz", type = "source")'
-Rscript -e "capabilities()"
+
 after_success:
   - Rscript -e 'library(covr); codecov()'
