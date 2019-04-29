@@ -26,15 +26,6 @@ bioc_packages:
   - RBGL
   - Rgraphviz
 
-##   install:
-##   - R -e 'source("http://bioconductor.org/biocLite.R"); biocLite(c("graph","RBGL","Rgraphviz"))'
-##   - R -e 'install.packages(c("rmarkdown", "decisionSupport", "ggplot2", "gRain", "bnlearn", "testthat", "fitdistrplus", "rriskDistributions"), dependencies = T)'
-##   - R -e 'install_url ("https://cran.r-project.org/src/contrib/Archive/tcltk/tcltk_0.1-1.tar.gz")'
-##   - wget https://cran.r-project.org/src/contrib/Archive/tcltk/tcltk_0.1-1.tar.gz -O /tmp/tcltk_0.1-1.tar.gz
-##   - tar -xzvf tcltk_0.1-1.tar.gz
-##   - pushd tcltk_0.1-1 && ./configure --prefix=/usr && make && sudo make install && popd
-##   - R -e 'install.packages ("/tmp/tcltk_0.1-1.tar.gz", type = "source")'
-
 after_success:
   - Rscript -e 'library(covr); codecov()'
   - Rscript -e "capabilities()"
