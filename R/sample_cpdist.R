@@ -44,6 +44,7 @@
 #' @importFrom bnlearn parents
 #' @importFrom gRain nodeStates
 #' @importFrom bnlearn as.grain
+#' @export
 sample_cpdist <- function(bn, node, op=c("sampler", "proba"), evidence = NULL, n_generation = NULL){
   op <- match.arg(op)
   # getting all nodes before the target
