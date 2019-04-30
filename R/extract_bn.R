@@ -53,15 +53,8 @@
 #' @export
 extract_bn <- function(bn, string_model){
   is_grain_bn <- inherits(bn, "grain")
-  if (is.character(string_model)){
-    string_model <- model2network (string_model)
-  }
-  if (!(inherits(bn, "bn.fit") | is_grain_bn)){
-    stop("bn must an object of class bn.fit or grain")
-    if (inherits(bn, "grain")){
-      bn <- as.bn.fit(bn)
-    }
-  }
+  string_model <- check_bn (string_model, include_cpt = FALSE)
+  bn <- check_bn (bn, include_cpt = FALSE)
   if (!(all(nodes(string_model) %in% nodes(bn)))){
     stop(paste("Nodes:", string_model[!(nodes(string_model) %in% nodes(bn))], "are not valid nodes in deparse(substituate(bn))"))
   }
