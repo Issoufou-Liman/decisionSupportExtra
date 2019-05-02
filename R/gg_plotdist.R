@@ -39,14 +39,16 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' ## Use grain object (gRain package)
-#' ggplot_descdist_bn (bn = network, node = "Soil_water_holding_capacity")
-#' fit_node_states_distr (bn = network, node = "Soil_water_holding_capacity", op = "proba", distr, method = rep("mme", ncol(node))){
+#' fitted <- fit_node_states_distr (bn = network,
+#' node = "Soil_water_holding_capacity", gof="KS")
+#' gg_plotdist(fitted, title = "Soil_water_holding_capacity")
 
-#'
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## Use bn.fit object (bnlearn package)
-#' ggplot_descdist_bn (bn = network, node = "Soil_water_holding_capacity")
+#' fitted <- fit_node_states_distr (bn = network_bn_fit,
+#' node = "Soil_water_holding_capacity", distr = c("beta", "beta", "beta"))
+#' gg_plotdist(fitted, title = "Soil_water_holding_capacity")
 #' @importFrom graphics hist
 #' @importFrom stats ppoints
 #' @importFrom grid grid.newpage textGrob gpar

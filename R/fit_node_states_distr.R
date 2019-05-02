@@ -42,7 +42,7 @@
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## Use bn.fit object (bnlearn package)
-#' fit_node_states_distr (bn = network,
+#' fit_node_states_distr (bn = network_bn_fit,
 #' node = "Soil_water_holding_capacity", distr = c("beta", "norm", "gamma"))
 #' @export
 fit_node_states_distr <- function(bn, node, op = "proba", distr = 'beta', method = "mme",
