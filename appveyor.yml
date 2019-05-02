@@ -16,8 +16,7 @@ cache:
 # Adapt as necessary starting from here
 
 environment:
-  global:
-    - BIOC_USE_DEVEL="FALSE"
+  BIOC_USE_DEVEL="FALSE"
   R_VERSION: oldrel
 
 build_script:
