@@ -15,13 +15,11 @@ cache:
 
 # Adapt as necessary starting from here
 
-r:
-  - oldrel
-
 build_script:
- - Rscript -e "source('http://bioconductor.org/biocLite.R')"
- - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
+# - Rscript -e "source('http://bioconductor.org/biocLite.R')"
+# - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
  - travis-tool.sh install_deps
+ - travis-tool.sh install_bioc_deps
 
 test_script:
   - travis-tool.sh run_tests
