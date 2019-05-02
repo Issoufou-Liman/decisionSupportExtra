@@ -79,28 +79,28 @@ ggplot_descdist <- function(data, boot = 1000, obs.col = "darkblue", boot.col = 
   # fit_data$L1 <- factor(fit_data$L1, levels = unique(fit_data$L1))
   ggplot() +
     geom_polygon(data = fit_data[fit_data$L2 == 'beta_dist', ],
-                 aes(x, y, group = L1, alpha = factor("beta"))) +
+                 aes_string("x", "y", group = "L1", alpha = factor("beta"))) +
     geom_line(data = fit_data[fit_data$L2 == 'lnorm_dist', ],
-              aes(x, y, linetype = 'lognormal'), size = dist_geom_line_size)+
+              aes_string("x", "y", linetype = shQuote('lognormal')), size = dist_geom_line_size)+
     geom_line(data = fit_data[fit_data$L2 == 'gamma_dist', ],
-              aes(x, y, linetype = 'gamma'), size = dist_geom_line_size)+
+              aes_string("x", "y", linetype = shQuote('gamma')), size = dist_geom_line_size)+
 
     geom_point(data = fit_data[fit_data$L2 == 'boot_data', ],
-               aes(x, y, color = "Bootstrapped values"), size = boot_geom_size)+
+               aes_string("x", "y", color = shQuote("Bootstrapped values")), size = boot_geom_size)+
     geom_point(data = fit_data[fit_data$L2 == 'observed_dist', ],
-               aes(x, y, color = "Observation"), size = obs_geom_size)+
+               aes_string("x", "y", color = shQuote("Observation")), size = obs_geom_size)+
 
     # geom_point(data = fit_data[fit_data$L2 == 'skew_kurto_data', ],
     #            aes(x, y, shape = 'a'), colour = 'black', size = 5)+
 
     geom_point(data = fit_data[fit_data$L2 == 'norm_dist', ],
-               aes(x, y, shape = "normal"), size = dist_geom_pts_size)+
+               aes_string("x", "y", shape = shQuote("normal")), size = dist_geom_pts_size)+
     geom_point(data = fit_data[fit_data$L2 == 'unif_dist', ],
-               aes(x, y, shape = "uniform"), size = dist_geom_pts_size)+
+               aes_string("x", "y", shape = shQuote("uniform")), size = dist_geom_pts_size)+
     geom_point(data = fit_data[fit_data$L2 == 'exp_dist', ],
-               aes(x, y, shape = "exponential"), size = dist_geom_pts_size)+
+               aes_string("x", "y", shape = shQuote("exponential")), size = dist_geom_pts_size)+
     geom_point(data = fit_data[fit_data$L2 == 'logistic_dist', ],
-               aes(x, y, shape = "logistic"), size = dist_geom_pts_size)+
+               aes_string("x", "y", shape = shQuote("logistic")), size = dist_geom_pts_size)+
 
 
     scale_colour_manual(values=c(boot.col, obs.col)) +

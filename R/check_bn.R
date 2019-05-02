@@ -20,3 +20,15 @@ check_bn <- function(bn, include_cpt = FALSE){
   }
   return(bn)
 }
+
+check_fitdist_args <- function(arg, node){
+  if (!is.null(arg)){
+    if (length(arg) == 1){
+      arg <- rep(arg, ncol(node))
+    }
+    if (length(arg) != ncol(node)){
+      stop(paste(deparse(substitute(arg)), " must be a vector of length "), ncol(node))
+    }
+    return(arg)
+  }
+}

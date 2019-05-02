@@ -15,6 +15,8 @@ Depends:
 Imports:
     decisionSupport (>= 1.103.8),
     fitdistrplus (>= 1.0-14),
+    grid,
+    gridExtra,
     ggplot2 (>= 3.1.0),
     scales (>= 1.0.0),
     reshape2 (>= 1.4.3),
