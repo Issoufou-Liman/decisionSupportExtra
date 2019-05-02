@@ -15,10 +15,8 @@ cache:
 
 # Adapt as necessary starting from here
 
-language: R
 r:
   - oldrel
-cache: packages
 
 build_script:
  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
