@@ -16,9 +16,9 @@ cache:
 # Adapt as necessary starting from here
 
 environment:
-  R_VERSION:
-    - oldrel
-    - bioc-oldrel
+  global:
+    - BIOC_USE_DEVEL="FALSE"
+  R_VERSION: oldrel
 
 build_script:
  # - Rscript -e "source('http://bioconductor.org/biocLite.R')"
