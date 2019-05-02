@@ -6,8 +6,7 @@
 \usage{
 ggbuild_descdist_data(data, discrete = FALSE, boot = NULL,
   method = "unbiased", graph = TRUE, title = "Cullen and Frey graph",
-  subtitle = NULL, obs.col = "darkblue", obs.pch = 16,
-  boot.col = "orange")
+  subtitle = NULL, obs.col = "darkblue", boot.col = "orange")
 }
 \arguments{
 \item{data}{ A numeric vector.  }
@@ -25,8 +24,6 @@ ggbuild_descdist_data(data, discrete = FALSE, boot = NULL,
 
 \item{obs.col}{ Color used for the observed point on the skewness-kurtosis graph. }
 
-\item{obs.pch}{ plotting character used for the observed point on the skewness-kurtosis graph. }
-
 \item{boot.col}{ Color used for bootstrap sample of points on the skewness-kurtosis graph. }
 }
 \description{
@@ -37,7 +34,7 @@ see \code{\link[fitdistrplus]{descdist}}.
 }
 \examples{
 ggbuild_descdist_data(rbeta(100, shape1 = 0.05, shape2 = 1), boot = 500, obs.col = "blue",
-obs.pch = 15, boot.col = "yellow")
+boot.col = "yellow")
 }
 \references{
 Marie Laure Delignette-Muller, Christophe Dutang (2015). fitdistrplus: An R Package for Fitting Distributions. Journal of Statistical Software, 64(4), 1-34. http://www.jstatsoft.org/v64/i04/.

@@ -41,8 +41,8 @@ Generate compact plot following the \code{\link[fitdistrplus]{descdist}} functio
 see \code{\link[fitdistrplus]{descdist}}.
 }
 \examples{
-ggbuild_descdist_data(rbeta(100, shape1 = 0.05, shape2 = 1), boot = 500, obs.col = "blue",
-obs.pch = 15, boot.col = "yellow")
+ggplot_descdist(rbeta(100, shape1 = 0.05, shape2 = 1), boot = 500, obs.col = "blue",
+boot.col = "yellow")
 }
 \references{
 Marie Laure Delignette-Muller, Christophe Dutang (2015). fitdistrplus: An R Package for Fitting Distributions. Journal of Statistical Software, 64(4), 1-34. http://www.jstatsoft.org/v64/i04/.
