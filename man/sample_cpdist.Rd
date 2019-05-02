@@ -10,7 +10,7 @@ sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
 \arguments{
 \item{bn}{an object of class bn.fit.}
 
-\item{node}{a vector of character strings, the labels of the nodes whose conditional distribution we are interested in.}
+\item{node}{character string, the label of the node which conditional distribution is of interest.}
 
 \item{op}{a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution}
 

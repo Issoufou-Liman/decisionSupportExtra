@@ -6,7 +6,7 @@
 #'
 #' @author Issoufou Liman
 #' @param bn an object of class bn.fit.
-#' @param node a vector of character strings, the labels of the nodes whose conditional distribution we are interested in.
+#' @param node character string, the label of the node which conditional distribution is of interest.
 #' @param op a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution
 #' @param evidence a name value pair:a named character vector which values are node states and names are node names.
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?

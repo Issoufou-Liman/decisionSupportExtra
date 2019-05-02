@@ -17,7 +17,6 @@
 #' @examples
 #' ggplot_descdist(rbeta(100, shape1 = 0.05, shape2 = 1), boot = 500, obs.col = "blue",
 #' boot.col = "yellow")
-#' @importFrom stats median sd
 #' @importFrom scales rescale_none
 #' @importFrom reshape2 melt
 #' @export ggplot_descdist
