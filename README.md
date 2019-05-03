@@ -5,10 +5,10 @@
 
 [![Travis Build
 Status](https://travis-ci.org/Issoufou-Liman/decisionSupportExtra.svg?branch=master)](https://travis-ci.org/Issoufou-Liman/decisionSupportExtra)
-<!-- [![AppVeyor Build -->
-<!-- Status](https://ci.appveyor.com/api/projects/status/github/Issoufou-Liman/decisionSupportExtra?branch=master&svg=true)](https://ci.appveyor.com/project/Issoufou-Liman/decisionSupportExtra) -->
-<!-- [![Coverage -->
-<!-- Status](https://img.shields.io/codecov/c/github/Issoufou-Liman/decisionSupportExtra/master.svg)](https://codecov.io/github/Issoufou-Liman/decisionSupportExtra?branch=master) -->
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/Issoufou-Liman/decisionSupportExtra?branch=master&svg=true)](https://ci.appveyor.com/project/Issoufou-Liman/decisionSupportExtra)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/Issoufou-Liman/decisionSupportExtra/master.svg)](https://codecov.io/github/Issoufou-Liman/decisionSupportExtra?branch=master)
 <!-- [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/decisionSupportExtra)](https://cran.r-project.org/package=decisionSupportExtra) -->
 
 ## Overview
