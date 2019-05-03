@@ -16,7 +16,7 @@ cache:
 # Adapt as necessary starting from here
 
 # environment:
-#  R_VERSION: oldrel
+#  R_VERSION: stable
 
 build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
@@ -24,7 +24,7 @@ build_script:
 # - travis-tool.sh install_bioc BiocInstaller
   - travis-tool.sh install_deps
   - travis-tool.sh install_bioc_deps
-  - travis-tool.sh r_binary_install curl
+#  - travis-tool.sh r_binary_install curl
 
 test_script:
   - travis-tool.sh run_tests
