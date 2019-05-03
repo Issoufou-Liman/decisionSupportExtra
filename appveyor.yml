@@ -15,15 +15,15 @@ cache:
 
 # Adapt as necessary starting from here
 
-# environment:
-#  R_VERSION: stable
+environment:
+  R_VERSION: oldrel
 
 build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
-#  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
+  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
 # - travis-tool.sh install_bioc BiocInstaller
   - travis-tool.sh install_deps
-  - travis-tool.sh install_bioc_deps
+#  - travis-tool.sh install_bioc_deps
 #  - travis-tool.sh r_binary_install curl
 
 test_script:
@@ -32,16 +32,6 @@ test_script:
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
-
-environment:
-  global:
-    WARNINGS_ARE_ERRORS: 1
-    _R_CHECK_FORCE_SUGGESTS_: 0
-    R_ARCH: x64
-    USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
-
-  matrix:
-    - R_VERSION: oldrel
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
