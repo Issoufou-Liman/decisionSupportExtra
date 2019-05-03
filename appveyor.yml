@@ -16,8 +16,8 @@ cache:
 
 # Adapt as necessary starting from here
 
-environment:
-  R_VERSION: stable
+# environment:
+#  R_VERSION: stable
 
 build_script:
 #  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
