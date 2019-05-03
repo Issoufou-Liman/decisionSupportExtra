@@ -14,7 +14,7 @@ from which to extract the simulated output.}
 If x is a list, then a list of simulated output is returned. Otherwise, a dataframe is returned.
 }
 \description{
-Take an object of class \code{\link[decisionSupport]{mcSimulation}} and return the simulated values
+Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return the simulated values
 as specified in the model function.
 }
 \author{

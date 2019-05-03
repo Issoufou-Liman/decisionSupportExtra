@@ -1,6 +1,6 @@
 #' Extract the simulated output from \code{\link[decisionSupport]{mcSimulation}} object
 #'
-#' Take an object of class \code{\link[decisionSupport]{mcSimulation}} and return the simulated values
+#' Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return the simulated values
 #' as specified in the model function.
 #'
 #' @author Issoufou Liman
