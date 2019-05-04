@@ -15,6 +15,13 @@
 #' If x is a list, then a list of simulated output is returned. Otherwise, a dataframe is returned.
 #' @importFrom graphics hist
 #' @export
+ggplot_mc_hist <- function (x, breaks = 100,
+                            colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
+                            colorProbability = c(1.00,    0.95,     0.75,     0.55,         0.45,     0.25,     0.05), ...) {
+  UseMethod("ggplot_mc_hist", x)
+}
+
+#' @export
 get_hist_mcsimilation_data <- function(x, breaks = 100,
                                        colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
                                        colorProbability = c(1.00,    0.95,     0.75,     0.55,         0.45,     0.25,     0.05)) {
@@ -37,5 +44,28 @@ get_hist_mcsimilation_data <- function(x, breaks = 100,
     out <- sapply(X = x, FUN = get_hist_mcsimilation_data, colorQuantile = colorQuantile, colorProbability = colorProbability, simplify = FALSE, USE.NAMES = TRUE)
   } else {
     stop(paste(deparse(substitute(x)), 'must be of class mcSimulation, list of mcSimulation, or a list of arbitratry depth of mcSimulation objects.'))
+  }
+}
+
+#' @export
+ggplot_mc_hist.mcSimulation <- function(x, breaks = 100,
+                                        colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
+                                        colorProbability = c(1.00,    0.95,     0.75,     0.55,         0.45,     0.25,     0.05), ...) {
+  if (requireNamespace("ggplot2", quietly = TRUE)) {
+    bars <- get_hist_mcsimilation_data(x, breaks = breaks,
+                                       colorQuantile = colorQuantile,
+                                       colorProbability = colorProbability)
+    breaks <- sapply (bars, function(i) i$breaks, simplify = FALSE)
+    bars <- sapply (bars, function(i) i$result, simplify = FALSE)
+    id.var <- c("x", "y", 'color', 'color_equiv', 'quant')
+    result <- reshape2::melt(bars, id.var = id.var)
+    ggplot2::ggplot(data = result[order(result$L1, decreasing = T), ],
+                    ggplot2::aes(x, y, fill = color)) +
+      geom_histogram(stat="identity")+
+      scale_x_continuous(expand = c(0,0))+
+      scale_y_continuous(expand = c(0,0))+
+      scale_fill_identity(NULL, labels = result$color_equiv, breaks = result$color, guide = "legend", drop = FALSE)
+  } else {
+    stop("ggplot2 is required for the ggplot_mc_hist method.")
   }
 }
