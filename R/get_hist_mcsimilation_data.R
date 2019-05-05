@@ -53,7 +53,7 @@ get_hist_mcsimilation_data <- function(x, breaks = 100,
   }
 }
 
-#' Generic mcSimulation histogram plotting with ggplot
+#' Generic \code{\link[decisionSupport]{mcSimulation}} histogram plotting with ggplot
 #'
 #' generate histogram for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_col}}
 #'

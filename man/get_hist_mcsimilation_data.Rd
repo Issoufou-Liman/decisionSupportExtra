@@ -79,6 +79,4 @@ and hand over these data to ggplot.
 }
 \author{
 Issoufou Liman
-
-Issoufou Liman
 }

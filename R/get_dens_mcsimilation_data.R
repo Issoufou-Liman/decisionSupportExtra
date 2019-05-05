@@ -1,4 +1,3 @@
-#' @author Issoufou Liman
 #' @rdname get_hist_mcsimilation_data
 #' @importFrom stats density
 #' @export
@@ -37,7 +36,7 @@ get_dens_mcsimilation_data <- function(x, colorQuantile = c("GRAY48", "YELLOW", 
   }
 }
 
-#' Generic mcSimulation density plotting with ggplot
+#' Generic \code{\link[decisionSupport]{mcSimulation}} density plotting with ggplot
 #'
 #' generate density for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_density}}
 #'

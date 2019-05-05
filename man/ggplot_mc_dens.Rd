@@ -4,7 +4,7 @@
 \alias{ggplot_mc_dens}
 \alias{ggplot_mc_dens.mcSimulation}
 \alias{ggplot_mc_dens.list}
-\title{Generic mcSimulation density plotting with ggplot}
+\title{Generic \code{\link[decisionSupport]{mcSimulation}} density plotting with ggplot}
 \usage{
 ggplot_mc_dens(x, ...)
 

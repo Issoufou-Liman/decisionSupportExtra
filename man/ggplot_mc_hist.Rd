@@ -4,7 +4,7 @@
 \alias{ggplot_mc_hist}
 \alias{ggplot_mc_hist.mcSimulation}
 \alias{ggplot_mc_hist.list}
-\title{Generic mcSimulation histogram plotting with ggplot}
+\title{Generic \code{\link[decisionSupport]{mcSimulation}} histogram plotting with ggplot}
 \usage{
 ggplot_mc_hist(x, ...)
 
