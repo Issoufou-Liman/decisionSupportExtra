@@ -1,26 +1,32 @@
-#' Format \code{\link[decisionSupport]{mcSimulation}} data for ggplot
+#' Compute kernel density and histogram data, from \code{\link[decisionSupport]{mcSimulation}} object, for \code{\link[ggplot2]{geom_col}} and \code{\link[ggplot2]{geom_density}}
 #'
-#' Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return the simulated values
-#' such that, when converted into molten data frame, can be easily understood by ggplot.
+#' Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return a ggplot object
+#' or the simulated values such that, when converted into molten data frame, can be easily
+#' understood by ggplot.
 #'
 #' @author Issoufou Liman
 #' @param x \code{\link[decisionSupport]{mcSimulation}} or a list of \code{\link[decisionSupport]{mcSimulation}}
-#' from which to extract the simulated output.
-#' @inheritParams cast_mcSimulation
 #' @inheritParams decisionSupport::hist.mcSimulation
-#' @details
-#' The specification are made for \code{\link[ggplot2]{geom_col}}.
-#' @seealso \code{\link[decisionSupportExtra]{get_dens_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
+#' @section get_hist_mcsimilation_data:
+#' get_hist_mcsimilation_data, which specification are made for \code{\link[ggplot2]{geom_col}},
+#' takes care of extracting the simulated values as histogram
+#' from the \code{\link[decisionSupport]{mcSimulation}} object.
+#' @section get_dens_mcsimilation_data:
+#' get_dens_mcsimilation_data, which specification are made for \code{\link[ggplot2]{geom_density}},
+#' takes care of extracting the simulated values as kernel density
+#' from the \code{\link[decisionSupport]{mcSimulation}} object.
+#' @section ggplot_mc_hist and ggplot_mc_dens:
+#' These are generics for which methods are defined for \code{\link[decisionSupport]{mcSimulation}}
+#' object or a list of these.Internally, these methods rely on get_hist_mcsimilation_data and get_dens_mcsimilation_data
+#' respectively to generate the data required for \code{\link[ggplot2]{geom_col}} and \code{\link[ggplot2]{geom_density}}
+#' and hand over these data to ggplot.
+#' @seealso \code{\link[decisionSupportExtra]{ggplot_mc_hist}} \code{\link[decisionSupportExtra]{get_dens_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
 #' @return
-#' If x is a list, then a list of simulated output is returned. Otherwise, a dataframe is returned.
+#' \itemize{
+#'  \item{list: }{If x is a list object.}
+#'  \item{dataframe: }{If x is an mcSimulation object.}
+#' }
 #' @importFrom graphics hist
-#' @export
-ggplot_mc_hist <- function (x, breaks = 100,
-                            colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
-                            colorProbability = c(1.00,    0.95,     0.75,     0.55,         0.45,     0.25,     0.05), ...) {
-  UseMethod("ggplot_mc_hist", x)
-}
-
 #' @export
 get_hist_mcsimilation_data <- function(x, breaks = 100,
                                        colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
@@ -47,21 +53,32 @@ get_hist_mcsimilation_data <- function(x, breaks = 100,
   }
 }
 
+#' Generic mcSimulation histogram plotting with ggplot
+#'
+#' generate histogram for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_col}}
+#'
+#' @author Issoufou Liman
+#' @inheritParams get_hist_mcsimilation_data
+#' @param ... Additional Arguments such as breaks, colorQuantile and colorProbability passed to get_hist_mcsimilation_data
+#' @return A ggplot object
+#' @seealso \code{\link[decisionSupportExtra]{ggplot_mc_dens}} \code{\link[decisionSupportExtra]{get_hist_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
 #' @export
-ggplot_mc_hist.mcSimulation <- function(x, breaks = 100,
-                                        colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
-                                        colorProbability = c(1.00,    0.95,     0.75,     0.55,         0.45,     0.25,     0.05), ...) {
+ggplot_mc_hist <- function (x, ...) {
+  UseMethod("ggplot_mc_hist", x)
+}
+
+#' @rdname ggplot_mc_hist
+#' @export
+ggplot_mc_hist.mcSimulation <- function(x, ...) {
   if (requireNamespace("ggplot2", quietly = TRUE)) {
-    bars <- get_hist_mcsimilation_data(x, breaks = breaks,
-                                       colorQuantile = colorQuantile,
-                                       colorProbability = colorProbability)
+    bars <- get_hist_mcsimilation_data(x, ...)
     breaks <- sapply (bars, function(i) i$breaks, simplify = FALSE)
     bars <- sapply (bars, function(i) i$result, simplify = FALSE)
     id.var <- c("x", "y", 'color', 'color_equiv', 'quant')
     result <- reshape2::melt(bars, id.var = id.var)
     ggplot2::ggplot(data = result[order(result$L1, decreasing = T), ],
-                    ggplot2::aes(x, y, fill = color)) +
-      geom_histogram(stat="identity")+
+                    aes_string(x = 'x', y = 'y', fill = 'color')) +
+      geom_col(stat = "identity")+
       scale_x_continuous(expand = c(0,0))+
       scale_y_continuous(expand = c(0,0))+
       scale_fill_identity(NULL, labels = result$color_equiv, breaks = result$color, guide = "legend", drop = FALSE)
@@ -69,3 +86,7 @@ ggplot_mc_hist.mcSimulation <- function(x, breaks = 100,
     stop("ggplot2 is required for the ggplot_mc_hist method.")
   }
 }
+
+#' @rdname ggplot_mc_hist
+#' @export
+ggplot_mc_hist.list <- ggplot_mc_hist.mcSimulation

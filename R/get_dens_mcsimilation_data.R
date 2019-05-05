@@ -1,18 +1,5 @@
-#' Format \code{\link[decisionSupport]{mcSimulation}} data for ggplot
-#'
-#' Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return the simulated values
-#' such that, when converted into molten data frame, can be easily understood by ggplot.
-#'
 #' @author Issoufou Liman
-#' @param x \code{\link[decisionSupport]{mcSimulation}} or a list of \code{\link[decisionSupport]{mcSimulation}}
-#' from which to extract the simulated output.
-#' @inheritParams cast_mcSimulation
-#' @inheritParams decisionSupport::hist.mcSimulation
-#' @details
-#' The specification are made for \code{\link[ggplot2]{geom_density}}.
-#' @seealso \code{\link[decisionSupportExtra]{get_dens_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
-#' @return
-#' If x is a list, then a list of simulated output is returned. Otherwise, a dataframe is returned.
+#' @rdname get_hist_mcsimilation_data
 #' @importFrom stats density
 #' @export
 get_dens_mcsimilation_data <- function(x, colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
@@ -49,3 +36,40 @@ get_dens_mcsimilation_data <- function(x, colorQuantile = c("GRAY48", "YELLOW", 
     stop(paste(deparse(substitute(x)), 'must be of class mcSimulation, list of mcSimulation, or a list of arbitratry depth of mcSimulation objects.'))
   }
 }
+
+#' Generic mcSimulation density plotting with ggplot
+#'
+#' generate density for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_density}}
+#'
+#' @author Issoufou Liman
+#' @inheritParams get_dens_mcsimilation_data
+#' @param ... Additional Arguments such as colorQuantile and colorProbability passed to get_dens_mcsimilation_data
+#' @return A ggplot object
+#' @seealso \code{\link[decisionSupportExtra]{ggplot_mc_hist}} \code{\link[decisionSupportExtra]{get_dens_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
+#' @export
+ggplot_mc_dens <- function (x, ...) {
+  UseMethod("ggplot_mc_dens", x)
+}
+
+#' @rdname ggplot_mc_dens
+#' @export
+ggplot_mc_dens.mcSimulation <- function(x, ...) {
+  if (requireNamespace("ggplot2", quietly = TRUE)) {
+    bars <- get_dens_mcsimilation_data(x, ...)
+    # bars <- sapply (bars, function(i) i$result, simplify = FALSE)
+    id.var <- c("x", "y", 'color', 'color_equiv', 'quant')
+    result <- reshape2::melt(bars, id.var = id.var)
+    ggplot(data = result[order(result$L1, decreasing = T), ],
+                    aes_string("x", "y", fill = "color")) +
+      geom_density(stat = "identity")+
+      scale_x_continuous(expand = c(0,0))+
+      scale_y_continuous(expand = c(0,0))+
+      scale_fill_identity(NULL, labels = result$color_equiv, breaks = result$color, guide = "legend", drop = FALSE)
+  } else {
+    stop("ggplot2 is required for the ggplot_mc_hist method.")
+  }
+}
+
+#' @rdname  ggplot_mc_dens
+#' @export
+ggplot_mc_dens.list <- ggplot_mc_dens.mcSimulation

@@ -32,3 +32,11 @@ check_fitdist_args <- function(arg, node){
     return(arg)
   }
 }
+
+#' @importFrom utils lsf.str
+rriskdistributions_get_pars <- function(){
+  funs <- unclass(lsf.str(envir = asNamespace("rriskDistributions"), all = T))
+  out <- funs[grepl("^get..*.par$",funs)]
+  paste("#' @importFrom", "rriskDistributions", out)
+}
+

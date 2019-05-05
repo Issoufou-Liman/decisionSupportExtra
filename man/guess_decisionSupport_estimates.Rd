@@ -64,6 +64,7 @@ guess_biomass_yield <-  function(observed_grain_yield, harvest_index = c(0.2, 0.
 }
 
 ## Try it with gamma distribution and fit method
+library (rriskDistributions)
 fit_gamma <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
   harvest_index = harvest_index, stage_ratio = stage_ratio),
   fun = guess_biomass_yield, distr = 'gamma', percentiles = c(0.025, 0.5, 0.975),

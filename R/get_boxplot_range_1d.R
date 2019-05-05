@@ -15,7 +15,7 @@
 #' A numeric vector containing the bounds labelled as out_min (the lower outlier),
 #' ymin (the extreme of the lower whisker), lower (the lower ‘hinge’), middle (the median),
 #' upper (the upper ‘hinge’), ymax (the extreme of the upper whisker), out_max (the upper outlier).
-#' @example
+#' @examples
 #' sample <- rnorm(100)
 #' get_boxplot_range_1d (sample)
 #' @importFrom stats IQR quantile

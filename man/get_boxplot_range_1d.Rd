@@ -35,6 +35,10 @@ The ranges are bounded by the lower outlier (if any), extreme of the lower whisk
 the lower ‘hinge’, the median, the upper ‘hinge’, the extreme of the upper whisker,
 and the upper outlier (if any).
 }
+\examples{
+sample <- rnorm(100)
+get_boxplot_range_1d (sample)
+}
 \author{
 Issoufou Liman
 }

@@ -46,7 +46,12 @@
 #' @importFrom stats as.formula
 #' @importFrom reshape2 melt
 #' @importFrom scales pretty_breaks
-#' @import ggplot2
+#' @importFrom ggplot2 coord_cartesian coord_flip element_blank element_line element_rect
+#' element_text facet_grid facet_wrap geom_abline geom_bar geom_histogram geom_col geom_density
+#' geom_line geom_point geom_polygon ggplot guide_legend guides label_both label_value
+#' labs margin scale_alpha_manual scale_colour_manual scale_fill_identity
+#' scale_linetype_manual scale_shape_manual scale_x_continuous
+#' scale_y_continuous theme theme_minimal unit aes_string
 #' @export
 barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pages = 1, show_states_only = FALSE, separator = "\n"){
   if(is(bn, "CPTgrain")){

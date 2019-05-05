@@ -44,6 +44,7 @@
 #' }
 #'
 #' ## Try it with gamma distribution and fit method
+#' library (rriskDistributions)
 #' fit_gamma <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
 #'   harvest_index = harvest_index, stage_ratio = stage_ratio),
 #'   fun = guess_biomass_yield, distr = 'gamma', percentiles = c(0.025, 0.5, 0.975),
@@ -62,7 +63,7 @@
 #'   plot = FALSE, show.output = FALSE)
 #' ## Check the difference
 #' calc_gamma; fit_gamma; calc_norm
-#' @import rriskDistributions
+#' @eval rriskdistributions_get_pars ()
 #' @importFrom methods is
 #' @importFrom fitdistrplus fitdist
 #' @importFrom decisionSupport as.estimate
