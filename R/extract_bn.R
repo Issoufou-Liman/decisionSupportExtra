@@ -3,7 +3,7 @@
 #' Take a fully specified bayesian network, a sub string model, and return a subset of former matching the configuration of the latter.
 #'
 #' @author Issoufou Liman
-#' @param bn an object of class \code{\link[bnlearn]{bn.fit class}} or \code{\link[gRain]{grain-main}}.
+#' @param bn an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.
 #' @param string_model Character string describing the configuration of the Bayesian network as return by \code{\link[bnlearn]{modelstring}}.
 #' @return An object of class \code{\link[bnlearn]{bn.fit class}}
 #' @details Currently only the classes of the arguments are checked. The user should take care of providing the right inputs.

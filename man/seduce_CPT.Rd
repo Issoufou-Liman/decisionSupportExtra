@@ -7,7 +7,7 @@
 seduce_CPT(bn, target_child = NULL, target_parents = NULL)
 }
 \arguments{
-\item{bn}{an object of class \code{\link[bnlearn]{bn.fit class}} or \code{\link[gRain]{grain-main}}.}
+\item{bn}{an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.}
 
 \item{target_child}{character string specifying the node for which
 the conditional probability table is requested.}

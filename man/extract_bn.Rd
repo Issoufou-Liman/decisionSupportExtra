@@ -7,7 +7,7 @@
 extract_bn(bn, string_model)
 }
 \arguments{
-\item{bn}{an object of class \code{\link[bnlearn]{bn.fit class}} or \code{\link[gRain]{grain-main}}.}
+\item{bn}{an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.}
 
 \item{string_model}{Character string describing the configuration of the Bayesian network as return by \code{\link[bnlearn]{modelstring}}.}
 }

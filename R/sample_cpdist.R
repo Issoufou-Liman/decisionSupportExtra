@@ -12,7 +12,7 @@
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
 #' @return A matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
-#' @seealso \code{\link[bnlearn]{cpdist}}
+#' @seealso \code{\link[bnlearn]{cpquery}}
 #' @examples
 #' library (gRain)
 #' library(bnlearn)

@@ -4,7 +4,7 @@
 \name{get_dens_mcsimilation_data}
 \alias{get_dens_mcsimilation_data}
 \alias{get_hist_mcsimilation_data}
-\title{Compute kernel density and histogram data, from \code{\link[decisionSupport]{mcSimulation}} object, for \code{\link[ggplot2]{geom_col}} and \code{\link[ggplot2]{geom_density}}}
+\title{Compute kernel density and histogram data, from \code{\link[decisionSupport]{mcSimulation}} object, for \code{\link[ggplot2]{geom_bar}} and \code{\link[ggplot2]{geom_density}}}
 \usage{
 get_dens_mcsimilation_data(x, colorQuantile = c("GRAY48", "YELLOW",
   "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
@@ -54,7 +54,7 @@ understood by ggplot.
 }
 \section{get_hist_mcsimilation_data}{
 
-get_hist_mcsimilation_data, which specification are made for \code{\link[ggplot2]{geom_col}},
+get_hist_mcsimilation_data, which specification are made for \code{\link[ggplot2]{geom_bar}},
 takes care of extracting the simulated values as histogram
 from the \code{\link[decisionSupport]{mcSimulation}} object.
 }
@@ -70,7 +70,7 @@ from the \code{\link[decisionSupport]{mcSimulation}} object.
 
 These are generics for which methods are defined for \code{\link[decisionSupport]{mcSimulation}}
 object or a list of these.Internally, these methods rely on get_hist_mcsimilation_data and get_dens_mcsimilation_data
-respectively to generate the data required for \code{\link[ggplot2]{geom_col}} and \code{\link[ggplot2]{geom_density}}
+respectively to generate the data required for \code{\link[ggplot2]{geom_bar}} and \code{\link[ggplot2]{geom_density}}
 and hand over these data to ggplot.
 }
 

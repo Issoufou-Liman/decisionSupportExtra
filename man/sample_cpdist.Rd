@@ -60,7 +60,7 @@ network <- as.bn.fit(network)
 sample_cpdist (network, "Soil_water_holding_capacity")
 }
 \seealso{
-\code{\link[bnlearn]{cpdist}}
+\code{\link[bnlearn]{cpquery}}
 }
 \author{
 Issoufou Liman

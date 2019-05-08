@@ -1,4 +1,4 @@
-#' Compute kernel density and histogram data, from \code{\link[decisionSupport]{mcSimulation}} object, for \code{\link[ggplot2]{geom_col}} and \code{\link[ggplot2]{geom_density}}
+#' Compute kernel density and histogram data, from \code{\link[decisionSupport]{mcSimulation}} object, for \code{\link[ggplot2]{geom_bar}} and \code{\link[ggplot2]{geom_density}}
 #'
 #' Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return a ggplot object
 #' or the simulated values such that, when converted into molten data frame, can be easily
@@ -8,7 +8,7 @@
 #' @param x \code{\link[decisionSupport]{mcSimulation}} or a list of \code{\link[decisionSupport]{mcSimulation}}
 #' @inheritParams decisionSupport::hist.mcSimulation
 #' @section get_hist_mcsimilation_data:
-#' get_hist_mcsimilation_data, which specification are made for \code{\link[ggplot2]{geom_col}},
+#' get_hist_mcsimilation_data, which specification are made for \code{\link[ggplot2]{geom_bar}},
 #' takes care of extracting the simulated values as histogram
 #' from the \code{\link[decisionSupport]{mcSimulation}} object.
 #' @section get_dens_mcsimilation_data:
@@ -18,7 +18,7 @@
 #' @section ggplot_mc_hist and ggplot_mc_dens:
 #' These are generics for which methods are defined for \code{\link[decisionSupport]{mcSimulation}}
 #' object or a list of these.Internally, these methods rely on get_hist_mcsimilation_data and get_dens_mcsimilation_data
-#' respectively to generate the data required for \code{\link[ggplot2]{geom_col}} and \code{\link[ggplot2]{geom_density}}
+#' respectively to generate the data required for \code{\link[ggplot2]{geom_bar}} and \code{\link[ggplot2]{geom_density}}
 #' and hand over these data to ggplot.
 #' @seealso \code{\link[decisionSupportExtra]{ggplot_mc_hist}} \code{\link[decisionSupportExtra]{get_dens_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
 #' @return
@@ -55,7 +55,7 @@ get_hist_mcsimilation_data <- function(x, breaks = 100,
 
 #' Generic \code{\link[decisionSupport]{mcSimulation}} histogram plotting with ggplot
 #'
-#' generate histogram for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_col}}
+#' generate histogram for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_bar}}
 #'
 #' @author Issoufou Liman
 #' @inheritParams get_hist_mcsimilation_data

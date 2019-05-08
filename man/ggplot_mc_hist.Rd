@@ -21,7 +21,7 @@ ggplot_mc_hist(x, ...)
 A ggplot object
 }
 \description{
-generate histogram for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_col}}
+generate histogram for \code{\link[decisionSupport]{mcSimulation}} using \code{\link[ggplot2]{geom_bar}}
 }
 \seealso{
 \code{\link[decisionSupportExtra]{ggplot_mc_dens}} \code{\link[decisionSupportExtra]{get_hist_mcsimilation_data}} \code{\link[decisionSupport]{mcSimulation}}
