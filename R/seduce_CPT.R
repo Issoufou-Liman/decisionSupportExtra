@@ -47,7 +47,7 @@
 #' seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Manure_application"))
 #' seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Soil_type", "Manure_application"))
 #' @importFrom bnlearn as.grain
-#' @importFrom gRain nodeStates querygrain setEvidence
+#' @importFrom gRain nodeStates querygrain setEvidence nodeNames
 #' @export
 seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL){
   # checking and converting bn.fit object to grain object
@@ -60,19 +60,26 @@ seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL){
   } else if (length(target_child) > 1){
     stop("multiple target child nodes supplied: target_child must be of length 1")
   } else if ((length(target_child) == 1)){
-    # getting a list of states from involved nodes
-    node_states <- nodeStates(x = bn, nodes = c(target_child, target_parents))
-
+    # reorganizing the order of nodes to match the bn
     # silently dropping invalid node in bn
-    node_states[sapply(node_states, is.null)] <- NULL
+    nodes_list <- c(target_child, target_parents)
+    nodes_list <- nodeNames(bn)[nodeNames(bn) %in% nodes_list]
+
+    # getting a list of states from involved nodes
+    node_states <- nodeStates(x = bn, nodes = nodes_list)
+
+    # # silently dropping invalid node in bn
+    # node_states[sapply(node_states, is.null)] <- NULL
 
     # getting the parent states
+    # reorganizing target_parents to match bn config
+    target_parents <- nodeNames(bn)[nodeNames(bn) %in% target_parents]
     parent_states <- sapply(target_parents, function(i){
       node_states[[i]]
     }, simplify = FALSE, USE.NAMES = TRUE)
 
     # getting the child states
-    child_states <- node_states[[target_child]]
+    child_states <- node_states[target_child]
 
     # getting the CPTs from bn given what is known as the states target_parentss
     evid <- as.matrix(expand.grid(parent_states))
@@ -93,10 +100,10 @@ seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL){
     }, simplify = FALSE)
 
     # create an appropriate size array for gRain CPTs
-    dim <- c(length(child_states), sapply(parent_states, length))
+    dimens <- sapply(c(child_states, parent_states), length)
     out <- array(data = unlist(query_set, recursive = TRUE, use.names = FALSE),
-          dim = dim,
-          dimnames = c(list(child_states), parent_states))
+          dim = dimens,
+          dimnames = c(child_states, parent_states))
   }
   return(out)
 }
