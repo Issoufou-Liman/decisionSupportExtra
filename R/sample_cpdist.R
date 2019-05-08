@@ -42,10 +42,8 @@
 #' ## converting the grain bayesian network to bn.fit
 #' network <- as.bn.fit(network)
 #' sample_cpdist (network, "Soil_water_holding_capacity")
-#' @importFrom bnlearn nodes
-#' @importFrom bnlearn parents
+#' @importFrom bnlearn nodes cpdist as.grain parents
 #' @importFrom gRain nodeStates
-#' @importFrom bnlearn as.grain
 #' @export
 sample_cpdist <- function(bn, node, op=c("sampler", "proba"), evidence = NULL, n_generation = NULL){
   op <- match.arg(op)
