@@ -39,10 +39,16 @@
 #' network_bn_fit <- as.bn.fit(network)
 #'
 #' ## extract the entire Bayesian network as it is
-#' extract_bn(network_bn_fit, modelstring(as.bn.fit(network)))
+#' extracted <- extract_bn(network_bn_fit, modelstring(as.bn.fit(network)))
+#' graphviz.plot (extracted, shape = "ellipse")
 #'
 #' ## Dropping all but soil type and Manure application nodes from the Bayesian network
-#' extract_bn(network_bn_fit, "[Soil_type][Manure_application]")
+#' extracted <- extract_bn(network_bn_fit, "[Soil_type][Manure_application]")
+#' graphviz.plot (extracted, shape = "ellipse")
+#'
+#' ## Dropping Manure_application
+#' extracted <- extract_bn(network_bn_fit, "[Soil_type][Soil_water_holding_capacity|Soil_type]")
+#' graphviz.plot (extracted, shape = "ellipse")
 #' @importFrom bnlearn nodes
 #' @importFrom bnlearn model2network
 #' @importFrom bnlearn root.nodes
@@ -68,13 +74,17 @@ extract_bn <- function(bn, string_model){
   other_nodes <- lapply(names_other_nodes, function(i){
     # out <- bn[[i]][["prob"]]
     # out[parents(bn, i) %in% parents(string_model, i)]
-    bn[[i]][["prob"]]
+    # bn[[i]][["prob"]]
+    seduce_CPT(bn = bn, target_child = i,
+               target_parents = parents(x = string_model, node = i))
   })
   names(other_nodes) <- names_other_nodes
   nods <- c(root_nodes, other_nodes)
+  nods <- nods[nodes(bn)[nodes(bn) %in% nodes(string_model)]]
+
   if (is_grain_bn){
-    return(as.grain(custom.fit(string_model, dist =nods)))
+    return(as.grain(custom.fit(string_model, dist = nods)))
   } else {
-    return(custom.fit(string_model, dist =nods))
+    return(custom.fit(string_model, dist = nods))
   }
 }
