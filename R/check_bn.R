@@ -40,3 +40,7 @@ rriskdistributions_get_pars <- function(){
   paste("#' @importFrom", "rriskDistributions", out)
 }
 
+split_labels_accross_lines <- function(x, line_leng = 10) {
+  out <- gsub(paste0('(.{1,', line_leng, '})(\\s|$)'), '\\1\n', x)
+  substring(out, 1, (nchar(out) - 1))
+}

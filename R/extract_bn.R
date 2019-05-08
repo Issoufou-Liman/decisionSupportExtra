@@ -5,7 +5,7 @@
 #' @author Issoufou Liman
 #' @param bn an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.
 #' @param string_model Character string describing the configuration of the Bayesian network as return by \code{\link[bnlearn]{modelstring}}.
-#' @return An object of class \code{\link[bnlearn]{bn.fit class}}
+#' @return An object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}} depending on the class of bn.
 #' @details Currently only the classes of the arguments are checked. The user should take care of providing the right inputs.
 #' @seealso \code{\link[bnlearn]{bn.fit}}
 #' @seealso \code{\link[bnlearn]{modelstring}}

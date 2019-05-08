@@ -12,7 +12,7 @@ extract_bn(bn, string_model)
 \item{string_model}{Character string describing the configuration of the Bayesian network as return by \code{\link[bnlearn]{modelstring}}.}
 }
 \value{
-An object of class \code{\link[bnlearn]{bn.fit class}}
+An object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}} depending on the class of bn.
 }
 \description{
 Take a fully specified bayesian network, a sub string model, and return a subset of former matching the configuration of the latter.

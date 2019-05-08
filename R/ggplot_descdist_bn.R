@@ -3,7 +3,7 @@
 #' Generate compact plot of Bayesian network node states following the \code{\link[fitdistrplus]{descdist}} function as customizable ggplot.
 #'
 #' @author Issoufou Liman
-#' @param bn an object of class \code{\link[bnlearn]{bn.fit class}} or \code{\link[gRain]{grain-main}}.
+#' @param bn an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.
 #' @param node character string, the label of the node which conditional distribution is of interest.
 #' @inheritParams ggplot_descdist
 #' @seealso \code{\link[fitdistrplus]{descdist}}.

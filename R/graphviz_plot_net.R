@@ -94,10 +94,6 @@ graphviz_plot_net  <- function(bn, shape = "rectangle", layout ="dot", cex = 0.5
     leg <- mapply(paste, nam1, leg, MoreArgs=list(sep = " = "))
   }
   if (split_labels_accross_lines){
-    split_labels_accross_lines <- function(x) {
-      out <- gsub(paste0('(.{1,', line_leng, '})(\\s|$)'), '\\1\n', x)
-      substring(out, 1, (nchar(out) - 1))
-    }
     nam1 <- split_labels_accross_lines(nam1)
   }
 

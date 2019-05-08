@@ -9,7 +9,7 @@ fit_node_states_distr(bn, node, op = "proba", distr = "beta",
   keepdata = TRUE, keepdata.nb = 100, ...)
 }
 \arguments{
-\item{bn}{an object of class \code{\link[bnlearn]{bn.fit class}} or \code{\link[gRain]{grain-main}}.}
+\item{bn}{an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.}
 
 \item{node}{character string, the label of the node which conditional distribution is of interest.}
 

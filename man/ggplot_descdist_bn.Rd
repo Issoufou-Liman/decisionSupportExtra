@@ -14,7 +14,7 @@ ggplot_descdist_bn(bn, node, boot = 1000, obs.col = "darkblue",
   legend_text_size = 12)
 }
 \arguments{
-\item{bn}{an object of class \code{\link[bnlearn]{bn.fit class}} or \code{\link[gRain]{grain-main}}.}
+\item{bn}{an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.}
 
 \item{node}{character string, the label of the node which conditional distribution is of interest.}
 
