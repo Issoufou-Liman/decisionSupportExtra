@@ -8,6 +8,7 @@
 #' @inheritParams sample_cpdist
 #' @inheritParams fitdistrplus::fitdist
 #' @param state_effects numeric vector specifying the relative weight factor of each state in the final estimate.
+#' @inheritParams guess_decisionSupport_estimates
 #' @seealso \code{\link[decisionSupport]{estimate}}.
 #' @details see \code{\link[decisionSupport]{estimate}}.
 #' @references
@@ -50,7 +51,8 @@
 #' @importFrom stats na.omit
 #' @export
 make_node_states_estimates <- function(bn, node, op,
-                                       distr = "beta", state_effects, evidence = NULL){ # , state_effects = c(1/3, 1/2, 1)
+                                       distr = "beta", state_effects, evidence = NULL,
+                                       plot = TRUE, show.output = TRUE){ # , state_effects = c(1/3, 1/2, 1)
   if(!is(bn, 'bn.fit')){
     stop('The argument bn must be an object of class bn.fit')
   }
@@ -78,6 +80,6 @@ make_node_states_estimates <- function(bn, node, op,
     warning('A single distribution specified, using it for all nodes states')
   }
   out <- guess_decisionSupport_estimates (data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975),
-                                          plot = TRUE, show.output = TRUE, estimate_method = 'fit')
+                                          plot = plot, show.output = show.output, estimate_method = 'fit')
   as.list(out)
 }
