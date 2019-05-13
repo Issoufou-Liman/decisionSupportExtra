@@ -34,5 +34,5 @@ as.list.estimate <- function(x, ...) {
     x <- unclassed_x$marginal
     n <- 1:nrow(x)
     names(n) <- rownames(x)
-    sapply(n, function(i) x[i, ], USE.NAMES = TRUE, simplify = FALSE)
+    sapply(n, function(i) as.estimate(x[i, ]), USE.NAMES = TRUE, simplify = FALSE)
 }

@@ -63,7 +63,7 @@
 #'   plot = FALSE, show.output = FALSE)
 #' ## Check the difference
 #' calc_gamma; fit_gamma; calc_norm
-#' @eval rriskdistributions_get_pars ()
+#' @import rriskDistributions
 #' @importFrom methods is
 #' @importFrom fitdistrplus fitdist
 #' @importFrom decisionSupport as.estimate

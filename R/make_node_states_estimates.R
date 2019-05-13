@@ -40,26 +40,32 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' ## Use grain object (gRain package)
-#' fit_node_states_distr (bn = network, node = 'Soil_water_holding_capacity', gof='KS')
+#' make_node_states_estimates (bn = network, node = 'Soil_water_holding_capacity')
 #'
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## Use bn.fit object (bnlearn package)
-#' fit_node_states_distr (bn = network_bn_fit,
+#' make_node_states_estimates (bn = network_bn_fit,
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @importFrom stats na.omit
 #' @export
-make_node_states_estimates <- function(bn, node, op, distr = "beta", state_effects, evidence = NULL) {
+make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
+                                       state_effects = NULL, evidence = NULL) {
     # , state_effects = c(1/3, 1/2, 1)
-    if (!is(bn, "bn.fit")) {
-        stop("The argument bn must be an object of class bn.fit")
-    }
+    bn <- check_bn(bn,include_cpt = TRUE)
     tag <- node
     node <- sample_cpdist(bn = bn, node = node, op = op, evidence = evidence)
     # print(head(node))
     node <- na.omit(node$posterior)
     node <- as.data.frame(node)
     # query_set <- rownames(node)
+    if(is.null(state_effects)){
+        state_effects <- rep(1, ncol(node))
+    }
+    if (length(state_effects) != ncol(node)){
+        stop(paste(deparse(substitute(state_effects)), "should of length", ncol(node)))
+    }
+
     node <- mapply("*", node, state_effects)
 
     # scale_states <- function(proba, state_effects){ tmp0 <- mapply('*', proba, state_effects) tmp1 <-
@@ -75,5 +81,5 @@ make_node_states_estimates <- function(bn, node, op, distr = "beta", state_effec
     }
     out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975),
         plot = TRUE, show.output = TRUE, estimate_method = "fit")
-    as.list(out)
+    as.list.estimate(out)
 }

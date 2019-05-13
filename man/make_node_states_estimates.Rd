@@ -4,8 +4,8 @@
 \alias{make_node_states_estimates}
 \title{Create \code{\link[decisionSupport]{estimate}} for Bayesain network node}
 \usage{
-make_node_states_estimates(bn, node, op, distr = "beta", state_effects,
-  evidence = NULL)
+make_node_states_estimates(bn, node, op = "proba", distr = "beta",
+  state_effects = NULL, evidence = NULL)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -57,12 +57,12 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 ## Graphical Independence Network ####
 network <- grain(network)
 ## Use grain object (gRain package)
-fit_node_states_distr (bn = network, node = 'Soil_water_holding_capacity', gof='KS')
+make_node_states_estimates (bn = network, node = 'Soil_water_holding_capacity')
 
 ## converting the grain bayesian network to bn.fit
 network_bn_fit <- as.bn.fit(network)
 ## Use bn.fit object (bnlearn package)
-fit_node_states_distr (bn = network_bn_fit,
+make_node_states_estimates (bn = network_bn_fit,
 node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 }
 \references{
