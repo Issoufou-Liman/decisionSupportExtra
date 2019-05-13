@@ -40,15 +40,15 @@
 #'
 #' ## extract the entire Bayesian network as it is
 #' extracted <- extract_bn(network_bn_fit, modelstring(as.bn.fit(network)))
-#' graphviz.plot (extracted, shape = "ellipse")
+#' graphviz.plot (extracted, shape = 'ellipse')
 #'
 #' ## Dropping all but soil type and Manure application nodes from the Bayesian network
-#' extracted <- extract_bn(network_bn_fit, "[Soil_type][Manure_application]")
-#' graphviz.plot (extracted, shape = "ellipse")
+#' extracted <- extract_bn(network_bn_fit, '[Soil_type][Manure_application]')
+#' graphviz.plot (extracted, shape = 'ellipse')
 #'
 #' ## Dropping Manure_application
-#' extracted <- extract_bn(network_bn_fit, "[Soil_type][Soil_water_holding_capacity|Soil_type]")
-#' graphviz.plot (extracted, shape = "ellipse")
+#' extracted <- extract_bn(network_bn_fit, '[Soil_type][Soil_water_holding_capacity|Soil_type]')
+#' graphviz.plot (extracted, shape = 'ellipse')
 #' @importFrom bnlearn nodes
 #' @importFrom bnlearn model2network
 #' @importFrom bnlearn root.nodes
@@ -57,34 +57,31 @@
 #' @importFrom bnlearn custom.fit
 #' @importFrom bnlearn as.bn.fit
 #' @export
-extract_bn <- function(bn, string_model){
-  is_grain_bn <- inherits(bn, "grain")
-  string_model <- check_bn (string_model, include_cpt = FALSE)
-  bn <- check_bn (bn, include_cpt = FALSE)
-  if (!(all(nodes(string_model) %in% nodes(bn)))){
-    stop(paste("Nodes:", string_model[!(nodes(string_model) %in% nodes(bn))], "are not valid nodes in deparse(substituate(bn))"))
-  }
-  root_nodes_names <- root.nodes(string_model)
-  root_nodes<- lapply(root_nodes_names, function(i){
-      querygrain(as.grain(bn), i)
-  })
-  root_nodes <- unlist(root_nodes, recursive = FALSE)
-  names(root_nodes) <- root_nodes_names
-  names_other_nodes <- nodes(string_model)[!(nodes(string_model) %in% root.nodes(string_model))]
-  other_nodes <- lapply(names_other_nodes, function(i){
-    # out <- bn[[i]][["prob"]]
-    # out[parents(bn, i) %in% parents(string_model, i)]
-    # bn[[i]][["prob"]]
-    seduce_CPT(bn = bn, target_child = i,
-               target_parents = parents(x = string_model, node = i))
-  })
-  names(other_nodes) <- names_other_nodes
-  nods <- c(root_nodes, other_nodes)
-  nods <- nods[nodes(bn)[nodes(bn) %in% nodes(string_model)]]
-
-  if (is_grain_bn){
-    return(as.grain(custom.fit(string_model, dist = nods)))
-  } else {
-    return(custom.fit(string_model, dist = nods))
-  }
+extract_bn <- function(bn, string_model) {
+    is_grain_bn <- inherits(bn, "grain")
+    string_model <- check_bn(string_model, include_cpt = FALSE)
+    bn <- check_bn(bn, include_cpt = FALSE)
+    if (!(all(nodes(string_model) %in% nodes(bn)))) {
+        stop(paste("Nodes:", string_model[!(nodes(string_model) %in% nodes(bn))], "are not valid nodes in deparse(substituate(bn))"))
+    }
+    root_nodes_names <- root.nodes(string_model)
+    root_nodes <- lapply(root_nodes_names, function(i) {
+        querygrain(as.grain(bn), i)
+    })
+    root_nodes <- unlist(root_nodes, recursive = FALSE)
+    names(root_nodes) <- root_nodes_names
+    names_other_nodes <- nodes(string_model)[!(nodes(string_model) %in% root.nodes(string_model))]
+    other_nodes <- lapply(names_other_nodes, function(i) {
+        # out <- bn[[i]][['prob']] out[parents(bn, i) %in% parents(string_model, i)] bn[[i]][['prob']]
+        seduce_CPT(bn = bn, target_child = i, target_parents = parents(x = string_model, node = i))
+    })
+    names(other_nodes) <- names_other_nodes
+    nods <- c(root_nodes, other_nodes)
+    nods <- nods[nodes(bn)[nodes(bn) %in% nodes(string_model)]]
+    
+    if (is_grain_bn) {
+        return(as.grain(custom.fit(string_model, dist = nods)))
+    } else {
+        return(custom.fit(string_model, dist = nods))
+    }
 }

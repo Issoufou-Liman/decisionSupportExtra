@@ -57,13 +57,13 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 ## Graphical Independence Network ####
 network <- grain(network)
 ## Use grain object (gRain package)
-fit_node_states_distr (bn = network, node = "Soil_water_holding_capacity", gof="KS")
+fit_node_states_distr (bn = network, node = 'Soil_water_holding_capacity', gof='KS')
 
 ## converting the grain bayesian network to bn.fit
 network_bn_fit <- as.bn.fit(network)
 ## Use bn.fit object (bnlearn package)
 fit_node_states_distr (bn = network_bn_fit,
-node = "Soil_water_holding_capacity", distr = c("beta", "norm", "gamma"))
+node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 }
 \references{
 Eike Luedeling and Lutz Goehring (2018). decisionSupport: Quantitative Support of Decision Making under Uncertainty.

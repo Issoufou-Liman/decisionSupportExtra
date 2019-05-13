@@ -49,16 +49,16 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 ## Graphical Independence Network ####
 network <- grain(network)
 ## Use grain object (gRain package)
-seduce_CPT (network, "Soil_water_holding_capacity", c( "Soil_type"))
-seduce_CPT (network, "Soil_water_holding_capacity", c( "Manure_application"))
-seduce_CPT (network, "Soil_water_holding_capacity", c( "Soil_type", "Manure_application"))
+seduce_CPT (network, 'Soil_water_holding_capacity', c( 'Soil_type'))
+seduce_CPT (network, 'Soil_water_holding_capacity', c( 'Manure_application'))
+seduce_CPT (network, 'Soil_water_holding_capacity', c( 'Soil_type', 'Manure_application'))
 
 ## converting the grain bayesian network to bn.fit
 network_bn_fit <- as.bn.fit(network)
 ## Use bn.fit object (bnlearn package)
-seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Soil_type"))
-seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Manure_application"))
-seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Soil_type", "Manure_application"))
+seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Soil_type'))
+seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Manure_application'))
+seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Soil_type', 'Manure_application'))
 }
 \author{
 Issoufou Liman

@@ -37,28 +37,24 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' ## Use grain object (gRain package)
-#' ggplot_descdist_bn (bn = network, node = "Soil_water_holding_capacity")
+#' ggplot_descdist_bn (bn = network, node = 'Soil_water_holding_capacity')
 #'
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## Use bn.fit object (bnlearn package)
-#' ggplot_descdist_bn (bn = network, node = "Soil_water_holding_capacity")
+#' ggplot_descdist_bn (bn = network, node = 'Soil_water_holding_capacity')
 #' @export ggplot_descdist_bn
-ggplot_descdist_bn <- function(bn, node, boot = 1000, obs.col = "darkblue", boot.col = "orange",
-                               title = "Cullen and Frey graph", subtitle = node,
-                               xlab = "square of skewness", ylab = "kurtosis",
-                               obs_geom_size = 4, boot_geom_size = 0.02, dist_geom_pts_size = 5,
-                               dist_geom_line_size = 0.6, axis_text_size = 12, axis_title_size = 12,
-                               plot_title_size = 20, plot_subtitle_size = 17,strip_text_size = 18,
-                               legend_text_size = 12){
-  bn <- check_bn (bn, include_cpt = TRUE)
-  subtitle <- gsub(pattern = "_", " ", subtitle)
-  data <- eval(as.expression(substitute(sample_cpdist(bn, node, op='proba'))))
-  data <- data$posterior
-  ggplot_descdist(data = data,boot = boot, obs.col = obs.col, boot.col = boot.col,
-                  title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-                  obs_geom_size = obs_geom_size, boot_geom_size = boot_geom_size, dist_geom_pts_size = dist_geom_pts_size,
-                  dist_geom_line_size = dist_geom_line_size, axis_text_size = axis_text_size, axis_title_size = axis_title_size,
-                  plot_title_size = plot_title_size, plot_subtitle_size = plot_subtitle_size,
-                  strip_text_size = strip_text_size,legend_text_size = legend_text_size)
+ggplot_descdist_bn <- function(bn, node, boot = 1000, obs.col = "darkblue", boot.col = "orange", title = "Cullen and Frey graph", 
+    subtitle = node, xlab = "square of skewness", ylab = "kurtosis", obs_geom_size = 4, boot_geom_size = 0.02, 
+    dist_geom_pts_size = 5, dist_geom_line_size = 0.6, axis_text_size = 12, axis_title_size = 12, plot_title_size = 20, 
+    plot_subtitle_size = 17, strip_text_size = 18, legend_text_size = 12) {
+    bn <- check_bn(bn, include_cpt = TRUE)
+    subtitle <- gsub(pattern = "_", " ", subtitle)
+    data <- eval(as.expression(substitute(sample_cpdist(bn, node, op = "proba"))))
+    data <- data$posterior
+    ggplot_descdist(data = data, boot = boot, obs.col = obs.col, boot.col = boot.col, title = title, subtitle = subtitle, 
+        xlab = xlab, ylab = ylab, obs_geom_size = obs_geom_size, boot_geom_size = boot_geom_size, dist_geom_pts_size = dist_geom_pts_size, 
+        dist_geom_line_size = dist_geom_line_size, axis_text_size = axis_text_size, axis_title_size = axis_title_size, 
+        plot_title_size = plot_title_size, plot_subtitle_size = plot_subtitle_size, strip_text_size = strip_text_size, 
+        legend_text_size = legend_text_size)
 }

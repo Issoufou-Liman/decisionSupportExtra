@@ -92,12 +92,12 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 ## Graphical Independence Network ####
 network <- grain(network)
 ## Use grain object (gRain package)
-ggplot_descdist_bn (bn = network, node = "Soil_water_holding_capacity")
+ggplot_descdist_bn (bn = network, node = 'Soil_water_holding_capacity')
 
 ## converting the grain bayesian network to bn.fit
 network_bn_fit <- as.bn.fit(network)
 ## Use bn.fit object (bnlearn package)
-ggplot_descdist_bn (bn = network, node = "Soil_water_holding_capacity")
+ggplot_descdist_bn (bn = network, node = 'Soil_water_holding_capacity')
 }
 \references{
 Marie Laure Delignette-Muller, Christophe Dutang (2015). fitdistrplus: An R Package for Fitting Distributions. Journal of Statistical Software, 64(4), 1-34. http://www.jstatsoft.org/v64/i04/.

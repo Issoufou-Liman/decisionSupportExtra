@@ -34,7 +34,7 @@ this -1..1 scale are assigned automatically.}
 \item{parent_states}{list of the same structure as parent_effects containing
 names for all states of all parents.}
 
-\item{option}{character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).}
+\item{option}{character string. CPT formatting option; either 'grain' or 'bnlearn' (NOT currently implemented).}
 }
 \value{
 A matrix containing the Conditional probabilities.

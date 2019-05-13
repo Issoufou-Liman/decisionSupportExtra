@@ -43,23 +43,23 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' ## plot the grain as graph
-#' graphviz_plot_net(network, shape="ellipse", layout = "dot",
-#' cex = 0.5, plot_bg = "#DFE3EE", highlit_some_nodes = "Soil_water_holding_capacity",
-#' highlit_some_nodes_col = "red", abbreviate = FALSE, node_col = "white", node_lwd = 1)
+#' graphviz_plot_net(network, shape='ellipse', layout = 'dot',
+#' cex = 0.5, plot_bg = '#DFE3EE', highlit_some_nodes = 'Soil_water_holding_capacity',
+#' highlit_some_nodes_col = 'red', abbreviate = FALSE, node_col = 'white', node_lwd = 1)
 #'
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## plot the bn.fit as graph
-#' graphviz_plot_net(network_bn_fit, shape="ellipse", layout = "dot",
-#' cex = 0.5, plot_bg = "#DFE3EE", highlit_some_nodes = "Soil_water_holding_capacity",
-#' highlit_some_nodes_col = "red", abbreviate = FALSE, node_col = "white", node_lwd = 1)
+#' graphviz_plot_net(network_bn_fit, shape='ellipse', layout = 'dot',
+#' cex = 0.5, plot_bg = '#DFE3EE', highlit_some_nodes = 'Soil_water_holding_capacity',
+#' highlit_some_nodes_col = 'red', abbreviate = FALSE, node_col = 'white', node_lwd = 1)
 
 #'## extracting the string model
 #'string_model <- modelstring(network_bn_fit)
 #' ## plot the bn as graph
-#' graphviz_plot_net(string_model, shape="ellipse", layout = "dot",
-#' cex = 0.5, plot_bg = "#DFE3EE", highlit_some_nodes = "Soil_water_holding_capacity",
-#' highlit_some_nodes_col = "red", abbreviate = FALSE, node_col = "white", node_lwd = 1)
+#' graphviz_plot_net(string_model, shape='ellipse', layout = 'dot',
+#' cex = 0.5, plot_bg = '#DFE3EE', highlit_some_nodes = 'Soil_water_holding_capacity',
+#' highlit_some_nodes_col = 'red', abbreviate = FALSE, node_col = 'white', node_lwd = 1)
 
 #' ## extract the entire Bayesian network as it is
 #' extract_bn(network_bn_fit, modelstring(as.bn.fit(network)))
@@ -69,62 +69,59 @@
 #' @importFrom graph nodeRenderInfo<- edgeRenderInfo<-
 #' @importFrom Rgraphviz renderGraph
 #' @export graphviz_plot_net
-graphviz_plot_net  <- function(bn, shape = "rectangle", layout ="dot", cex = 0.5, plot_bg = "lightgrey", line_leng = 10,
-                               node_fill = "white", highlit_some_nodes = NULL, highlit_some_nodes_col='yellow',
-                               node_lty=1, node_lwd=2, node_col="white",edge_fill="white",
-                               edge_lty=1, edge_lwd=3, edge_col="white", split_labels_accross_lines=TRUE,
-                               textCol="darkred", abbreviate=TRUE, leg_ncol=1, leg_w=strwidth("1,000,000"),
-                               leg_cex=0.5, leg_bg="lightgrey", leg_box.col="white", leg_title.col = "white"){
-  .pardefault <- par(no.readonly = TRUE)
-  bn <- check_bn (bn, include_cpt = FALSE)
-  nam0 <- nodes(bn)
-  nam1 <- gsub("_"," ", nam0)
-  if (abbreviate){
-    firstup <- function(x) {
-      substr(x, 1, 1) <- toupper(substr(x, 1, 1))
-      x
+graphviz_plot_net <- function(bn, shape = "rectangle", layout = "dot", cex = 0.5, plot_bg = "lightgrey", 
+    line_leng = 10, node_fill = "white", highlit_some_nodes = NULL, highlit_some_nodes_col = "yellow", 
+    node_lty = 1, node_lwd = 2, node_col = "white", edge_fill = "white", edge_lty = 1, edge_lwd = 3, edge_col = "white", 
+    split_labels_accross_lines = TRUE, textCol = "darkred", abbreviate = TRUE, leg_ncol = 1, leg_w = strwidth("1,000,000"), 
+    leg_cex = 0.5, leg_bg = "lightgrey", leg_box.col = "white", leg_title.col = "white") {
+    .pardefault <- par(no.readonly = TRUE)
+    bn <- check_bn(bn, include_cpt = FALSE)
+    nam0 <- nodes(bn)
+    nam1 <- gsub("_", " ", nam0)
+    if (abbreviate) {
+        firstup <- function(x) {
+            substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+            x
+        }
+        from_first_lo <- function(x) {
+            substring(x, 2) <- tolower(substring(x, 2))
+            x
+        }
+        nam1 <- firstup(from_first_lo(nam1))
+        leg <- nam1
+        nam1 <- abbreviate(nam1)
+        leg <- mapply(paste, nam1, leg, MoreArgs = list(sep = " = "))
     }
-    from_first_lo <- function(x) {
-      substring(x, 2) <- tolower(substring(x, 2))
-      x
+    if (split_labels_accross_lines) {
+        nam1 <- split_labels_accross_lines(nam1)
     }
-    nam1 <- firstup(from_first_lo(nam1))
-    leg <- nam1
-    nam1 <- abbreviate(nam1)
-    leg <- mapply(paste, nam1, leg, MoreArgs=list(sep = " = "))
-  }
-  if (split_labels_accross_lines){
-    nam1 <- split_labels_accross_lines(nam1)
-  }
-
-  nodes(bn) <- nam1
-  g1 <- graphviz.plot(bn, shape = shape, layout = layout)
-  # par(font=font)
-  # graph.par(list(nodes=list(textCol=textCol, fontsize=fontsize)))
-  nodeRenderInfo(g1) <- list(fill=node_fill, lty=node_lty, lwd=node_lwd, col=node_col)
-  # col <- rep (adjustcolor( "green", alpha.f = 0.2), length(leaf.nodes(bn)))
-  # names(col) <- leaf.nodes(bn)
-  if(!is.null(highlit_some_nodes)){
-    if(length(highlit_some_nodes_col) == 1){
-      tmp_col <- rep(highlit_some_nodes_col, length(highlit_some_nodes))
-    } else {
-      tmp_col <- highlit_some_nodes_col
+    
+    nodes(bn) <- nam1
+    g1 <- graphviz.plot(bn, shape = shape, layout = layout)
+    # par(font=font) graph.par(list(nodes=list(textCol=textCol, fontsize=fontsize)))
+    nodeRenderInfo(g1) <- list(fill = node_fill, lty = node_lty, lwd = node_lwd, col = node_col)
+    # col <- rep (adjustcolor( 'green', alpha.f = 0.2), length(leaf.nodes(bn))) names(col) <-
+    # leaf.nodes(bn)
+    if (!is.null(highlit_some_nodes)) {
+        if (length(highlit_some_nodes_col) == 1) {
+            tmp_col <- rep(highlit_some_nodes_col, length(highlit_some_nodes))
+        } else {
+            tmp_col <- highlit_some_nodes_col
+        }
+        # tmp_col <- rep (highlit_some_nodes_col, length(highlit_some_nodes))
+        names(tmp_col) <- highlit_some_nodes
+        # col <- c(col, tmp_col)
     }
-    # tmp_col <- rep (highlit_some_nodes_col, length(highlit_some_nodes))
-    names(tmp_col) <- highlit_some_nodes
-    # col <- c(col, tmp_col)
-  }
-
-  nodeRenderInfo(g1) <- list(textCol=tmp_col)
-  edgeRenderInfo(g1) <- list(fill=edge_fill, lty=edge_lty, lwd=edge_lwd, col=edge_col)
-  # nodeRenderInfo(g1) <- list(col=col, fill=tmp_col)
-
-  par(cex=cex, bg = plot_bg)
-  renderGraph(g1)
-  if(abbreviate) {
-    legend('topright', legend = leg, text.width = leg_w, cex=leg_cex, ncol = leg_ncol,
-           bty="o", box.lwd=1, box.col=leg_box.col, xjust=1, yjust=1, bg=leg_bg,
-           title = "Legend", title.col = leg_title.col)
-  }
-  par(.pardefault)
+    
+    nodeRenderInfo(g1) <- list(textCol = tmp_col)
+    edgeRenderInfo(g1) <- list(fill = edge_fill, lty = edge_lty, lwd = edge_lwd, col = edge_col)
+    # nodeRenderInfo(g1) <- list(col=col, fill=tmp_col)
+    
+    par(cex = cex, bg = plot_bg)
+    renderGraph(g1)
+    if (abbreviate) {
+        legend("topright", legend = leg, text.width = leg_w, cex = leg_cex, ncol = leg_ncol, bty = "o", 
+            box.lwd = 1, box.col = leg_box.col, xjust = 1, yjust = 1, bg = leg_bg, title = "Legend", title.col = leg_title.col)
+    }
+    par(.pardefault)
 }

@@ -33,8 +33,8 @@ Generate a list of \code{\link[fitdistrplus]{descdist}} outputs to be understood
 see \code{\link[fitdistrplus]{descdist}}.
 }
 \examples{
-ggbuild_descdist_data(rbeta(100, shape1 = 0.05, shape2 = 1), boot = 500, obs.col = "blue",
-boot.col = "yellow")
+ggbuild_descdist_data(rbeta(100, shape1 = 0.05, shape2 = 1), boot = 500, obs.col = 'blue',
+boot.col = 'yellow')
 }
 \references{
 Marie Laure Delignette-Muller, Christophe Dutang (2015). fitdistrplus: An R Package for Fitting Distributions. Journal of Statistical Software, 64(4), 1-34. http://www.jstatsoft.org/v64/i04/.

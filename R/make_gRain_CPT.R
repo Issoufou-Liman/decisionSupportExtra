@@ -1,17 +1,17 @@
 #' Make and format Conditional Probability table (CPT) for use in Bayesian Network
 #'
 #' Take the required arguments for \code{\link[decisionSupport]{make_CPT}}, compute the nodes states probabilities and format them as ready to use inputs for \code{\link[gRain]{cptable}}.
-## #' @param parent_effects see \code{\link[decisionSupport]{make_CPT}} for detail.
-## #' @param parent_weights see \code{\link[decisionSupport]{make_CPT}} for details.
-## #' @param b see \code{\link[decisionSupport]{make_CPT}} for details.
-## #' @param child_prior see \code{\link[decisionSupport]{make_CPT}} for details.
-## #' @param ranking_child see \code{\link[decisionSupport]{make_CPT}} for details.
-## #' @param child_states see \code{\link[decisionSupport]{make_CPT}} for details.
-## #' @param parent_names see \code{\link[decisionSupport]{make_CPT}} for details.
-## #' @param parent_states see \code{\link[decisionSupport]{make_CPT}} for details.
+## #' @param parent_effects see \code{\link[decisionSupport]{make_CPT}} for detail.  #' @param
+## parent_weights see \code{\link[decisionSupport]{make_CPT}} for details.  #' @param b see
+## \code{\link[decisionSupport]{make_CPT}} for details.  #' @param child_prior see
+## \code{\link[decisionSupport]{make_CPT}} for details.  #' @param ranking_child see
+## \code{\link[decisionSupport]{make_CPT}} for details.  #' @param child_states see
+## \code{\link[decisionSupport]{make_CPT}} for details.  #' @param parent_names see
+## \code{\link[decisionSupport]{make_CPT}} for details.  #' @param parent_states see
+## \code{\link[decisionSupport]{make_CPT}} for details.
 #' @author Issoufou Liman
 #' @inheritParams decisionSupport::make_CPT
-#' @param option character string. CPT formatting option; either 'grain' or "bnlearn" (NOT currently implemented).
+#' @param option character string. CPT formatting option; either 'grain' or 'bnlearn' (NOT currently implemented).
 #' @return A matrix containing the Conditional probabilities.
 #' @details \code{\link[decisionSupport]{make_CPT}} does not seems to work well     with simple case (i.e. single parent - single child relationship) which case     does not worth it!
 #' @seealso \code{\link[decisionSupport]{make_CPT}}.
@@ -55,36 +55,33 @@
 #' @importFrom decisionSupport make_CPT
 #' @importFrom gRain cptable
 #' @export
-make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior,
-  ranking_child = NULL, child_states = NULL, parent_names = NULL,
-  parent_states = NULL, option = c('grain', 'bnlearn')){
-  option <- match.arg(option) # only work for gRain::cptable for now. I will add an option for bnlearn::custom.fit
-  # computing the Cconditional probabilities using decisionSupport::makeCPT
-  test <- make_CPT(parent_effects=parent_effects, parent_weights=parent_weights, b=b, child_prior=child_prior, ranking_child = ranking_child,
-    child_states =child_states, parent_names = parent_names, parent_states = parent_states)
-  # create an appropriate size array for gRain or bnlearn CPT
-  dim <- c(length(child_states), sapply(parent_states, length))
-  ar <- array(data = rep(NA, length(test)),
-    dim = dim,
-    dimnames = c(list(child_states), parent_states))
-  # making the array indexing by extracting the different combinaisons of node states by:
-  ## first extracting the combinaisons of parents' states;
-  tmp <- as.list(as.data.frame(test$column_legend, stringsAsFactors = FALSE))
-  tmp <- lapply(tmp, as.character)
-  ## second combining each set of parents states with a child state.
-  ar_ids <-lapply(tmp, function(j){
-    lapply(rownames(test$CPT), function(i){
-      c(i, j)
+make_gRain_CPT <- function(parent_effects, parent_weights, b, child_prior, ranking_child = NULL, child_states = NULL, 
+    parent_names = NULL, parent_states = NULL, option = c("grain", "bnlearn")) {
+    option <- match.arg(option)  # only work for gRain::cptable for now. I will add an option for bnlearn::custom.fit
+    # computing the Cconditional probabilities using decisionSupport::makeCPT
+    test <- make_CPT(parent_effects = parent_effects, parent_weights = parent_weights, b = b, child_prior = child_prior, 
+        ranking_child = ranking_child, child_states = child_states, parent_names = parent_names, parent_states = parent_states)
+    # create an appropriate size array for gRain or bnlearn CPT
+    dim <- c(length(child_states), sapply(parent_states, length))
+    ar <- array(data = rep(NA, length(test)), dim = dim, dimnames = c(list(child_states), parent_states))
+    # making the array indexing by extracting the different combinaisons of node states by: first
+    # extracting the combinaisons of parents' states;
+    tmp <- as.list(as.data.frame(test$column_legend, stringsAsFactors = FALSE))
+    tmp <- lapply(tmp, as.character)
+    ## second combining each set of parents states with a child state.
+    ar_ids <- lapply(tmp, function(j) {
+        lapply(rownames(test$CPT), function(i) {
+            c(i, j)
+        })
     })
-  })
-  ar_ids <- unlist(ar_ids, recursive = FALSE)
-  # filling the array
-  for(i in 1:length(ar_ids)){
-    ar[matrix(ar_ids[[i]], 1)] <- as.numeric(test$CPT)[i]
-  }
-  if (option == 'grain'){
-    ar <- as.numeric(ar)
-    ar <- list (values=ar, levels = rownames(test$CPT))
-  }
-  return(ar)
+    ar_ids <- unlist(ar_ids, recursive = FALSE)
+    # filling the array
+    for (i in 1:length(ar_ids)) {
+        ar[matrix(ar_ids[[i]], 1)] <- as.numeric(test$CPT)[i]
+    }
+    if (option == "grain") {
+        ar <- as.numeric(ar)
+        ar <- list(values = ar, levels = rownames(test$CPT))
+    }
+    return(ar)
 }

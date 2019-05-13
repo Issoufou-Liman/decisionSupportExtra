@@ -36,62 +36,58 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' ## Use grain object (gRain package)
-#' seduce_CPT (network, "Soil_water_holding_capacity", c( "Soil_type"))
-#' seduce_CPT (network, "Soil_water_holding_capacity", c( "Manure_application"))
-#' seduce_CPT (network, "Soil_water_holding_capacity", c( "Soil_type", "Manure_application"))
+#' seduce_CPT (network, 'Soil_water_holding_capacity', c( 'Soil_type'))
+#' seduce_CPT (network, 'Soil_water_holding_capacity', c( 'Manure_application'))
+#' seduce_CPT (network, 'Soil_water_holding_capacity', c( 'Soil_type', 'Manure_application'))
 #'
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## Use bn.fit object (bnlearn package)
-#' seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Soil_type"))
-#' seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Manure_application"))
-#' seduce_CPT (network_bn_fit, "Soil_water_holding_capacity", c( "Soil_type", "Manure_application"))
+#' seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Soil_type'))
+#' seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Manure_application'))
+#' seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Soil_type', 'Manure_application'))
 #' @importFrom bnlearn as.grain
 #' @importFrom gRain nodeStates querygrain setEvidence nodeNames
 #' @export
-seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL){
-  # checking and converting bn.fit object to grain object
-  if(inherits(bn, "bn.fit")){
-    bn <- as.grain(bn)
-  }
-  if (is.null(target_child) & is.null(target_parents)){
-    warning(paste(deparse(substitute(bn)), "returned as is: ", "both arguments target_child and target_child were set to NULL"))
-    out <- bn
-  } else if (length(target_child) > 1){
-    stop("multiple target child nodes supplied: target_child must be of length 1")
-  } else if ((length(target_child) == 1)){
-    # getting the parent states
-    # reorganizing target_parents to match bn config
-    # silently dropping invalid node in bn
-    target_parents <- nodeNames(bn)[nodeNames(bn) %in% target_parents]
-    parent_states <- nodeStates(bn, target_parents)
-
-    # getting the child states
-    child_states <- nodeStates(bn, target_child)
-
-    # getting the CPTs from bn given what is known as the states target_parentss
-    evid <- as.matrix(expand.grid(parent_states))
-    evid <- sapply(1:nrow(evid), function (i){
-      as.list(evid[i, ])
-    }, simplify = FALSE)
-
-    # querying the network evidence by evidence
-    query_set <- sapply(evid, function (i){
-      querygrain(setEvidence(object = bn,
-                             nodes = target_child,
-                             evidence = i))
-    }, simplify = FALSE, USE.NAMES = TRUE)
-
-    # extract only the target child
-    query_set <- sapply(query_set, function(i){
-      i[[target_child]]
-    }, simplify = FALSE)
-
-    # create an appropriate size array for gRain CPTs
-    dimens <- sapply(c(child_states, parent_states), length)
-    out <- array(data = unlist(query_set, recursive = TRUE, use.names = FALSE),
-          dim = dimens,
-          dimnames = c(child_states, parent_states))
-  }
-  return(out)
+seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL) {
+    # checking and converting bn.fit object to grain object
+    if (inherits(bn, "bn.fit")) {
+        bn <- as.grain(bn)
+    }
+    if (is.null(target_child) & is.null(target_parents)) {
+        warning(paste(deparse(substitute(bn)), "returned as is: ", "both arguments target_child and target_child were set to NULL"))
+        out <- bn
+    } else if (length(target_child) > 1) {
+        stop("multiple target child nodes supplied: target_child must be of length 1")
+    } else if ((length(target_child) == 1)) {
+        # getting the parent states reorganizing target_parents to match bn config silently dropping invalid
+        # node in bn
+        target_parents <- nodeNames(bn)[nodeNames(bn) %in% target_parents]
+        parent_states <- nodeStates(bn, target_parents)
+        
+        # getting the child states
+        child_states <- nodeStates(bn, target_child)
+        
+        # getting the CPTs from bn given what is known as the states target_parentss
+        evid <- as.matrix(expand.grid(parent_states))
+        evid <- sapply(1:nrow(evid), function(i) {
+            as.list(evid[i, ])
+        }, simplify = FALSE)
+        
+        # querying the network evidence by evidence
+        query_set <- sapply(evid, function(i) {
+            querygrain(setEvidence(object = bn, nodes = target_child, evidence = i))
+        }, simplify = FALSE, USE.NAMES = TRUE)
+        
+        # extract only the target child
+        query_set <- sapply(query_set, function(i) {
+            i[[target_child]]
+        }, simplify = FALSE)
+        
+        # create an appropriate size array for gRain CPTs
+        dimens <- sapply(c(child_states, parent_states), length)
+        out <- array(data = unlist(query_set, recursive = TRUE, use.names = FALSE), dim = dimens, dimnames = c(child_states, 
+            parent_states))
+    }
+    return(out)
 }

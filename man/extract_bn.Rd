@@ -51,15 +51,15 @@ network_bn_fit <- as.bn.fit(network)
 
 ## extract the entire Bayesian network as it is
 extracted <- extract_bn(network_bn_fit, modelstring(as.bn.fit(network)))
-graphviz.plot (extracted, shape = "ellipse")
+graphviz.plot (extracted, shape = 'ellipse')
 
 ## Dropping all but soil type and Manure application nodes from the Bayesian network
-extracted <- extract_bn(network_bn_fit, "[Soil_type][Manure_application]")
-graphviz.plot (extracted, shape = "ellipse")
+extracted <- extract_bn(network_bn_fit, '[Soil_type][Manure_application]')
+graphviz.plot (extracted, shape = 'ellipse')
 
 ## Dropping Manure_application
-extracted <- extract_bn(network_bn_fit, "[Soil_type][Soil_water_holding_capacity|Soil_type]")
-graphviz.plot (extracted, shape = "ellipse")
+extracted <- extract_bn(network_bn_fit, '[Soil_type][Soil_water_holding_capacity|Soil_type]')
+graphviz.plot (extracted, shape = 'ellipse')
 }
 \seealso{
 \code{\link[bnlearn]{bn.fit}}

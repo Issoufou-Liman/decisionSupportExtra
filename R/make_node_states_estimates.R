@@ -40,44 +40,41 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' ## Use grain object (gRain package)
-#' fit_node_states_distr (bn = network, node = "Soil_water_holding_capacity", gof="KS")
+#' fit_node_states_distr (bn = network, node = 'Soil_water_holding_capacity', gof='KS')
 #'
 #' ## converting the grain bayesian network to bn.fit
 #' network_bn_fit <- as.bn.fit(network)
 #' ## Use bn.fit object (bnlearn package)
 #' fit_node_states_distr (bn = network_bn_fit,
-#' node = "Soil_water_holding_capacity", distr = c("beta", "norm", "gamma"))
+#' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @importFrom stats na.omit
 #' @export
-make_node_states_estimates <- function(bn, node, op,
-                                       distr = "beta", state_effects, evidence = NULL){ # , state_effects = c(1/3, 1/2, 1)
-  if(!is(bn, 'bn.fit')){
-    stop('The argument bn must be an object of class bn.fit')
-  }
-  tag <- node
-  node <- sample_cpdist(bn = bn, node = node, op = op, evidence = evidence)
-  # print(head(node))
-  node <- na.omit(node$posterior)
-  node <- as.data.frame(node)
-  # query_set <- rownames(node)
-  node <- mapply('*', node, state_effects)
-
-  # scale_states <- function(proba, state_effects){
-  #   tmp0 <- mapply("*", proba, state_effects)
-  #   tmp1 <- sum(tmp0)
-  #   tmp0/tmp1
-  # }
-  # node <- t(apply(X = node, MARGIN = 1, FUN = scale_states, state_effects = state_effects))
-  node <- as.data.frame(node)
-
-  # node <- data.frame(query_set=query_set, node)
-  names(node) <- paste0(tag, "=", names(node))
-  node
-  if (length(distr) == 1) {
-    distr <- rep(distr, ncol(node))
-    warning('A single distribution specified, using it for all nodes states')
-  }
-  out <- guess_decisionSupport_estimates (data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975),
-                                          plot = TRUE, show.output = TRUE, estimate_method = 'fit')
-  as.list(out)
+make_node_states_estimates <- function(bn, node, op, distr = "beta", state_effects, evidence = NULL) {
+    # , state_effects = c(1/3, 1/2, 1)
+    if (!is(bn, "bn.fit")) {
+        stop("The argument bn must be an object of class bn.fit")
+    }
+    tag <- node
+    node <- sample_cpdist(bn = bn, node = node, op = op, evidence = evidence)
+    # print(head(node))
+    node <- na.omit(node$posterior)
+    node <- as.data.frame(node)
+    # query_set <- rownames(node)
+    node <- mapply("*", node, state_effects)
+    
+    # scale_states <- function(proba, state_effects){ tmp0 <- mapply('*', proba, state_effects) tmp1 <-
+    # sum(tmp0) tmp0/tmp1 } node <- t(apply(X = node, MARGIN = 1, FUN = scale_states, state_effects =
+    # state_effects))
+    node <- as.data.frame(node)
+    
+    # node <- data.frame(query_set=query_set, node)
+    names(node) <- paste0(tag, "=", names(node))
+    node
+    if (length(distr) == 1) {
+        distr <- rep(distr, ncol(node))
+        warning("A single distribution specified, using it for all nodes states")
+    }
+    out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975), 
+        plot = TRUE, show.output = TRUE, estimate_method = "fit")
+    as.list(out)
 }

@@ -48,8 +48,8 @@ shall be distinguished by the colors chosen in argument
 }
 }
 \description{
-Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return a ggplot object
-or the simulated values such that, when converted into molten data frame, can be easily
+Take an object of class \code{\link[decisionSupport]{mcSimulation}} or a list of these and return
+the simulated values such that, when converted into molten data frame, can be easily
 understood by ggplot.
 }
 \section{get_hist_mcsimilation_data}{

@@ -41,7 +41,7 @@
 #' ## Graphical Independence Network ####
 #' network <- grain(network)
 #' network
-#' barplot_CPT (network, "Soil_water_holding_capacity")
+#' barplot_CPT (network, 'Soil_water_holding_capacity')
 #' @importFrom methods is
 #' @importFrom stats as.formula
 #' @importFrom reshape2 melt
@@ -53,86 +53,72 @@
 #' scale_linetype_manual scale_shape_manual scale_x_continuous
 #' scale_y_continuous theme theme_minimal unit aes_string
 #' @export
-barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pages = 1, show_states_only = FALSE, separator = "\n"){
-  if(is(bn, "CPTgrain")){
-    x <- melt(bn[["cptlist"]][[target_node]])
-  } else if (is(bn, "bn.fit")){
-    x <- as.data.frame(bn[[target_node]][['prob']])
-  }
-  if(is.null(ncol_facet)){
-    ncol_facet <- (ncol(x)-2)
-  }
-  my_theme <- theme_minimal() +
-    theme(text = element_text(family = 'serif', face = 'plain'),
-      panel.spacing=unit(0.075, "lines"),
-      panel.border = element_rect(color = "lightgrey", fill = NA, size = 0.5),
-      axis.ticks = element_line(colour = 'black', size = 0.05),
-      legend.title = element_blank(),
-      legend.position="top",
-      legend.justification = 'right',
-      legend.margin=margin(0, 0, 0, 0),
-      legend.box.margin=margin(-22, 0, -10, 0),
-      strip.background = element_rect(color = "gray", size = 0.075),
-      strip.text = element_text(colour = 'black'),
-      plot.subtitle=element_text(size=9.5, face="italic", color="blue")
-    )
-
-  fmt_dcimals <- function(decimals=0){
-    # return a function responpsible for formatting the
-    # axis labels with a given number of decimals
-    function(x) as.character(round(x,decimals))
-  }
-
-  tmp <- names(x)[2:(ncol(x)-1)]
-
-  facet_formula <- paste(tmp, collapse = '+')
-  facet_formula <- paste0(".", '~', facet_formula)
-  facet_formula <- as.formula(facet_formula)
-  p <- function(data){
-
-    g <- ggplot(data = data, aes_string(x=names(data)[1], y=names(data)[ncol(data)]))+
-      geom_bar(stat = 'identity', width = bar_width)+
-      coord_flip()+
-      scale_y_continuous(labels = fmt_dcimals(2), breaks = pretty_breaks(n=9), expand = c(0, 0.015)) +
-      my_theme
-    if(ncol(data) > 2){
-      title = 'Conditional Probabilities'
-      subtitle <- gsub(pattern = '_', replacement = ' ', names(x)[1])
-      given_nodes <- gsub(pattern = '_', replacement = ' ', paste(names(x)[2:(ncol(x)-1)], collapse = ' : '))
-      subtitle <- paste0(subtitle, ' / ', given_nodes)
-      g = g +
-        facet_wrap(facet_formula,
-          labeller = function(labs) {
-            if(show_states_only){
-              label_value(labs, multi_line = FALSE)
-
-            } else {
-              label_both(labs, multi_line = FALSE, sep = separator)
-            }
-          },
-          ncol = ncol_facet)
-    } else {
-      title <- gsub(pattern = '_', replacement = ' ', target_node)
-      subtitle <- NULL
+barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet = NULL, n_pages = 1, show_states_only = FALSE, 
+    separator = "\n") {
+    if (is(bn, "CPTgrain")) {
+        x <- melt(bn[["cptlist"]][[target_node]])
+    } else if (is(bn, "bn.fit")) {
+        x <- as.data.frame(bn[[target_node]][["prob"]])
     }
-
-    g + labs(title=title, subtitle=subtitle,
-      x='Node States', y='Probabilities')
-  }
-
-  if(n_pages > 1){
-    pages_range <- ceiling(nrow(x)/n_pages)
-    pages_range <- c(seq.int(from = 1, to = nrow(x), by = pages_range), nrow(x))
-    pages_range <- c((pages_range[2:(length(pages_range)-1)])-1, pages_range)
-    pages_range <- sort(unique(pages_range), decreasing = FALSE)
-    pages_range <- matrix(pages_range, ncol = 2, byrow = T)
-    pages_range <- as.list(data.frame(t(pages_range)))
-    rows2match <- lapply(pages_range, function (i) {
-      x[i[1]:i[2], ]
-    })
-    lapply(rows2match,p)
-  } else {
-    p(x)
-  }
-
+    if (is.null(ncol_facet)) {
+        ncol_facet <- (ncol(x) - 2)
+    }
+    my_theme <- theme_minimal() + theme(text = element_text(family = "serif", face = "plain"), panel.spacing = unit(0.075, 
+        "lines"), panel.border = element_rect(color = "lightgrey", fill = NA, size = 0.5), axis.ticks = element_line(colour = "black", 
+        size = 0.05), legend.title = element_blank(), legend.position = "top", legend.justification = "right", 
+        legend.margin = margin(0, 0, 0, 0), legend.box.margin = margin(-22, 0, -10, 0), strip.background = element_rect(color = "gray", 
+            size = 0.075), strip.text = element_text(colour = "black"), plot.subtitle = element_text(size = 9.5, 
+            face = "italic", color = "blue"))
+    
+    fmt_dcimals <- function(decimals = 0) {
+        # return a function responpsible for formatting the axis labels with a given number of decimals
+        function(x) as.character(round(x, decimals))
+    }
+    
+    tmp <- names(x)[2:(ncol(x) - 1)]
+    
+    facet_formula <- paste(tmp, collapse = "+")
+    facet_formula <- paste0(".", "~", facet_formula)
+    facet_formula <- as.formula(facet_formula)
+    p <- function(data) {
+        
+        g <- ggplot(data = data, aes_string(x = names(data)[1], y = names(data)[ncol(data)])) + geom_bar(stat = "identity", 
+            width = bar_width) + coord_flip() + scale_y_continuous(labels = fmt_dcimals(2), breaks = pretty_breaks(n = 9), 
+            expand = c(0, 0.015)) + my_theme
+        if (ncol(data) > 2) {
+            title = "Conditional Probabilities"
+            subtitle <- gsub(pattern = "_", replacement = " ", names(x)[1])
+            given_nodes <- gsub(pattern = "_", replacement = " ", paste(names(x)[2:(ncol(x) - 1)], collapse = " : "))
+            subtitle <- paste0(subtitle, " / ", given_nodes)
+            g = g + facet_wrap(facet_formula, labeller = function(labs) {
+                if (show_states_only) {
+                  label_value(labs, multi_line = FALSE)
+                  
+                } else {
+                  label_both(labs, multi_line = FALSE, sep = separator)
+                }
+            }, ncol = ncol_facet)
+        } else {
+            title <- gsub(pattern = "_", replacement = " ", target_node)
+            subtitle <- NULL
+        }
+        
+        g + labs(title = title, subtitle = subtitle, x = "Node States", y = "Probabilities")
+    }
+    
+    if (n_pages > 1) {
+        pages_range <- ceiling(nrow(x)/n_pages)
+        pages_range <- c(seq.int(from = 1, to = nrow(x), by = pages_range), nrow(x))
+        pages_range <- c((pages_range[2:(length(pages_range) - 1)]) - 1, pages_range)
+        pages_range <- sort(unique(pages_range), decreasing = FALSE)
+        pages_range <- matrix(pages_range, ncol = 2, byrow = T)
+        pages_range <- as.list(data.frame(t(pages_range)))
+        rows2match <- lapply(pages_range, function(i) {
+            x[i[1]:i[2], ]
+        })
+        lapply(rows2match, p)
+    } else {
+        p(x)
+    }
+    
 }

@@ -21,14 +21,14 @@ Each row of the marginal attribute of the estimate object, representing a variab
 ## This example is taken fom decisionSupport
 library (decisionSupport)
 # Create an estimate from text (with correlated components):
-estimateTextMarg<-"variable,  distribution, lower, upper
+estimateTextMarg<-'variable,  distribution, lower, upper
 revenue1,  posnorm,      100,   1000
 revenue2,  posnorm,      50,    2000
 costs1,    posnorm,      50,    2000
-costs2,    posnorm,      100,   1000"
-estimateTextCor<-",         revenue1, costs2
+costs2,    posnorm,      100,   1000'
+estimateTextCor<-',         revenue1, costs2
 revenue1,        1,   -0.3
-costs2,       -0.3,      1"
+costs2,       -0.3,      1'
 estimateCor <- as.estimate (read.csv (header=TRUE, text=estimateTextMarg,
 strip.white = TRUE, stringsAsFactors = FALSE),
 correlation_matrix = data.matrix (read.csv (text = estimateTextCor,

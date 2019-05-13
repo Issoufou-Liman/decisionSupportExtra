@@ -74,22 +74,22 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 ## Graphical Independence Network ####
 network <- grain(network)
 ## plot the grain as graph
-graphviz_plot_net(network, shape="ellipse", layout = "dot",
-cex = 0.5, plot_bg = "#DFE3EE", highlit_some_nodes = "Soil_water_holding_capacity",
-highlit_some_nodes_col = "red", abbreviate = FALSE, node_col = "white", node_lwd = 1)
+graphviz_plot_net(network, shape='ellipse', layout = 'dot',
+cex = 0.5, plot_bg = '#DFE3EE', highlit_some_nodes = 'Soil_water_holding_capacity',
+highlit_some_nodes_col = 'red', abbreviate = FALSE, node_col = 'white', node_lwd = 1)
 
 ## converting the grain bayesian network to bn.fit
 network_bn_fit <- as.bn.fit(network)
 ## plot the bn.fit as graph
-graphviz_plot_net(network_bn_fit, shape="ellipse", layout = "dot",
-cex = 0.5, plot_bg = "#DFE3EE", highlit_some_nodes = "Soil_water_holding_capacity",
-highlit_some_nodes_col = "red", abbreviate = FALSE, node_col = "white", node_lwd = 1)
+graphviz_plot_net(network_bn_fit, shape='ellipse', layout = 'dot',
+cex = 0.5, plot_bg = '#DFE3EE', highlit_some_nodes = 'Soil_water_holding_capacity',
+highlit_some_nodes_col = 'red', abbreviate = FALSE, node_col = 'white', node_lwd = 1)
 ## extracting the string model
 string_model <- modelstring(network_bn_fit)
 ## plot the bn as graph
-graphviz_plot_net(string_model, shape="ellipse", layout = "dot",
-cex = 0.5, plot_bg = "#DFE3EE", highlit_some_nodes = "Soil_water_holding_capacity",
-highlit_some_nodes_col = "red", abbreviate = FALSE, node_col = "white", node_lwd = 1)
+graphviz_plot_net(string_model, shape='ellipse', layout = 'dot',
+cex = 0.5, plot_bg = '#DFE3EE', highlit_some_nodes = 'Soil_water_holding_capacity',
+highlit_some_nodes_col = 'red', abbreviate = FALSE, node_col = 'white', node_lwd = 1)
 ## extract the entire Bayesian network as it is
 extract_bn(network_bn_fit, modelstring(as.bn.fit(network)))
 }

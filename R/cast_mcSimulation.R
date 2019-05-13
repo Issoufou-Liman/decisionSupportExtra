@@ -9,16 +9,16 @@
 #' @return
 #' If x is a list, then a list of simulated output is returned. Otherwise, a dataframe is returned.
 #' @export
-cast_mcSimulation <- function(x){
-  f <- function(mcSim){
-    mcSim$y
-  }
-  if((inherits(x, 'mcSimulation', which = TRUE) == 1)) {
-    out <- f(x)
-  } else if ((inherits(x, 'list', which = TRUE) == 1)) {
-    out <- sapply(x, FUN = cast_mcSimulation, simplify = FALSE, USE.NAMES = TRUE)
-  } else {
-    stop(paste(deparse(substitute(x)), 'must be of class mcSimulation,
-               list of mcSimulation, or a list of arbitratry depth of mcSimulation objects.'))
-  }
+cast_mcSimulation <- function(x) {
+    f <- function(mcSim) {
+        mcSim$y
+    }
+    if ((inherits(x, "mcSimulation", which = TRUE) == 1)) {
+        out <- f(x)
+    } else if ((inherits(x, "list", which = TRUE) == 1)) {
+        out <- sapply(x, FUN = cast_mcSimulation, simplify = FALSE, USE.NAMES = TRUE)
+    } else {
+        stop(paste(deparse(substitute(x)), "must be of class mcSimulation,
+               list of mcSimulation, or a list of arbitratry depth of mcSimulation objects."))
+    }
 }
