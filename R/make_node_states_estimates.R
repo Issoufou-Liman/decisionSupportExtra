@@ -61,20 +61,19 @@ make_node_states_estimates <- function(bn, node, op, distr = "beta", state_effec
     node <- as.data.frame(node)
     # query_set <- rownames(node)
     node <- mapply("*", node, state_effects)
-    
+
     # scale_states <- function(proba, state_effects){ tmp0 <- mapply('*', proba, state_effects) tmp1 <-
     # sum(tmp0) tmp0/tmp1 } node <- t(apply(X = node, MARGIN = 1, FUN = scale_states, state_effects =
     # state_effects))
     node <- as.data.frame(node)
-    
+
     # node <- data.frame(query_set=query_set, node)
     names(node) <- paste0(tag, "=", names(node))
-    node
     if (length(distr) == 1) {
         distr <- rep(distr, ncol(node))
         warning("A single distribution specified, using it for all nodes states")
     }
-    out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975), 
+    out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975),
         plot = TRUE, show.output = TRUE, estimate_method = "fit")
     as.list(out)
 }
