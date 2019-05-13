@@ -5,7 +5,7 @@
 \title{Create \code{\link[decisionSupport]{estimate}} for Bayesain network node}
 \usage{
 make_node_states_estimates(bn, node, op, distr = "beta", state_effects,
-  evidence = NULL, plot = TRUE, show.output = TRUE)
+  evidence = NULL)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -21,10 +21,6 @@ make_node_states_estimates(bn, node, op, distr = "beta", state_effects,
 \item{state_effects}{numeric vector specifying the relative weight factor of each state in the final estimate.}
 
 \item{evidence}{a name value pair:a named character vector which values are node states and names are node names.}
-
-\item{plot}{logical. Should the quantile function be ploted? default to TRUE}
-
-\item{show.output}{Should the computation be verbose? default to TRUE.}
 }
 \description{
 create a multivariate \code{\link[decisionSupport]{estimate}} object for Bayesian network node.

@@ -25,6 +25,7 @@
 #' as.list (estimateCor)
 #' @importFrom decisionSupport estimate
 #' @importFrom decisionSupport as.estimate
+#' @method as.list estimate
 #' @export
 as.list.estimate <- function(x, ...) {
     # removing the class attr

@@ -17,24 +17,24 @@ rbind method for estimate class from decisionSupport package.
 library (decisionSupport)
 
 # Create an estimate with optional columns (only marginal information supplied):
-estimateMarg<-estimate(           c('posnorm', 'lnorm'),
+estimateMarg<-estimate(           c("posnorm", "lnorm"),
 c(        4,       4),
 c(       50,      10),
-variable=c('revenue', 'costs'),
-median = c(   'mean',      NA),
-method = c(    'fit',      ''))
+variable=c("revenue", "costs"),
+median = c(   "mean",      NA),
+method = c(    "fit",      ""))
 print(estimateMarg)
 print(corMat(estimateMarg))
 
 # Create an estimate from text (with correlated components):
-estimateTextMarg<-'variable,  distribution, lower, upper
+estimateTextMarg<-"variable,  distribution, lower, upper
 revenue1,  posnorm,      100,   1000
 revenue2,  posnorm,      50,    2000
 costs1,    posnorm,      50,    2000
-costs2,    posnorm,      100,   1000'
-estimateTextCor<-',         revenue1, costs2
+costs2,    posnorm,      100,   1000"
+estimateTextCor<-",         revenue1, costs2
 revenue1,        1,   -0.3
-costs2,       -0.3,      1'
+costs2,       -0.3,      1"
 estimateCor <- as.estimate (read.csv (header=TRUE, text=estimateTextMarg,
 strip.white = TRUE, stringsAsFactors = FALSE),
 correlation_matrix = data.matrix (read.csv (text = estimateTextCor,

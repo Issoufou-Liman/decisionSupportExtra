@@ -6,8 +6,8 @@
 #' @param data The base data or list of base data such that fun (data), or do.call (fun, data) will either return a data.frame or a numeric vector coercible to data.frame. see example.
 #' @param fun Thefunction to be applied to data.
 #' @param distr charater vector. The expected probability distribution function.
-#' @param method Distribution fitting method (see method argument in \code{\link[fitdistrplus]{fitdist}}). default to 'mge' (maximum goodness-of-fit estimation).
-#' @param estimate_method character vector. Method to be used for estimating the marginal distribution parameters as in \code{\link[decisionSupport]{estimate}}. If null, the default, method is set to 'fit' (see \code{\link[decisionSupport]{estimate}}).
+#' @param method Distribution fitting method (see method argument in \code{\link[fitdistrplus]{fitdist}}). default to "mge" (maximum goodness-of-fit estimation).
+#' @param estimate_method character vector.	Method to be used for estimating the marginal distribution parameters as in \code{\link[decisionSupport]{estimate}}. If null, the default, method is set to "fit" (see \code{\link[decisionSupport]{estimate}}).
 #' @param percentiles numeric vector of percentiles based on which to define a quantile function to be used for fitting distr with rriskDistributions package.
 #' @param plot logical. Should the quantile function be ploted? default to TRUE
 #' @param show.output Should the computation be verbose? default to TRUE.
@@ -69,50 +69,48 @@
 #' @importFrom decisionSupport as.estimate
 #' @importFrom graphics par
 #' @export
-guess_decisionSupport_estimates <- function(data, fun = NULL, distr = "norm", method = "mge", estimate_method = NULL,
-    percentiles = c(0.025, 0.975), plot = TRUE, show.output = TRUE) {
-    default_par <- par(no.readonly = TRUE)
-    if (!is.null(fun) & inherits(data, "list")) {
-        data <- do.call(fun, data)
-        if (!is(data, "data.frame") & !is.numeric(data)) {
-            stop("fun must return a matrix or data.frame")
-        }
+guess_decisionSupport_estimates <- function(data, fun = NULL, distr = 'norm', method="mge", estimate_method = NULL, percentiles = c(0.025, 0.975), plot = TRUE, show.output = TRUE){
+  default_par <- par(no.readonly = TRUE)
+  if(!is.null(fun) & inherits(data, 'list')){
+    data <- do.call(fun, data)
+    if (!is(data, 'data.frame') & !is.numeric(data)){
+      stop('fun must return a matrix or data.frame')
     }
-    if (is.numeric(data) | is.matrix(data)) {
-        data <- as.data.frame(data)
-    }
-    tmp <- 1:ncol(data)
-    names(tmp) <- names(data)
-    if (length(distr) == 1) {
-        distr = rep(distr, ncol(data))
-    }
-    fitted <- sapply(X = tmp, function(i) {
-        fitted <- data[, i]
-        distr <- distr[i]
-        fitted <- fitdist(data = fitted, distr = distr, method = method)$estimate
-        q_dist <- paste0("q", distr)
-        q_dist_args <- list(percentiles)
-        q_dist_args <- c(q_dist_args, as.list(fitted))
-        q <- do.call(q_dist, q_dist_args)
-        fonction <- get(paste("get", distr, "par", sep = "."))
-        dist_par <- fonction(q = q, plot = plot, show.output = show.output)
-        r_dist <- paste0("r", distr)
-        estimates <- summary(do.call(r_dist, as.list(c(1000, dist_par))))[c(1, 3, 6)]
-        estimates <- c(estimates, distr)
-        names(estimates) <- c("lower", "median", "upper", "distribution")
-        estimates
-    }, simplify = FALSE, USE.NAMES = TRUE)
-    estimates <- sapply(names(fitted), function(i) fitted[[i]])
-    estimates <- as.data.frame(t(estimates), stringsAsFactors = FALSE)
-    if (is.null(estimate_method)) {
-        estimate_method <- rep("fit", nrow(estimates))
-    } else if (length(estimate_method) == 1) {
-        estimate_method <- rep(estimate_method, nrow(estimates))
-    } else if (length(estimate_method) != nrow(estimates)) {
-        stop(paste("A vector of distribution of length", nrow(estimates), "was expected but only", length(estimate_method),
-            "were provided."))
-    }
-    estimates$method <- estimate_method
-    par(default_par)
-    as.estimate(estimates)
+  }
+  if(is.numeric(data)|is.matrix(data)){
+    data <- as.data.frame(data)
+  }
+  tmp <- 1:ncol(data)
+  names(tmp) <- names(data)
+  if(length(distr) == 1){
+    distr = rep(distr, ncol(data))
+  }
+  fitted <- sapply(X = tmp, function (i){
+    fitted <- data [, i]
+    distr <- distr[i]
+    fitted <- fitdist(data = fitted, distr = distr, method = method)$estimate
+    q_dist <- paste0 ('q', distr)
+    q_dist_args <- list(percentiles)
+    q_dist_args <- c(q_dist_args, as.list(fitted))
+    q <- do.call(q_dist, q_dist_args)
+    fonction <- get(paste('get', distr, 'par', sep = '.'))
+    dist_par <-  fonction(q = q, plot = plot, show.output = show.output)
+    r_dist <- paste0 ('r', distr)
+    estimates <- summary(do.call(r_dist, as.list(c(1000, dist_par))))[c(1, 3, 6)]
+    estimates <- c(estimates, distr)
+    names(estimates) <- c('lower', 'median', 'upper', 'distribution')
+    estimates
+  }, simplify = FALSE, USE.NAMES = TRUE)
+  estimates <- sapply(names(fitted), function(i) fitted[[i]])
+  estimates <- as.data.frame(t(estimates), stringsAsFactors = FALSE)
+  if(is.null(estimate_method)){
+    estimate_method <- rep('fit', nrow(estimates))
+  } else if (length(estimate_method) == 1){
+    estimate_method <- rep(estimate_method, nrow(estimates))
+  } else if(length(estimate_method) != nrow(estimates)){
+    stop(paste('A vector of distribution of length', nrow(estimates), 'was expected but only', length(estimate_method), 'were provided.'))
+  }
+  estimates$method <- estimate_method
+  par(default_par)
+  as.estimate(estimates)
 }

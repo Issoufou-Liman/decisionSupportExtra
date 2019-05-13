@@ -15,9 +15,9 @@ guess_decisionSupport_estimates(data, fun = NULL, distr = "norm",
 
 \item{distr}{charater vector. The expected probability distribution function.}
 
-\item{method}{Distribution fitting method (see method argument in \code{\link[fitdistrplus]{fitdist}}). default to 'mge' (maximum goodness-of-fit estimation).}
+\item{method}{Distribution fitting method (see method argument in \code{\link[fitdistrplus]{fitdist}}). default to "mge" (maximum goodness-of-fit estimation).}
 
-\item{estimate_method}{character vector. Method to be used for estimating the marginal distribution parameters as in \code{\link[decisionSupport]{estimate}}. If null, the default, method is set to 'fit' (see \code{\link[decisionSupport]{estimate}}).}
+\item{estimate_method}{character vector.    Method to be used for estimating the marginal distribution parameters as in \code{\link[decisionSupport]{estimate}}. If null, the default, method is set to "fit" (see \code{\link[decisionSupport]{estimate}}).}
 
 \item{percentiles}{numeric vector of percentiles based on which to define a quantile function to be used for fitting distr with rriskDistributions package.}
 
