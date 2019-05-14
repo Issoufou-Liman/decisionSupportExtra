@@ -6,6 +6,7 @@
 #'
 #' @author Issoufou Liman
 #' @inheritParams sample_cpdist
+#' @inheritParams guess_decisionSupport_estimates
 #' @inheritParams fitdistrplus::fitdist
 #' @param state_effects numeric vector specifying the relative weight factor of each state in the final estimate.
 #' @seealso \code{\link[decisionSupport]{estimate}}.
@@ -50,7 +51,8 @@
 #' @importFrom stats na.omit
 #' @export
 make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
-                                       state_effects = NULL, evidence = NULL) {
+                                       state_effects = NULL, evidence = NULL,
+                                       plot = FALSE, show.output = FALSE) {
     # , state_effects = c(1/3, 1/2, 1)
     bn <- check_bn(bn,include_cpt = TRUE)
     tag <- node
@@ -80,6 +82,6 @@ make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
         warning("A single distribution specified, using it for all nodes states")
     }
     out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975),
-        plot = TRUE, show.output = TRUE, estimate_method = "fit")
+        plot = plot, show.output = show.output, estimate_method = "fit")
     as.list.estimate(out)
 }

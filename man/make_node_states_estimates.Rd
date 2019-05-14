@@ -5,7 +5,8 @@
 \title{Create \code{\link[decisionSupport]{estimate}} for Bayesain network node}
 \usage{
 make_node_states_estimates(bn, node, op = "proba", distr = "beta",
-  state_effects = NULL, evidence = NULL)
+  state_effects = NULL, evidence = NULL, plot = FALSE,
+  show.output = FALSE)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -14,13 +15,15 @@ make_node_states_estimates(bn, node, op = "proba", distr = "beta",
 
 \item{op}{a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution}
 
-\item{distr}{A character string \code{"name"} naming a distribution for which the corresponding
-    density function \code{dname}, the corresponding distribution function \code{pname} and the 
-    corresponding quantile function \code{qname} must be defined, or directly the density function.}
+\item{distr}{charater vector. The expected probability distribution function.}
 
 \item{state_effects}{numeric vector specifying the relative weight factor of each state in the final estimate.}
 
 \item{evidence}{a name value pair:a named character vector which values are node states and names are node names.}
+
+\item{plot}{logical. Should the quantile function be ploted? default to FALSE}
+
+\item{show.output}{Should the computation be verbose? default to FALSE}
 }
 \description{
 create a multivariate \code{\link[decisionSupport]{estimate}} object for Bayesian network node.

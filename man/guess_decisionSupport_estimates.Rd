@@ -6,7 +6,7 @@
 \usage{
 guess_decisionSupport_estimates(data, fun = NULL, distr = "norm",
   method = "mge", estimate_method = NULL, percentiles = c(0.025,
-  0.975), plot = TRUE, show.output = TRUE)
+  0.975), plot = FALSE, show.output = FALSE)
 }
 \arguments{
 \item{data}{The base data or list of base data such that fun (data), or do.call (fun, data) will either return a data.frame or a numeric vector coercible to data.frame. see example.}
@@ -21,9 +21,9 @@ guess_decisionSupport_estimates(data, fun = NULL, distr = "norm",
 
 \item{percentiles}{numeric vector of percentiles based on which to define a quantile function to be used for fitting distr with rriskDistributions package.}
 
-\item{plot}{logical. Should the quantile function be ploted? default to TRUE}
+\item{plot}{logical. Should the quantile function be ploted? default to FALSE}
 
-\item{show.output}{Should the computation be verbose? default to TRUE.}
+\item{show.output}{Should the computation be verbose? default to FALSE}
 }
 \value{
 estimate object as returned by \code{\link[decisionSupport]{estimate}} or a list of thereof depending on the data provided.

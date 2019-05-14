@@ -9,8 +9,8 @@
 #' @param method Distribution fitting method (see method argument in \code{\link[fitdistrplus]{fitdist}}). default to "mge" (maximum goodness-of-fit estimation).
 #' @param estimate_method character vector.	Method to be used for estimating the marginal distribution parameters as in \code{\link[decisionSupport]{estimate}}. If null, the default, method is set to "fit" (see \code{\link[decisionSupport]{estimate}}).
 #' @param percentiles numeric vector of percentiles based on which to define a quantile function to be used for fitting distr with rriskDistributions package.
-#' @param plot logical. Should the quantile function be ploted? default to TRUE
-#' @param show.output Should the computation be verbose? default to TRUE.
+#' @param plot logical. Should the quantile function be ploted? default to FALSE
+#' @param show.output Should the computation be verbose? default to FALSE
 #' @return estimate object as returned by \code{\link[decisionSupport]{estimate}} or a list of thereof depending on the data provided.
 #' @details In decisonSupport package, \code{\link[decisionSupport]{estimate}} assumes the case where hard data are not available and expert can agree on a set of estimated benchmarking (i.e. minimum, mediam, maximun) values and distributions based on which data can generated to support decision making under uncertainity. guess_decisionSupport_estimates () function provide additional ways to derive such estimates from the persepectives where some sort of hard data are available. The function is more useful when intermediate computations are needed to generate the desired the data. For example it can use the data generating function (fun argument) to construct intermediate outputs upon which it derives the recipies required by \code{\link[decisionSupport]{estimate}}. This could be useful for variables that difficult to be directly estimated by experts.
 #' @seealso \code{\link[decisionSupport]{estimate}}.
@@ -69,7 +69,10 @@
 #' @importFrom decisionSupport as.estimate
 #' @importFrom graphics par
 #' @export
-guess_decisionSupport_estimates <- function(data, fun = NULL, distr = 'norm', method="mge", estimate_method = NULL, percentiles = c(0.025, 0.975), plot = TRUE, show.output = TRUE){
+guess_decisionSupport_estimates <- function(data, fun = NULL, distr = 'norm',
+                                            method="mge", estimate_method = NULL,
+                                            percentiles = c(0.025, 0.975),
+                                            plot = FALSE, show.output = FALSE){
   default_par <- par(no.readonly = TRUE)
   if(!is.null(fun) & inherits(data, 'list')){
     data <- do.call(fun, data)
