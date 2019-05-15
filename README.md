@@ -28,8 +28,7 @@ other usage.
 
 decisionSupportExtra is at the early development stage, hence your
 inputs will be much appreciate. Yet, you can install the developement
-version
-using:
+version using:
 
 ``` r
 devtools::install_github("Issoufou-Liman/decisionSupportExtra") 

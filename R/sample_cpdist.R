@@ -42,45 +42,48 @@
 #' ## converting the grain bayesian network to bn.fit
 #' network <- as.bn.fit(network)
 #' sample_cpdist (network, 'Soil_water_holding_capacity')
-#' @importFrom bnlearn nodes cpdist as.grain parents
+#' @importFrom bnlearn nodes cpdist as.grain parents ancestors
 #' @importFrom gRain nodeStates
 #' @export
 sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL, n_generation = NULL) {
     op <- match.arg(op)
+    bn <- check_bn(bn, include_cpt = TRUE)
+    evidence <- check_bn_nodes(bn = bn, evidence = evidence)
+    evidence <- check_bn_node_states(bn = bn, evidence = evidence)
     # getting all nodes before the target
-    query_list <- parents(x = bn, node = node)
-    # removing nodes corresponding to evidence
-    if (!is.null(evidence)) {
-        # sanity check on evidence
-        if (length(names(evidence)) == 0) {
-            warning("evidence does not map to any node in the network. evidence will be ignored.")
-            evidence = NULL
-        } else {
-            # names exists but are they correct?
-            wrong_evid_names <- names(evidence)[!(names(evidence) %in% nodes(bn))]
-            if (length(wrong_evid_names) > 0) {
-                warning(paste("Node names", wrong_evid_names, "in evidence: ignored as inconsistant with nodes in the network."))
-                evidence <- evidence[!(names(evidence) %in% wrong_evid_names)]
-            }
-            out_evid_names <- names(evidence)[!(names(evidence) %in% query_list)]
-            in_evid_names <- names(evidence)[(names(evidence) %in% query_list)]
-            query_list <- c(query_list, out_evid_names)
-            if (length(in_evid_names) != 0) {
-                query_list[names(in_evid_names)] <- in_evid_names
-            }
+    if (is.null(n_generation)) {
+        query_list <- parents(x = bn, node = node)
+    } else {
+        pedigree <- ancestors(x = bn, node = node)
+        if(n_generation > length(pedigree)){
+            n_generation <- length(pedigree)
         }
+        query_list <- pedigree[1:n_generation]
     }
+
+    out_evid_names <- names(evidence)[!(names(evidence) %in% query_list)]
+    in_evid_names <- names(evidence)[(names(evidence) %in% query_list)]
+    query_list <- c(query_list, out_evid_names)
+    if (length(in_evid_names) != 0) {
+        query_list[names(in_evid_names)] <- in_evid_names
+    }
+
     query_list <- nodeStates(x = as.grain(x = bn), query_list)
+    if(is.list(evidence)){ # then node states are involved
+        query_list[names(query_list) %in% names(evidence)] <- evidence
+    }
     query_list <- expand.grid(query_list, stringsAsFactors = FALSE)
     prior <- query_list
-    
-    g <- function(x) {
-        parse(text = paste0("(", colnames(x), "==", "'", x, "'", ")", collapse = "&"))
-    }
-    
-    query_list <- lapply(1:nrow(query_list), function(i) {
-        evidence <- g(query_list[i, ])
-        cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=", 
+
+    tmp <- 1:nrow(query_list); names(tmp) <- names(query_list)
+    query_list <- sapply(tmp, function(i) {
+        if(ncol(query_list) == 1){
+            evidence <- query_list[i, , drop = FALSE]
+        } else {
+            evidence <- query_list[i, ]
+        }
+        evidence <- make_bnlearn_evidence(bn = bn, evidence = evidence)
+        cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=",
             evidence, ")")
         out <- eval(parse(text = cmd))
         if (op == "proba") {
@@ -95,7 +98,7 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
             colnames(out) <- paste(node, "|", evidence)
         }
         return(out)
-    })
+    }, simplify = FALSE)
     if (op == "proba") {
         query_list <- do.call(rbind, query_list)
     }

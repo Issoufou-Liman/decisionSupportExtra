@@ -61,7 +61,11 @@ make_bnlearn_evidence <- function(bn, evidence){
 
   evidence <- expand.grid(evidence, stringsAsFactors = FALSE)
   evidence <- sapply(1:nrow(evidence), function (i){
-    evidence[i, ]
+    out <- evidence[i, ]
+    if (ncol(evidence) == 1){
+      names(out) <- colnames(evidence)
+    }
+    return(out)
   }, simplify = FALSE)
 
   format_bnlearn_evidence <- function(x){

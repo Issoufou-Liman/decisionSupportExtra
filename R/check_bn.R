@@ -68,19 +68,20 @@ check_bn_nodes <- function(bn, evidence) {
     if (any(evidence == "") | any(is.na(evidence))){
       stop("evidence vector should not contain null character")
     }
+    names(evidence) <- evidence
     return(evidence)
   }
   return(evidence)
 }
 
 check_bn_node_states <- function(bn, evidence) {
-  node_states <- nodeStates(as.grain(bn), names(evidence))
-  check_it <- mapply(function(x, y) sort(x) %in% sort(y), evidence, node_states)
-  if(is.list(check_it)){
+  if(is.list(evidence)){
+    node_states <- nodeStates(as.grain(bn), names(evidence))
+    check_it <- mapply(function(x, y) sort(x) %in% sort(y), evidence, node_states)
     check_it <- unlist(check_it, recursive = TRUE)
-  }
-  if(!all(check_it == TRUE)){
-    stop("invalid node states detected in evidence, please check it!")
+    if(!all(check_it == TRUE)){
+      stop("invalid node states detected in evidence, please check it!")
+    }
   }
   return(evidence)
 }
