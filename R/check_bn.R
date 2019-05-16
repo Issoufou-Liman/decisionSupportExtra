@@ -47,7 +47,7 @@ split_labels_accross_lines <- function(x, line_leng = 10) {
 
 check_bn_nodes <- function(bn, evidence) {
   ## evidence that are not named are maybe node names
-  if (is.null(names(evidence)) || is.na(names(evidence)) || names(evidence) == ""){
+  if (is.null(names(evidence))){
     names(evidence) <- evidence
   }
   ## Some may not be named

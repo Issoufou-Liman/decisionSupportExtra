@@ -10,6 +10,8 @@
 #' @param op a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution
 #' @param evidence a name value pair:a named character vector which values are node states and names are node names.
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
+#' @param include_relatives logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
+#' If TRUE, the default, these will be internally involved as evidence.
 #' @return A matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
 #' @seealso \code{\link[bnlearn]{cpquery}}

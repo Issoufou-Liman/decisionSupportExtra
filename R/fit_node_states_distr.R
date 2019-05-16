@@ -45,12 +45,12 @@
 #' fit_node_states_distr (bn = network_bn_fit,
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @export
-fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method = "mme", start = NULL, 
+fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method = "mme", start = NULL,
     fix.arg = NULL, discrete, keepdata = TRUE, keepdata.nb = 100, ...) {
-    
+
     bn <- check_bn(bn, include_cpt = TRUE)
-    
-    node <- eval(as.expression(substitute(sample_cpdist(bn, node, op))))
+
+    node <- sample_cpdist(bn = bn, node = node, op = op, evidence = NULL, include_relatives = TRUE)
     node <- node$posterior
     if (missing(discrete)) {
         if (is.element(distr, c("binom", "nbinom", "geom", "hyper", "pois"))) {
@@ -59,7 +59,7 @@ fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method
             discrete <- FALSE
         }
     }
-    
+
     distr <- check_fitdist_args(distr, node)
     method <- check_fitdist_args(method, node)
     start <- check_fitdist_args(start, node)
@@ -67,9 +67,9 @@ fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method
     # discrete <- check_fitdist_args (discrete, node)
     keepdata <- check_fitdist_args(keepdata, node)
     keepdata.nb <- check_fitdist_args(keepdata.nb, node)
-    
+
     tmp <- lapply(as.list(1:ncol(node)), function(i) {
-        fitdist(node[, i], distr = distr[i], method = method[i], start = start[i], fix.arg = fix.arg[i], 
+        fitdist(node[, i], distr = distr[i], method = method[i], start = start[i], fix.arg = fix.arg[i],
             discrete = discrete[i], keepdata = keepdata[i], keepdata.nb = keepdata.nb[i], ...)
     })
     names(tmp) <- colnames(node)
