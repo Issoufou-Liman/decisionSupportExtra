@@ -81,8 +81,15 @@ calc_norm <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
   harvest_index = harvest_index, stage_ratio = stage_ratio), estimate_method = 'calculate',
   fun = guess_biomass_yield, distr = 'norm', percentiles = c(0.025, 0.5, 0.975),
   plot = FALSE, show.output = FALSE)
+
+ ## Try with a constant with a function
+ calc_const_with_fun <- guess_decisionSupport_estimates(data = 1, fun = "sum")
+
+ ## Try with a constant without function
+ calc_const_without_fun <- guess_decisionSupport_estimates(data = 100)
+
 ## Check the difference
-calc_gamma; fit_gamma; calc_norm
+calc_gamma; fit_gamma; calc_norm; calc_const_with_fun; calc_const_without_fun
 }
 \seealso{
 \code{\link[decisionSupport]{estimate}}.

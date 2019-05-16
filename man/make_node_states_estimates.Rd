@@ -5,7 +5,9 @@
 \title{Create \code{\link[decisionSupport]{estimate}} for Bayesain network node}
 \usage{
 make_node_states_estimates(bn, node, op = "proba", distr = "beta",
-  state_effects = NULL, evidence = NULL, plot = FALSE,
+  state_effects = NULL, evidence = NULL, n_generation = NULL,
+  include_relatives = TRUE, estimate_method = "fit",
+  percentiles = c(0.025, 0.5, 0.975), plot = FALSE,
   show.output = FALSE)
 }
 \arguments{
@@ -20,6 +22,15 @@ make_node_states_estimates(bn, node, op = "proba", distr = "beta",
 \item{state_effects}{numeric vector specifying the relative weight factor of each state in the final estimate.}
 
 \item{evidence}{a name value pair:a named character vector which values are node states and names are node names.}
+
+\item{n_generation}{how far to go in the network topology for building the conditionning specification for the query?}
+
+\item{include_relatives}{logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
+If TRUE, the default, these will be internally involved in constructing the evidence argument.}
+
+\item{estimate_method}{character vector.    Method to be used for estimating the marginal distribution parameters as in \code{\link[decisionSupport]{estimate}}. If null, the default, method is set to "fit" (see \code{\link[decisionSupport]{estimate}}).}
+
+\item{percentiles}{numeric vector of percentiles based on which to define a quantile function to be used for fitting distr with rriskDistributions package.}
 
 \item{plot}{logical. Should the quantile function be ploted? default to FALSE}
 

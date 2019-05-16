@@ -6,10 +6,10 @@
 \usage{
 fit_node_states_distr(bn, node, op = "proba", distr = "beta",
   method = "mme", start = NULL, fix.arg = NULL, discrete,
-  keepdata = TRUE, keepdata.nb = 100, ...)
+  keepdata = TRUE, keepdata.nb = 100, include_relatives = TRUE, ...)
 }
 \arguments{
-\item{bn}{an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.}
+\item{bn}{an object of class bn.fit.}
 
 \item{node}{character string, the label of the node which conditional distribution is of interest.}
 
@@ -47,6 +47,9 @@ fit_node_states_distr(bn, node, op = "proba", distr = "beta",
     otherwise only a sample subset is returned.}
 
 \item{keepdata.nb}{When \code{keepdata=FALSE}, the length (>1) of the subset returned.}
+
+\item{include_relatives}{logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
+If TRUE, the default, these will be internally involved in constructing the evidence argument.}
 
 \item{...}{Further arguments to be passed to generic functions, or to one of the functions
     \code{"mledist"},  \code{"mmedist"}, \code{"qmedist"} or \code{"mgedist"}

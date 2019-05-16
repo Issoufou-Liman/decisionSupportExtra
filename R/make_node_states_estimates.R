@@ -8,6 +8,7 @@
 #' @inheritParams sample_cpdist
 #' @inheritParams guess_decisionSupport_estimates
 #' @inheritParams fitdistrplus::fitdist
+#' @inheritParams guess_decisionSupport_estimates
 #' @param state_effects numeric vector specifying the relative weight factor of each state in the final estimate.
 #' @seealso \code{\link[decisionSupport]{estimate}}.
 #' @details see \code{\link[decisionSupport]{estimate}}.
@@ -52,11 +53,14 @@
 #' @export
 make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
                                        state_effects = NULL, evidence = NULL,
+                                       n_generation = NULL, include_relatives = TRUE,
+                                       estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
                                        plot = FALSE, show.output = FALSE) {
     # , state_effects = c(1/3, 1/2, 1)
     bn <- check_bn(bn,include_cpt = TRUE)
     tag <- node
-    node <- sample_cpdist(bn = bn, node = node, op = op, evidence = evidence)
+    node <- sample_cpdist(bn = bn, node = node, op = op,
+                          evidence = evidence, n_generation = n_generation, include_relatives = include_relatives)
     # print(head(node))
     node <- na.omit(node$posterior)
     node <- as.data.frame(node)
@@ -81,7 +85,7 @@ make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
         distr <- rep(distr, ncol(node))
         warning("A single distribution specified, using it for all nodes states")
     }
-    out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = c(0.025, 0.5, 0.975),
-        plot = plot, show.output = show.output, estimate_method = "fit")
+    out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = percentiles,
+        plot = plot, show.output = show.output, estimate_method = estimate_method)
     as.list.estimate(out)
 }

@@ -61,8 +61,15 @@
 #'   harvest_index = harvest_index, stage_ratio = stage_ratio), estimate_method = 'calculate',
 #'   fun = guess_biomass_yield, distr = 'norm', percentiles = c(0.025, 0.5, 0.975),
 #'   plot = FALSE, show.output = FALSE)
+#'
+#'  ## Try with a constant with a function
+#'  calc_const_with_fun <- guess_decisionSupport_estimates(data = 1, fun = "sum")
+#'
+#'  ## Try with a constant without function
+#'  calc_const_without_fun <- guess_decisionSupport_estimates(data = 100)
+#'
 #' ## Check the difference
-#' calc_gamma; fit_gamma; calc_norm
+#' calc_gamma; fit_gamma; calc_norm; calc_const_with_fun; calc_const_without_fun
 #' @import rriskDistributions
 #' @importFrom methods is
 #' @importFrom fitdistrplus fitdist
@@ -89,20 +96,26 @@ guess_decisionSupport_estimates <- function(data, fun = NULL, distr = 'norm',
     distr = rep(distr, ncol(data))
   }
   fitted <- sapply(X = tmp, function (i){
-    fitted <- data [, i]
-    distr <- distr[i]
-    fitted <- fitdist(data = fitted, distr = distr, method = method)$estimate
-    q_dist <- paste0 ('q', distr)
-    q_dist_args <- list(percentiles)
-    q_dist_args <- c(q_dist_args, as.list(fitted))
-    q <- do.call(q_dist, q_dist_args)
-    fonction <- get(paste('get', distr, 'par', sep = '.'))
-    dist_par <-  fonction(q = q, plot = plot, show.output = show.output)
-    r_dist <- paste0 ('r', distr)
-    estimates <- summary(do.call(r_dist, as.list(c(1000, dist_par))))[c(1, 3, 6)]
+    if(length(data[, i]) == 1){
+      estimates <- rep(data[, i], 3)
+      distr <- "const"
+    } else {
+      fitted <- data [, i]
+      distr <- distr[i]
+      fitted <- fitdist(data = fitted, distr = distr, method = method)$estimate
+      q_dist <- paste0 ('q', distr)
+      q_dist_args <- list(percentiles)
+      q_dist_args <- c(q_dist_args, as.list(fitted))
+      q <- do.call(q_dist, q_dist_args)
+      fonction <- get(paste('get', distr, 'par', sep = '.'))
+      dist_par <-  fonction(q = q, plot = plot, show.output = show.output)
+      r_dist <- paste0 ('r', distr)
+      estimates <- summary(do.call(r_dist, as.list(c(1000, dist_par))))[c(1, 3, 6)]
+    }
+
     estimates <- c(estimates, distr)
     names(estimates) <- c('lower', 'median', 'upper', 'distribution')
-    estimates
+    return (estimates)
   }, simplify = FALSE, USE.NAMES = TRUE)
   estimates <- sapply(names(fitted), function(i) fitted[[i]])
   estimates <- as.data.frame(t(estimates), stringsAsFactors = FALSE)

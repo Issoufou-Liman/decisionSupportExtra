@@ -19,7 +19,7 @@ sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
 \item{n_generation}{how far to go in the network topology for building the conditionning specification for the query?}
 
 \item{include_relatives}{logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
-If TRUE, the default, these will be internally involved as evidence.}
+If TRUE, the default, these will be internally involved in constructing the evidence argument.}
 }
 \value{
 A matrix containing either the probabilities or raw data sampled from the posterior distribution

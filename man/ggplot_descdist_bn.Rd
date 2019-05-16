@@ -11,10 +11,11 @@ ggplot_descdist_bn(bn, node, boot = 1000, obs.col = "darkblue",
   dist_geom_line_size = 0.6, axis_text_size = 12,
   axis_title_size = 12, plot_title_size = 20,
   plot_subtitle_size = 17, strip_text_size = 18,
-  legend_text_size = 12)
+  legend_text_size = 12, evidence = NULL, n_generation = NULL,
+  include_relatives = TRUE)
 }
 \arguments{
-\item{bn}{an object of class \code{\link[bnlearn]{bn.fit}} or \code{\link[gRain]{grain-main}}.}
+\item{bn}{an object of class bn.fit.}
 
 \item{node}{character string, the label of the node which conditional distribution is of interest.}
 
@@ -58,6 +59,13 @@ Text size respectively corresponding to axis text (default to 12), axis title (d
 
 \item{legend_text_size}{= 12,
 Text size respectively corresponding to axis text (default to 12), axis title (default to 12), plot title (default to 20), subtitle (default to 17), strip text (default to 18), and legend (default to 12).}
+
+\item{evidence}{a name value pair:a named character vector which values are node states and names are node names.}
+
+\item{n_generation}{how far to go in the network topology for building the conditionning specification for the query?}
+
+\item{include_relatives}{logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
+If TRUE, the default, these will be internally involved in constructing the evidence argument.}
 }
 \description{
 Generate compact plot of Bayesian network node states following the \code{\link[fitdistrplus]{descdist}} function as customizable ggplot.

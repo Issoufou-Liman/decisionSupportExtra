@@ -46,11 +46,12 @@
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @export
 fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method = "mme", start = NULL,
-    fix.arg = NULL, discrete, keepdata = TRUE, keepdata.nb = 100, ...) {
+    fix.arg = NULL, discrete, keepdata = TRUE, keepdata.nb = 100, include_relatives = TRUE, ...) {
 
     bn <- check_bn(bn, include_cpt = TRUE)
 
-    node <- sample_cpdist(bn = bn, node = node, op = op, evidence = NULL, include_relatives = TRUE)
+    node <- sample_cpdist(bn = bn, node = node, op = op,
+                          evidence = NULL, include_relatives = include_relatives)
     node <- node$posterior
     if (missing(discrete)) {
         if (is.element(distr, c("binom", "nbinom", "geom", "hyper", "pois"))) {
