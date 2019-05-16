@@ -46,42 +46,42 @@ split_labels_accross_lines <- function(x, line_leng = 10) {
 }
 
 check_bn_nodes <- function(bn, evidence) {
-  if(is.list(evidence)){
-    if(!(all(names(evidence) %in% nodes(bn)))){
-      warning(paste0(names(evidence)[!(names(evidence) %in% nodes(bn))],
-                     " are not not valid node names in ",
-                     deparse(substitute(bn)),
-                     ". These will be dropped!"))
-      evidence <- evidence[names(evidence) %in% nodes(bn)]
-    }
-    if(any(names(evidence) == "") | any(is.na(names(evidence)))){
-      stop("evidence list should be a named list")
-    }
-    return(evidence)
-  } else if (is.character(evidence)){
-    if(!(all(evidence %in% nodes(bn)))){
-      warning(paste(evidence[!(evidence %in% nodes(bn))],
-                    " are not valid node names in ", deparse(substitute(bn)),
-                    ". These will be dropped!"))
-      evidence <- evidence[evidence %in% nodes(bn)]
-    }
-    if (any(evidence == "") | any(is.na(evidence))){
-      stop("evidence vector should not contain null character")
-    }
+  ## evidence that are not named are maybe node names
+  if (is.null(names(evidence)) || is.na(names(evidence)) || names(evidence) == ""){
     names(evidence) <- evidence
-    return(evidence)
+  }
+  ## Some may not be named
+  names_evid <- names(evidence)
+  names_evid[names_evid == ""] <- evidence[names_evid == ""]
+  names(evidence) <- names_evid
+  ## check these names are valid node names in bn
+  if(!(all(names(evidence) %in% nodes(bn)))){
+    warning(paste0(names(evidence)[!(names(evidence) %in% nodes(bn))],
+                   " are not not valid node names in ",
+                   deparse(substitute(bn)),
+                   ". These will be dropped!"))
+    evidence <- evidence[names(evidence) %in% nodes(bn)]
+  } else if(any(names(evidence) == "") | any(is.na(names(evidence)))){
+    stop("evidence list should be a named list")
   }
   return(evidence)
 }
 
+
 check_bn_node_states <- function(bn, evidence) {
-  if(is.list(evidence)){
-    node_states <- nodeStates(as.grain(bn), names(evidence))
-    check_it <- mapply(function(x, y) sort(x) %in% sort(y), evidence, node_states)
-    check_it <- unlist(check_it, recursive = TRUE)
-    if(!all(check_it == TRUE)){
-      stop("invalid node states detected in evidence, please check it!")
-    }
+  ## check node names validity
+  evidence <- check_bn_nodes(bn, evidence)
+  ## get all node states for all vailid node names
+  node_states <- nodeStates(as.grain(bn), names(evidence))
+  ## check those nodes that seem to have states: if node names is different from it value,
+  ## there maybe node states in play. if so, keep those explicitly specified states.
+  check_it <- mapply(function(x, y) identical(sort(x), sort(y)), evidence, names(evidence))
+  evidence[check_it] <- node_states[check_it]
+  ## Checking invalid node states
+  check_it <- mapply(function(x, y) sort(x) %in% sort(y), evidence, node_states)
+  check_it <- unlist(check_it, recursive = TRUE)
+  if(!all(check_it == TRUE)){
+    stop("invalid node states detected in evidence, please check it!")
   }
   return(evidence)
 }

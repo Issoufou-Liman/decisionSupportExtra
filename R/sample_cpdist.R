@@ -45,38 +45,44 @@
 #' @importFrom bnlearn nodes cpdist as.grain parents ancestors
 #' @importFrom gRain nodeStates
 #' @export
-sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL, n_generation = NULL) {
+sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
+                          n_generation = NULL, include_relatives = TRUE) {
     op <- match.arg(op)
     bn <- check_bn(bn, include_cpt = TRUE)
-    evidence <- check_bn_nodes(bn = bn, evidence = evidence)
-    evidence <- check_bn_node_states(bn = bn, evidence = evidence)
-    # getting all nodes before the target
-    if (is.null(n_generation)) {
-        query_list <- parents(x = bn, node = node)
-    } else {
-        pedigree <- ancestors(x = bn, node = node)
-        if(n_generation > length(pedigree)){
-            n_generation <- length(pedigree)
+
+    if(!is.null(evidence)){
+        evidence <- check_bn_node_states(bn = bn, evidence = evidence)
+    }
+
+    if(include_relatives){
+        # getting all nodes before the target
+        if (is.null(n_generation)) {
+            query_list <- parents(x = bn, node = node)
+        } else {
+            pedigree <- ancestors(x = bn, node = node)
+            if(n_generation > length(pedigree)){
+                n_generation <- length(pedigree)
+            }
+            query_list <- pedigree[1:n_generation]
         }
-        query_list <- pedigree[1:n_generation]
+        query_list <- nodeStates(as.grain(bn), query_list)
     }
 
-    out_evid_names <- names(evidence)[!(names(evidence) %in% query_list)]
-    in_evid_names <- names(evidence)[(names(evidence) %in% query_list)]
-    query_list <- c(query_list, out_evid_names)
-    if (length(in_evid_names) != 0) {
-        query_list[names(in_evid_names)] <- in_evid_names
-    }
+    if (!is.null(evidence)){
+        if(!include_relatives){
+            query_list <- nodeStates(as.grain(bn), names(evidence))
+        }
+        ## all evidence names within parents or ancestor should be replaced by evidence
+        query_list[names(query_list) %in% names(evidence)] <- evidence[names(evidence)  %in% names(query_list)]
 
-    query_list <- nodeStates(x = as.grain(x = bn), query_list)
-    if(is.list(evidence)){ # then node states are involved
-        query_list[names(query_list) %in% names(evidence)] <- evidence
+        # evidence outside of parents or ancestor should be accounted for
+        query_list <- c(query_list, evidence[!(names(evidence)  %in% names(query_list))])
+
     }
     query_list <- expand.grid(query_list, stringsAsFactors = FALSE)
     prior <- query_list
 
-    tmp <- 1:nrow(query_list); names(tmp) <- names(query_list)
-    query_list <- sapply(tmp, function(i) {
+    query_list <- sapply(1:nrow(query_list), function(i) {
         if(ncol(query_list) == 1){
             evidence <- query_list[i, , drop = FALSE]
         } else {
@@ -84,7 +90,7 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
         }
         evidence <- make_bnlearn_evidence(bn = bn, evidence = evidence)
         cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=",
-            evidence, ")")
+                      evidence, ")")
         out <- eval(parse(text = cmd))
         if (op == "proba") {
             out <- table(out)
@@ -105,4 +111,5 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
     query_list <- list(prior = prior, posterior = query_list)
     class(query_list) <- "sample_cpdist"
     query_list
+
 }
