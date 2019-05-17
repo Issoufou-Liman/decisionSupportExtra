@@ -72,7 +72,7 @@ make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
         stop(paste(deparse(substitute(state_effects)), "should of length", ncol(node)))
     }
 
-    node <- mapply("*", node, state_effects)
+    node <- mapply("*", node, state_effects, SIMPLIFY = FALSE)
 
     # scale_states <- function(proba, state_effects){ tmp0 <- mapply('*', proba, state_effects) tmp1 <-
     # sum(tmp0) tmp0/tmp1 } node <- t(apply(X = node, MARGIN = 1, FUN = scale_states, state_effects =
