@@ -12,6 +12,8 @@
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
 #' @param include_relatives logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
 #' If TRUE, the default, these will be internally involved in constructing the evidence argument.
+#' @param n_try integer \code{\link[bnlearn]{cpquery}} often fails on deep query returning NULL. n_try can be used
+#' to retry the function call n_try times.
 #' @return A matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
 #' @seealso \code{\link[bnlearn]{cpquery}}
@@ -48,7 +50,7 @@
 #' @importFrom gRain nodeStates
 #' @export
 sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
-                          n_generation = NULL, include_relatives = TRUE) {
+                          n_generation = NULL, include_relatives = TRUE, n_try = 10) {
     op <- match.arg(op)
     bn <- check_bn(bn, include_cpt = TRUE)
 
@@ -91,27 +93,47 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
             evidence <- query_list[i, ]
         }
         evidence <- make_bnlearn_evidence(bn = bn, evidence = evidence)
-        cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=",
-                      evidence, ")")
-        out <- eval(parse(text = cmd))
-        if (op == "proba") {
-            out <- table(out)
-            somme <- sum(out)
-            if (somme > 0) {
-                out <- out/somme
-                out <- t(as.matrix(out))
-                rownames(out) <- paste(node, "|", evidence)
+
+        n_try_on_failure <- 0
+
+        recursive_try <- function(){
+            cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=",
+                          evidence, ")")
+            out <- eval(parse(text = cmd))
+            # print(n_try_on_failure)
+            if((nrow(out) == 0) & (n_try_on_failure != n_try)){
+                n_try_on_failure <<- n_try_on_failure + 1
+                # print(n_try_on_failure)
+                out <-  recursive_try ()
             }
-        } else {
-            colnames(out) <- paste(node, "|", evidence)
+            return(out)
         }
-        return(out)
+
+        out <- recursive_try ()
+
+        if(nrow(out) > 0){
+            if (op == "proba") {
+                out <- table(out)
+                somme <- sum(out)
+                if (somme > 0) {
+                    out <- out/somme
+                    out <- t(as.matrix(out))
+                    rownames(out) <- paste(node, "|", evidence)
+                }
+            } else {
+                colnames(out) <- paste(node, "|", evidence)
+            }
+            return(out)
+        }
     }, simplify = FALSE)
+
+    clean_up <- !(sapply(query_list, is.null))
+    query_list <- query_list[clean_up]
+    prior <- prior[clean_up, ]
     if (op == "proba") {
         query_list <- do.call(rbind, query_list)
     }
     query_list <- list(prior = prior, posterior = query_list)
     class(query_list) <- "sample_cpdist"
-    query_list
-
+    return(query_list)
 }

@@ -5,7 +5,7 @@
 \title{Sampling from posterior distribution of a Bayesian network at a node of interest}
 \usage{
 sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
-  n_generation = NULL, include_relatives = TRUE)
+  n_generation = NULL, include_relatives = TRUE, n_try = 10)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -20,6 +20,9 @@ sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
 
 \item{include_relatives}{logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
 If TRUE, the default, these will be internally involved in constructing the evidence argument.}
+
+\item{n_try}{integer \code{\link[bnlearn]{cpquery}} often fails on deep query returning NULL. n_try can be used
+to retry the function call n_try times.}
 }
 \value{
 A matrix containing either the probabilities or raw data sampled from the posterior distribution
