@@ -12,8 +12,8 @@
 #' @param n_generation how far to go in the network topology for building the conditionning specification for the query?
 #' @param include_relatives logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
 #' If TRUE, the default, these will be internally involved in constructing the evidence argument.
-#' @param n_try integer \code{\link[bnlearn]{cpquery}} often fails on deep query returning NULL. n_try can be used
-#' to retry the function call n_try times.
+#' @param n_try integer \code{\link[bnlearn]{cpquery}} often fails, when the argument evidence involves
+#'  deep query, returning NULL. n_try can be used to retry the function call n_try times.
 #' @return A matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
 #' @seealso \code{\link[bnlearn]{cpquery}}
