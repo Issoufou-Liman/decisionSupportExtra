@@ -60,34 +60,38 @@ seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL) {
     } else if (length(target_child) > 1) {
         stop("multiple target child nodes supplied: target_child must be of length 1")
     } else if ((length(target_child) == 1)) {
-        # getting the parent states reorganizing target_parents to match bn config silently dropping invalid
-        # node in bn
-        target_parents <- nodeNames(bn)[nodeNames(bn) %in% target_parents]
+        if(is.null(target_parents)){
+            target_parents <- parents(as.bn.fit(bn), target_child)
+        } else {
+            # getting the parent states reorganizing target_parents to match bn config silently dropping invalid
+            # node in bn
+            target_parents <- nodeNames(bn)[nodeNames(bn) %in% target_parents]
+        }
         parent_states <- nodeStates(bn, target_parents)
-        
+
         # getting the child states
         child_states <- nodeStates(bn, target_child)
-        
+
         # getting the CPTs from bn given what is known as the states target_parentss
         evid <- as.matrix(expand.grid(parent_states))
         evid <- sapply(1:nrow(evid), function(i) {
             as.list(evid[i, ])
         }, simplify = FALSE)
-        
+
         # querying the network evidence by evidence
         query_set <- sapply(evid, function(i) {
             querygrain(setEvidence(object = bn, nodes = target_child, evidence = i))
         }, simplify = FALSE, USE.NAMES = TRUE)
-        
+
         # extract only the target child
         query_set <- sapply(query_set, function(i) {
             i[[target_child]]
         }, simplify = FALSE)
-        
+
         # create an appropriate size array for gRain CPTs
         dimens <- sapply(c(child_states, parent_states), length)
-        out <- array(data = unlist(query_set, recursive = TRUE, use.names = FALSE), dim = dimens, dimnames = c(child_states, 
-            parent_states))
+        out <- array(data = unlist(query_set, recursive = TRUE, use.names = FALSE), dim = dimens, dimnames = c(child_states,
+                                                                                                               parent_states))
     }
     return(out)
 }
