@@ -101,7 +101,7 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
                           evidence, ")")
             out <- eval(parse(text = cmd))
             # print(n_try_on_failure)
-            if((nrow(out) == 0) & (n_try_on_failure != n_try)){
+            if(n_try_on_failure != n_try){
                 n_try_on_failure <<- n_try_on_failure + 1
                 # print(n_try_on_failure)
                 out <-  recursive_try ()
