@@ -96,8 +96,11 @@ guess_decisionSupport_estimates <- function(data, fun = NULL, distr = 'norm',
     distr = rep(distr, ncol(data))
   }
   fitted <- sapply(X = tmp, function (i){
-    if((length(data[, i]) == 1) | (min(data[, i], na.rm = TRUE) == max(data[, i], na.rm = TRUE))){
+    if((length(data[, i]) == 1)){
       estimates <- rep(data[, i], 3)
+      distr <- "const"
+    } else if ((length(data[, i]) != 0) & (min(data[, i], na.rm = TRUE) == max(data[, i], na.rm = TRUE))){
+      estimates <- rep(min(data[, i], na.rm = TRUE), 3)
       distr <- "const"
     } else {
       fitted <- data [, i]

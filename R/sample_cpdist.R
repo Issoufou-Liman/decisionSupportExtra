@@ -14,6 +14,7 @@
 #' If TRUE, the default, these will be internally involved in constructing the evidence argument.
 #' @param n_try integer \code{\link[bnlearn]{cpquery}} often fails, when the argument evidence involves
 #'  deep query, returning NULL. n_try can be used to retry the function call n_try times.
+#' @param n_run integer specifying the number of of model run. Default is 1000.
 #' @return A matrix containing either the probabilities or raw data sampled from the posterior distribution
 #' @details Each row consists in a comditional probability of a state of the node of interest given the combination of the states of the parent nodes.
 #' @seealso \code{\link[bnlearn]{cpquery}}
@@ -49,8 +50,18 @@
 #' @importFrom bnlearn nodes cpdist as.grain parents ancestors
 #' @importFrom gRain nodeStates
 #' @export
+#' ## Compile conditional probability tables
+#' network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_capacity))
+#' ## Graphical Independence Network ####
+#' network <- grain(network)
+#' ## converting the grain bayesian network to bn.fit
+#' network <- as.bn.fit(network)
+#' sample_cpdist (network, 'Soil_water_holding_capacity')
+#' @importFrom bnlearn nodes cpdist as.grain parents ancestors
+#' @importFrom gRain nodeStates
+#' @export
 sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
-                          n_generation = NULL, include_relatives = TRUE, n_try = 10) {
+                          n_generation = NULL, include_relatives = TRUE, n_try = 10, n_run =1000) {
     op <- match.arg(op)
     bn <- check_bn(bn, include_cpt = TRUE)
 
@@ -86,53 +97,65 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
     query_list <- expand.grid(query_list, stringsAsFactors = FALSE)
     prior <- query_list
 
-    query_list <- sapply(1:nrow(query_list), function(i) {
-        if(ncol(query_list) == 1){
-            evidence <- query_list[i, , drop = FALSE]
-        } else {
-            evidence <- query_list[i, ]
-        }
-        evidence <- make_bnlearn_evidence(bn = bn, evidence = evidence)
+    .sample_cpdist <- function(bn, node, op = c("sampler", "proba"),
+                               n_try = 10) {
 
-        n_try_on_failure <- 0
-
-        recursive_try <- function(){
-            cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=",
-                          evidence, ")")
-            out <- eval(parse(text = cmd))
-            # print(n_try_on_failure)
-            if(n_try_on_failure != n_try){
-                n_try_on_failure <<- n_try_on_failure + 1
-                # print(n_try_on_failure)
-                out <-  recursive_try ()
-            }
-            return(out)
-        }
-
-        out <- recursive_try ()
-
-        if(nrow(out) > 0){
-            if (op == "proba") {
-                out <- table(out)
-                somme <- sum(out)
-                if (somme > 0) {
-                    out <- out/somme
-                    out <- t(as.matrix(out))
-                    rownames(out) <- paste(node, "|", evidence)
-                }
+        query_list <- sapply(1:nrow(query_list), function(i) {
+            if(ncol(query_list) == 1){
+                evidence <- query_list[i, , drop = FALSE]
             } else {
-                colnames(out) <- paste(node, "|", evidence)
+                evidence <- query_list[i, ]
             }
-            return(out)
-        }
-    }, simplify = FALSE)
+            evidence <- make_bnlearn_evidence(bn = bn, evidence = evidence)
 
-    clean_up <- !(sapply(query_list, is.null))
-    query_list <- query_list[clean_up]
-    prior <- prior[clean_up, ]
-    if (op == "proba") {
-        query_list <- do.call(rbind, query_list)
+            n_try_on_failure <- 0
+
+            recursive_try <- function(){
+                cmd <- paste0("cpdist", "(", "fitted", "=", "bn", ",", "nodes", "=", "node", ",", "evidence", "=",
+                              evidence, ")")
+                out <- eval(parse(text = cmd))
+                # print(n_try_on_failure)
+                if((nrow(out) == 0) & (n_try_on_failure != n_try)){
+                    n_try_on_failure <<- n_try_on_failure + 1
+                    # print(n_try_on_failure)
+                    out <-  recursive_try ()
+                }
+                return(out)
+            }
+
+            out <- recursive_try ()
+
+            if(nrow(out) > 0){
+                if (op == "proba") {
+                    out <- table(out)
+                    somme <- sum(out)
+                    if (somme > 0) {
+                        out <- out/somme
+                        out <- t(as.matrix(out))
+                        rownames(out) <- paste(node, "|", evidence)
+                    }
+                } else {
+                    colnames(out) <- paste(node, "|", evidence)
+                }
+                return(out)
+            }
+        }, simplify = FALSE)
+
+        clean_up <- !(sapply(query_list, is.null))
+        query_list <- query_list[clean_up]
+        # prior <- prior[clean_up, ]
+        if (op == "proba") {
+            query_list <- do.call(rbind, query_list)
+        }
+        # query_list <- list(prior = prior, posterior = query_list)
+        # class(query_list) <- "sample_cpdist"
+        return(query_list)
     }
+
+    query_list <- sapply(1:n_run, function(i){
+        .sample_cpdist(bn=bn, node=node, op = op, n_try = n_try)
+    }, simplify = FALSE)
+    query_list <- do.call(rbind, query_list)
     query_list <- list(prior = prior, posterior = query_list)
     class(query_list) <- "sample_cpdist"
     return(query_list)
