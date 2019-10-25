@@ -56,6 +56,9 @@ make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta", n
                                        n_generation = NULL, include_relatives = TRUE,
                                        estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
                                        plot = FALSE, show.output = FALSE) {
+    if(distr == 'unif'){
+        percentiles <- percentiles[c(1, length(percentiles))]
+    }
     # , state_effects = c(1/3, 1/2, 1)
     bn <- check_bn(bn,include_cpt = TRUE)
     tag <- node
