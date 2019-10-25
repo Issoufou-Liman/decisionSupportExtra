@@ -1,6 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r
-r: bioc-release
+r:
+  - release
 cache: packages
 sudo: true
 dist: trusty
@@ -20,11 +21,8 @@ r_packages:
   - covr
   - testthat
 
-bioc_packages:
-  - BiocInstaller
-  - graph
-  - RBGL
-  - Rgraphviz
+install:
+- R -e 'if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager"); BiocManager::install(c("graph","RBGL","Rgraphviz"))'
 
 after_success:
   - Rscript -e 'library(covr); codecov()'
