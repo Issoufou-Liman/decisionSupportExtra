@@ -24,7 +24,7 @@ r_packages:
 
 install:
 - R -e 'if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager"); BiocManager::install(c("graph","RBGL","Rgraphviz"))'
-
+- R -e 'install.packages("knitr")'
 after_success:
   - Rscript -e 'library(covr); codecov()'
   - Rscript -e "capabilities()"
