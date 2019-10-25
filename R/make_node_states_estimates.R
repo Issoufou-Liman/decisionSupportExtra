@@ -51,7 +51,7 @@
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @importFrom stats na.omit
 #' @export
-make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
+make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta", n_run=1000,
                                        state_effects = NULL, evidence = NULL,
                                        n_generation = NULL, include_relatives = TRUE,
                                        estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
@@ -60,7 +60,7 @@ make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta",
     bn <- check_bn(bn,include_cpt = TRUE)
     tag <- node
     node <- sample_cpdist(bn = bn, node = node, op = op,
-                          evidence = evidence, n_generation = n_generation, include_relatives = include_relatives)
+                          evidence = evidence, n_generation = n_generation, include_relatives = include_relatives, n_run = n_run)
     # print(head(node))
     node <- na.omit(node$posterior)
     node <- as.data.frame(node)

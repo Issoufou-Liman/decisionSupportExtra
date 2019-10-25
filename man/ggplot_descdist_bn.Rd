@@ -12,7 +12,7 @@ ggplot_descdist_bn(bn, node, boot = 1000, obs.col = "darkblue",
   axis_title_size = 12, plot_title_size = 20,
   plot_subtitle_size = 17, strip_text_size = 18,
   legend_text_size = 12, evidence = NULL, n_generation = NULL,
-  include_relatives = TRUE)
+  include_relatives = TRUE, n_run = 1000)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -66,6 +66,8 @@ Text size respectively corresponding to axis text (default to 12), axis title (d
 
 \item{include_relatives}{logical Should parents or ancestors, depending on the the argument n_generation, should be included in the query?
 If TRUE, the default, these will be internally involved in constructing the evidence argument.}
+
+\item{n_run}{integer specifying the number of of model run. Default is 1000.}
 }
 \description{
 Generate compact plot of Bayesian network node states following the \code{\link[fitdistrplus]{descdist}} function as customizable ggplot.

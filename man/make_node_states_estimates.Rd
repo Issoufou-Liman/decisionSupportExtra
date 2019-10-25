@@ -5,10 +5,10 @@
 \title{Create \code{\link[decisionSupport]{estimate}} for Bayesain network node}
 \usage{
 make_node_states_estimates(bn, node, op = "proba", distr = "beta",
-  state_effects = NULL, evidence = NULL, n_generation = NULL,
-  include_relatives = TRUE, estimate_method = "fit",
-  percentiles = c(0.025, 0.5, 0.975), plot = FALSE,
-  show.output = FALSE)
+  n_run = 1000, state_effects = NULL, evidence = NULL,
+  n_generation = NULL, include_relatives = TRUE,
+  estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
+  plot = FALSE, show.output = FALSE)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -18,6 +18,8 @@ make_node_states_estimates(bn, node, op = "proba", distr = "beta",
 \item{op}{a vector of character strings, the type of returned value: either probabilities or raw data sampled from the posterior distribution}
 
 \item{distr}{charater vector. The expected probability distribution function.}
+
+\item{n_run}{integer specifying the number of of model run. Default is 1000.}
 
 \item{state_effects}{numeric vector specifying the relative weight factor of each state in the final estimate.}
 

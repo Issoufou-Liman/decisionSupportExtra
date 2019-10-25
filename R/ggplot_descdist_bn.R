@@ -46,10 +46,10 @@
 ggplot_descdist_bn <- function(bn, node, boot = 1000, obs.col = "darkblue", boot.col = "orange", title = "Cullen and Frey graph",
     subtitle = node, xlab = "square of skewness", ylab = "kurtosis", obs_geom_size = 4, boot_geom_size = 0.02,
     dist_geom_pts_size = 5, dist_geom_line_size = 0.6, axis_text_size = 12, axis_title_size = 12, plot_title_size = 20,
-    plot_subtitle_size = 17, strip_text_size = 18, legend_text_size = 12, evidence = NULL, n_generation = NULL, include_relatives = TRUE) {
+    plot_subtitle_size = 17, strip_text_size = 18, legend_text_size = 12, evidence = NULL, n_generation = NULL, include_relatives = TRUE, n_run=1000) {
     bn <- check_bn(bn, include_cpt = TRUE)
     subtitle <- gsub(pattern = "_", " ", subtitle)
-    data <- sample_cpdist(bn, node, op = "proba", evidence = evidence, n_generation = n_generation, include_relatives = include_relatives)
+    data <- sample_cpdist(bn, node, op = "proba", evidence = evidence, n_generation = n_generation, include_relatives = include_relatives, n_run = n_run)
     data <- data$posterior
     ggplot_descdist(data = data, boot = boot, obs.col = obs.col, boot.col = boot.col, title = title, subtitle = subtitle,
         xlab = xlab, ylab = ylab, obs_geom_size = obs_geom_size, boot_geom_size = boot_geom_size, dist_geom_pts_size = dist_geom_pts_size,
