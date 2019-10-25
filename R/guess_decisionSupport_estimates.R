@@ -107,6 +107,9 @@ guess_decisionSupport_estimates <- function(data, fun = NULL, distr = 'norm',
       distr <- distr[i]
       fitted <- fitdist(data = fitted, distr = distr, method = method)$estimate
       q_dist <- paste0 ('q', distr)
+      if(distr == 'unif'){ # uniform distribution requires 2 percentiles
+        percentiles <- percentiles[c(1, length(percentiles))]
+      }
       q_dist_args <- list(percentiles)
       q_dist_args <- c(q_dist_args, as.list(fitted))
       q <- do.call(q_dist, q_dist_args)

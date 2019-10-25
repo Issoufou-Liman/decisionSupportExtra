@@ -49,14 +49,6 @@
 #' sample_cpdist (network, 'Soil_water_holding_capacity')
 #' @importFrom bnlearn nodes cpdist as.grain parents ancestors
 #' @importFrom gRain nodeStates
-#' @export
-#' ## Compile conditional probability tables
-#' network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_capacity))
-#' ## Graphical Independence Network ####
-#' network <- grain(network)
-#' ## converting the grain bayesian network to bn.fit
-#' network <- as.bn.fit(network)
-#' sample_cpdist (network, 'Soil_water_holding_capacity')
 #' @importFrom bnlearn nodes cpdist as.grain parents ancestors
 #' @importFrom gRain nodeStates
 #' @export

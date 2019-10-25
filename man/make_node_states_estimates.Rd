@@ -8,7 +8,8 @@ make_node_states_estimates(bn, node, op = "proba", distr = "beta",
   n_run = 1000, state_effects = NULL, evidence = NULL,
   n_generation = NULL, include_relatives = TRUE,
   estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
-  plot = FALSE, show.output = FALSE)
+  plot = FALSE, show.output = FALSE, fit = c("emp", "theo"),
+  emp_estimates = NULL)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -37,6 +38,10 @@ If TRUE, the default, these will be internally involved in constructing the evid
 \item{plot}{logical. Should the quantile function be ploted? default to FALSE}
 
 \item{show.output}{Should the computation be verbose? default to FALSE}
+
+\item{fit}{character specifying whether the estimates should be derived from either empirical ('emp', default) or theoritical distribution ('theo').}
+
+\item{emp_estimates}{list alternative estimates specification.Default to NULL. This is only used when fit = 'theo'.}
 }
 \description{
 create a multivariate \code{\link[decisionSupport]{estimate}} object for Bayesian network node.

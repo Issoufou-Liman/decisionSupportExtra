@@ -3,6 +3,7 @@
 language: R
 r:
   - oldrel
+  - bioc-release
 cache: packages
 sudo: true
 dist: trusty

@@ -10,6 +10,8 @@
 #' @inheritParams fitdistrplus::fitdist
 #' @inheritParams guess_decisionSupport_estimates
 #' @param state_effects numeric vector specifying the relative weight factor of each state in the final estimate.
+#' @param fit character specifying whether the estimates should be derived from either empirical ('emp', default) or theoritical distribution ('theo').
+#' @param emp_estimates list alternative estimates specification.Default to NULL. This is only used when fit = 'theo'.
 #' @seealso \code{\link[decisionSupport]{estimate}}.
 #' @details see \code{\link[decisionSupport]{estimate}}.
 #' @references
@@ -50,45 +52,85 @@
 #' make_node_states_estimates (bn = network_bn_fit,
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @importFrom stats na.omit
+#' @importFrom fitdistrplus descdist
 #' @export
 make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta", n_run=1000,
                                        state_effects = NULL, evidence = NULL,
                                        n_generation = NULL, include_relatives = TRUE,
                                        estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
-                                       plot = FALSE, show.output = FALSE) {
-    if(distr == 'unif'){
-        percentiles <- percentiles[c(1, length(percentiles))]
-    }
-    # , state_effects = c(1/3, 1/2, 1)
+                                       plot = FALSE, show.output = FALSE, fit = c('emp', 'theo'), emp_estimates=NULL) {
     bn <- check_bn(bn,include_cpt = TRUE)
-    tag <- node
-    node <- sample_cpdist(bn = bn, node = node, op = op,
-                          evidence = evidence, n_generation = n_generation, include_relatives = include_relatives, n_run = n_run)
-    # print(head(node))
-    node <- na.omit(node$posterior)
-    node <- as.data.frame(node)
-    # query_set <- rownames(node)
-    if(is.null(state_effects)){
-        state_effects <- rep(1, ncol(node))
-    }
-    if (length(state_effects) != ncol(node)){
-        stop(paste(deparse(substitute(state_effects)), "should of length", ncol(node)))
-    }
 
-    node <- mapply("*", node, state_effects, SIMPLIFY = FALSE)
+    fit <- match.arg(fit)
 
-    # scale_states <- function(proba, state_effects){ tmp0 <- mapply('*', proba, state_effects) tmp1 <-
-    # sum(tmp0) tmp0/tmp1 } node <- t(apply(X = node, MARGIN = 1, FUN = scale_states, state_effects =
-    # state_effects))
-    node <- as.data.frame(node)
-
-    # node <- data.frame(query_set=query_set, node)
-    names(node) <- paste0(tag, "=", names(node))
     if (length(distr) == 1) {
-        distr <- rep(distr, ncol(node))
+        # distr <- rep(distr, ncol(node))
+        distr <- rep(distr, length(nodeStates(as.grain(bn), node)[[1]]))
         warning("A single distribution specified, using it for all nodes states")
     }
-    out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = percentiles,
-        plot = plot, show.output = show.output, estimate_method = estimate_method)
-    as.list.estimate(out)
+    if(length(distr) != length(nodeStates(as.grain(bn), node)[[1]])){
+        stop(paste('A vector of distribution of length', length(nodeStates(as.grain(bn), node)[[1]]), 'was expected but only', length(distr), 'were provided.'))
+    }
+
+    if (length(estimate_method) == 1) {
+        estimate_method <- rep(estimate_method, length(nodeStates(as.grain(bn), node)[[1]]))
+        warning("A single estimate_method specified, using it for all nodes states")
+    }
+
+    if(length(estimate_method) != length(nodeStates(as.grain(bn), node)[[1]])){
+        stop(paste('A vector of estimate_method of length', length(nodeStates(as.grain(bn), node)[[1]]), 'was expected but only', length(estimate_method), 'were provided.'))
+    }
+
+    # query_set <- rownames(node)
+    if(is.null(state_effects)){
+        state_effects <- rep(1, length(nodeStates(as.grain(bn), node)[[1]]))
+    }
+    if (length(state_effects) != length(nodeStates(as.grain(bn), node)[[1]])){
+        stop(paste(deparse(substitute(state_effects)), "should of length", length(nodeStates(as.grain(bn), node)[[1]])))
+    }
+    tag <- node
+
+    if(fit == 'emp'){
+        # , state_effects = c(1/3, 1/2, 1)
+        node <- sample_cpdist(bn = bn, node = node, op = op,
+                              evidence = evidence, n_generation = n_generation, include_relatives = include_relatives, n_run = n_run)
+        node <- na.omit(node$posterior)
+        node <- as.data.frame(node)
+        node <- mapply("*", node, state_effects, SIMPLIFY = FALSE)
+        node <- as.data.frame(node)
+        names(node) <- paste0(tag, "=", names(node))
+        out <- guess_decisionSupport_estimates(data = node, distr = distr, percentiles = percentiles,
+                                               plot = plot, show.output = show.output, estimate_method = estimate_method)
+        as.list.estimate(out)
+    } else if (fit == 'theo') {
+        if(!is.null(emp_estimates)){
+            if(is.null(names(emp_estimates))){
+                names(emp_estimates) <- paste0(tag, "=", nodeStates(as.grain(bn), node)[[1]])
+            }
+            emp_estimates <- mapply("*", emp_estimates, state_effects, SIMPLIFY = FALSE)
+            tmp <- 1:length(emp_estimates); names(tmp) <- names(emp_estimates)
+            out <- sapply(tmp, function(i){
+                out <- c(emp_estimates[[i]], distr[i], estimate_method[i])
+                out <- data.frame(t(out), stringsAsFactors = FALSE)
+                rownames(out) <- names(emp_estimates)[[i]]
+                names(out) <- c('lower', 'median', 'upper', 'distribution', 'method')
+                as.estimate(out)
+            }, simplify = FALSE)
+        } else {
+            row_names <- paste0(tag, "=", nodeStates(as.grain(bn), node)[[1]])
+            node <- sample_cpdist(bn = bn, node = node, op = op,
+                                  evidence = evidence, n_generation = n_generation, include_relatives = include_relatives, n_run = n_run)
+            node <- na.omit(node$posterior)
+
+            tmp <- 1:ncol(node); names(tmp) <- colnames(node)
+            out <- sapply(tmp, function(i){
+                node <- mapply("*", node[, i], state_effects[i], SIMPLIFY = FALSE)
+                node <- descdist(as.numeric(node), boot=1000, graph=FALSE)
+                node <- data.frame(node$min, node$median, node$max, distr[i], estimate_method[i], stringsAsFactors = FALSE)
+                rownames(node) <- row_names[i]
+                colnames(node) <- c('lower', 'median', 'upper', 'distribution', 'method')
+                as.estimate(node)
+            }, simplify = FALSE)
+        }
+    }
 }
