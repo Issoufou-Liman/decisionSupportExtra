@@ -4,10 +4,21 @@
 \alias{fit_node_states_distr}
 \title{Fitting univariate distributions to Bayesain network nodes}
 \usage{
-fit_node_states_distr(bn, node, op = "proba", distr = "beta",
-  method = "mme", start = NULL, fix.arg = NULL, discrete,
-  keepdata = TRUE, keepdata.nb = 100, include_relatives = TRUE,
-  n_run = 1000, ...)
+fit_node_states_distr(
+  bn,
+  node,
+  op = "proba",
+  distr = "beta",
+  method = "mme",
+  start = NULL,
+  fix.arg = NULL,
+  discrete,
+  keepdata = TRUE,
+  keepdata.nb = 100,
+  include_relatives = TRUE,
+  n_run = 1000,
+  ...
+)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}
@@ -27,7 +38,7 @@ fit_node_states_distr(bn, node, op = "proba", distr = "beta",
 \item{start}{A named list giving the initial values of parameters of the named distribution
     or a function of data computing initial values and returning a named list.
     This argument may be omitted (default) for some distributions for which reasonable 
-    starting values are computed (see the 'details' section of  \code{\link{mledist}}). 
+    starting values are computed (see the 'details' section of  \code{\link[fitdistrplus]{mledist}}). 
     It may not be into account for closed-form formulas.}
 
 \item{fix.arg}{An optional named list giving the values of fixed parameters of the named distribution
@@ -41,8 +52,8 @@ fit_node_states_distr(bn, node, op = "proba", distr = "beta",
 	  \code{"binom"}, \code{"nbinom"}, \code{"geom"},
     \code{"hyper"} or \code{"pois"} and to \code{FALSE} in the other cases. It is thus recommended
     to enter this argument when using another discrete distribution. This argument will not directly affect
-    the results of the fit but will be passed to functions \code{\link{gofstat}}, \code{\link{plotdist}} 
-    and \code{\link{cdfcomp}}.  }
+    the results of the fit but will be passed to functions \code{\link[fitdistrplus]{gofstat}}, \code{\link[fitdistrplus]{plotdist}} 
+    and \code{\link[fitdistrplus]{cdfcomp}}.  }
 
 \item{keepdata}{a logical. If \code{TRUE}, dataset is returned, 
     otherwise only a sample subset is returned.}
@@ -56,8 +67,8 @@ If TRUE, the default, these will be internally involved in constructing the evid
 
 \item{...}{Further arguments to be passed to generic functions, or to one of the functions
     \code{"mledist"},  \code{"mmedist"}, \code{"qmedist"} or \code{"mgedist"}
-    depending of the chosen method. See \code{\link{mledist}}, \code{\link{mmedist}}, \code{\link{qmedist}}, 
-    \code{\link{mgedist}} for details on parameter estimation.}
+    depending of the chosen method. See \code{\link[fitdistrplus]{mledist}}, \code{\link[fitdistrplus]{mmedist}}, \code{\link[fitdistrplus]{qmedist}}, 
+    \code{\link[fitdistrplus]{mgedist}} for details on parameter estimation.}
 }
 \description{
 Fitting univariate distributions to the posterior distribution of a Bayesian network node.

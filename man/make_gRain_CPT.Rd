@@ -4,9 +4,17 @@
 \alias{make_gRain_CPT}
 \title{Make and format Conditional Probability table (CPT) for use in Bayesian Network}
 \usage{
-make_gRain_CPT(parent_effects, parent_weights, b, child_prior,
-  ranking_child = NULL, child_states = NULL, parent_names = NULL,
-  parent_states = NULL, option = c("grain", "bnlearn"))
+make_gRain_CPT(
+  parent_effects,
+  parent_weights,
+  b,
+  child_prior,
+  ranking_child = NULL,
+  child_states = NULL,
+  parent_names = NULL,
+  parent_states = NULL,
+  option = c("grain", "bnlearn")
+)
 }
 \arguments{
 \item{parent_effects}{list of vectors describing the effects of all parent node

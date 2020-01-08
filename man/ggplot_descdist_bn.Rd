@@ -4,15 +4,31 @@
 \alias{ggplot_descdist_bn}
 \title{ggplot the posterior distribution of a Bayesian network node as in \code{\link[fitdistrplus]{descdist}}}
 \usage{
-ggplot_descdist_bn(bn, node, boot = 1000, obs.col = "darkblue",
-  boot.col = "orange", title = "Cullen and Frey graph",
-  subtitle = node, xlab = "square of skewness", ylab = "kurtosis",
-  obs_geom_size = 4, boot_geom_size = 0.02, dist_geom_pts_size = 5,
-  dist_geom_line_size = 0.6, axis_text_size = 12,
-  axis_title_size = 12, plot_title_size = 20,
-  plot_subtitle_size = 17, strip_text_size = 18,
-  legend_text_size = 12, evidence = NULL, n_generation = NULL,
-  include_relatives = TRUE, n_run = 1000)
+ggplot_descdist_bn(
+  bn,
+  node,
+  boot = 1000,
+  obs.col = "darkblue",
+  boot.col = "orange",
+  title = "Cullen and Frey graph",
+  subtitle = node,
+  xlab = "square of skewness",
+  ylab = "kurtosis",
+  obs_geom_size = 4,
+  boot_geom_size = 0.02,
+  dist_geom_pts_size = 5,
+  dist_geom_line_size = 0.6,
+  axis_text_size = 12,
+  axis_title_size = 12,
+  plot_title_size = 20,
+  plot_subtitle_size = 17,
+  strip_text_size = 18,
+  legend_text_size = 12,
+  evidence = NULL,
+  n_generation = NULL,
+  include_relatives = TRUE,
+  n_run = 1000
+)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}

@@ -4,8 +4,15 @@
 \alias{barplot_CPT}
 \title{A ggplot wrapper for visualizing Conditional Probability Table (CPT)}
 \usage{
-barplot_CPT(bn, target_node, bar_width = 0.25, ncol_facet = NULL,
-  n_pages = 1, show_states_only = FALSE, separator = "\\n")
+barplot_CPT(
+  bn,
+  target_node,
+  bar_width = 0.25,
+  ncol_facet = NULL,
+  n_pages = 1,
+  show_states_only = FALSE,
+  separator = "\\n"
+)
 }
 \arguments{
 \item{bn}{A grain object from gRain package (see \code{\link[gRain]{grain-main}}) or a \code{\link[bnlearn]{bn.fit}} object from bnlearn package.}

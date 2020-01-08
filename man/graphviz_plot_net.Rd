@@ -4,15 +4,33 @@
 \alias{graphviz_plot_net}
 \title{An Rgraphviz wrapper for visualizing Bayesian Networks causality.}
 \usage{
-graphviz_plot_net(bn, shape = "rectangle", layout = "dot", cex = 0.5,
-  plot_bg = "lightgrey", line_leng = 10, node_fill = "white",
-  highlit_some_nodes = NULL, highlit_some_nodes_col = "yellow",
-  node_lty = 1, node_lwd = 2, node_col = "white",
-  edge_fill = "white", edge_lty = 1, edge_lwd = 3,
-  edge_col = "white", split_labels_accross_lines = TRUE,
-  textCol = "darkred", abbreviate = TRUE, leg_ncol = 1,
-  leg_w = strwidth("1,000,000"), leg_cex = 0.5, leg_bg = "lightgrey",
-  leg_box.col = "white", leg_title.col = "white")
+graphviz_plot_net(
+  bn,
+  shape = "rectangle",
+  layout = "dot",
+  cex = 0.5,
+  plot_bg = "lightgrey",
+  line_leng = 10,
+  node_fill = "white",
+  highlit_some_nodes = NULL,
+  highlit_some_nodes_col = "yellow",
+  node_lty = 1,
+  node_lwd = 2,
+  node_col = "white",
+  edge_fill = "white",
+  edge_lty = 1,
+  edge_lwd = 3,
+  edge_col = "white",
+  split_labels_accross_lines = TRUE,
+  textCol = "darkred",
+  abbreviate = TRUE,
+  leg_ncol = 1,
+  leg_w = strwidth("1,000,000"),
+  leg_cex = 0.5,
+  leg_bg = "lightgrey",
+  leg_box.col = "white",
+  leg_title.col = "white"
+)
 }
 \arguments{
 \item{bn}{A grain object from gRain package (see \code{\link[gRain]{grain-main}}) or a \code{\link[bnlearn]{bn.fit}} object from bnlearn package.}

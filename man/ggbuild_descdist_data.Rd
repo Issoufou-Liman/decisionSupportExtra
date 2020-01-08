@@ -4,9 +4,17 @@
 \alias{ggbuild_descdist_data}
 \title{Format \code{\link[fitdistrplus]{descdist}} data to ggplot2}
 \usage{
-ggbuild_descdist_data(data, discrete = FALSE, boot = NULL,
-  method = "unbiased", graph = TRUE, title = "Cullen and Frey graph",
-  subtitle = NULL, obs.col = "darkblue", boot.col = "orange")
+ggbuild_descdist_data(
+  data,
+  discrete = FALSE,
+  boot = NULL,
+  method = "unbiased",
+  graph = TRUE,
+  title = "Cullen and Frey graph",
+  subtitle = NULL,
+  obs.col = "darkblue",
+  boot.col = "orange"
+)
 }
 \arguments{
 \item{data}{ A numeric vector.  }

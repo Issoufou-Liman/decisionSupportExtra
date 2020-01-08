@@ -4,8 +4,7 @@
 \alias{get_boxplot_range_1d}
 \title{Create data ranges based boxplots statistics and outliers}
 \usage{
-get_boxplot_range_1d(x, split_IQR = TRUE, na.rm = TRUE, type = 5,
-  ...)
+get_boxplot_range_1d(x, split_IQR = TRUE, na.rm = TRUE, type = 5, ...)
 }
 \arguments{
 \item{x}{numeric. A vector from which the ranges are to be derived based on quantiles.

@@ -4,12 +4,23 @@
 \alias{make_node_states_estimates}
 \title{Create \code{\link[decisionSupport]{estimate}} for Bayesain network node}
 \usage{
-make_node_states_estimates(bn, node, op = "proba", distr = "beta",
-  n_run = 1000, state_effects = NULL, evidence = NULL,
-  n_generation = NULL, include_relatives = TRUE,
-  estimate_method = "fit", percentiles = c(0.025, 0.5, 0.975),
-  plot = FALSE, show.output = FALSE, fit = c("emp", "theo"),
-  emp_estimates = NULL)
+make_node_states_estimates(
+  bn,
+  node,
+  op = "proba",
+  distr = "beta",
+  n_run = 1000,
+  state_effects = NULL,
+  evidence = NULL,
+  n_generation = NULL,
+  include_relatives = TRUE,
+  estimate_method = "fit",
+  percentiles = c(0.025, 0.5, 0.975),
+  plot = FALSE,
+  show.output = FALSE,
+  fit = c("emp", "theo"),
+  emp_estimates = NULL
+)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}

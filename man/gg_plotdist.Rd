@@ -4,11 +4,19 @@
 \alias{gg_plotdist}
 \title{ggplot empirical and theoretical distributions for non-censored data following the \code{\link[fitdistrplus]{descdist}} function.}
 \usage{
-gg_plotdist(fitted, title = NULL, hist_bar_size = 0.3,
-  dist_geom_pts_size = 0.03, dist_geom_smooth_size = 0.3,
-  dist_geom_abline_size = 0.3, axis_text_size = 9,
-  axis_title_size = 9, plot_title_size = 10, plot_subtitle_size = 8,
-  strip_text_size = 9)
+gg_plotdist(
+  fitted,
+  title = NULL,
+  hist_bar_size = 0.3,
+  dist_geom_pts_size = 0.03,
+  dist_geom_smooth_size = 0.3,
+  dist_geom_abline_size = 0.3,
+  axis_text_size = 9,
+  axis_title_size = 9,
+  plot_title_size = 10,
+  plot_subtitle_size = 8,
+  strip_text_size = 9
+)
 }
 \arguments{
 \item{fitted}{A list of \code{\link[fitdistrplus]{fitdist}} object}

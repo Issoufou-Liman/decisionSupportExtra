@@ -4,9 +4,16 @@
 \alias{sample_cpdist}
 \title{Sampling from posterior distribution of a Bayesian network at a node of interest}
 \usage{
-sample_cpdist(bn, node, op = c("sampler", "proba"), evidence = NULL,
-  n_generation = NULL, include_relatives = TRUE, n_try = 10,
-  n_run = 1000)
+sample_cpdist(
+  bn,
+  node,
+  op = c("sampler", "proba"),
+  evidence = NULL,
+  n_generation = NULL,
+  include_relatives = TRUE,
+  n_try = 10,
+  n_run = 1000
+)
 }
 \arguments{
 \item{bn}{an object of class bn.fit.}

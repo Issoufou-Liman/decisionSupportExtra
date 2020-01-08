@@ -4,9 +4,16 @@
 \alias{guess_decisionSupport_estimates}
 \title{guessing decisionSupport's estimates from imperfect information.}
 \usage{
-guess_decisionSupport_estimates(data, fun = NULL, distr = "norm",
-  method = "mge", estimate_method = NULL, percentiles = c(0.025,
-  0.975), plot = FALSE, show.output = FALSE)
+guess_decisionSupport_estimates(
+  data,
+  fun = NULL,
+  distr = "norm",
+  method = "mge",
+  estimate_method = NULL,
+  percentiles = c(0.025, 0.975),
+  plot = FALSE,
+  show.output = FALSE
+)
 }
 \arguments{
 \item{data}{The base data or list of base data such that fun (data), or do.call (fun, data) will either return a data.frame or a numeric vector coercible to data.frame. see example.}

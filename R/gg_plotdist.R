@@ -95,11 +95,16 @@ gg_plotdist <- function(fitted, title = NULL, hist_bar_size = 0.3, dist_geom_pts
       plot.background = element_rect(size=0.13,linetype="solid", color="black")
     )
 
-  ddistname <- 'dbeta'
-  qdistname <- 'qbeta'
-  pdistname <- 'pbeta'
+  # ddistname <- 'dbeta'
+  # qdistname <- 'qbeta'
+  # pdistname <- 'pbeta'
 
   f1 <- function(x) {
+
+    ddistname <- paste("d", x$distname, sep="")
+    qdistname <- paste("q", x$distname, sep="")
+    pdistname <- paste("p", x$distname, sep="")
+
     h <- hist(x[['data']], plot=FALSE)
     data <- data.frame(x=x[['data']])
     xhist <- seq(min(h$breaks), max(h$breaks), length=nrow(data))
@@ -138,6 +143,11 @@ gg_plotdist <- function(fitted, title = NULL, hist_bar_size = 0.3, dist_geom_pts
     labs(title=paste("Empirical and theoretical dens."), x="Data", y = 'Density')
   # plot 2 - plot of the qqplot
   f2 <- function(x){
+
+    ddistname <- paste("d", x$distname, sep="")
+    qdistname <- paste("q", x$distname, sep="")
+    pdistname <- paste("p", x$distname, sep="")
+
     s <- sort(x[['data']])
     n <- length(x[['data']])
     obsp <- ppoints(s)
@@ -167,6 +177,11 @@ gg_plotdist <- function(fitted, title = NULL, hist_bar_size = 0.3, dist_geom_pts
   # PLOT 3 - plot of the cumulative probability distributions
 
   f3 <- function(x) {
+
+    ddistname <- paste("d", x$distname, sep="")
+    qdistname <- paste("q", x$distname, sep="")
+    pdistname <- paste("p", x$distname, sep="")
+
     s <- sort(x[['data']])
     n <- length(x[['data']])
     obsp <- ppoints(s)
@@ -212,6 +227,11 @@ gg_plotdist <- function(fitted, title = NULL, hist_bar_size = 0.3, dist_geom_pts
     my_theme
   # PLOT 4 - plot of the ppplot
   f4 <- function(x){
+
+    ddistname <- paste("d", x$distname, sep="")
+    qdistname <- paste("q", x$distname, sep="")
+    pdistname <- paste("p", x$distname, sep="")
+
     s <- sort(x[['data']])
     obsp <- ppoints(s)
     theop <- do.call(pdistname, c(list(q=s), x[['estimate']]))

@@ -6,13 +6,20 @@
 \alias{get_hist_mcsimilation_data}
 \title{Compute kernel density and histogram data, from \code{\link[decisionSupport]{mcSimulation}} object, for \code{\link[ggplot2]{geom_bar}} and \code{\link[ggplot2]{geom_density}}}
 \usage{
-get_dens_mcsimilation_data(x, colorQuantile = c("GRAY48", "YELLOW",
-  "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
-  colorProbability = c(1, 0.95, 0.75, 0.55, 0.45, 0.25, 0.05))
+get_dens_mcsimilation_data(
+  x,
+  colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1",
+    "GRAY49"),
+  colorProbability = c(1, 0.95, 0.75, 0.55, 0.45, 0.25, 0.05)
+)
 
-get_hist_mcsimilation_data(x, breaks = 100, colorQuantile = c("GRAY48",
-  "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1", "GRAY49"),
-  colorProbability = c(1, 0.95, 0.75, 0.55, 0.45, 0.25, 0.05))
+get_hist_mcsimilation_data(
+  x,
+  breaks = 100,
+  colorQuantile = c("GRAY48", "YELLOW", "ORANGE", "DARK GREEN", "ORANGE1", "YELLOW1",
+    "GRAY49"),
+  colorProbability = c(1, 0.95, 0.75, 0.55, 0.45, 0.25, 0.05)
+)
 }
 \arguments{
 \item{x}{\code{\link[decisionSupport]{mcSimulation}} or a list of \code{\link[decisionSupport]{mcSimulation}}}
