@@ -18,10 +18,6 @@ cache:
 
 # environment:
 #  R_VERSION: stable
-language: R
-repos:
-  CRAN: http://cran.rstudio.com
-  ropensci: http://packages.ropensci.com
 
 build_script:
 - Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager'); BiocManager::install(c('graph','RBGL','Rgraphviz'))"
