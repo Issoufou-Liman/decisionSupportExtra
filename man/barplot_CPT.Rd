@@ -66,7 +66,7 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 ## Graphical Independence Network ####
 network <- grain(network)
 network
-barplot_CPT (network, 'Soil_water_holding_capacity')
+barplot_CPT (network, "Soil_water_holding_capacity")
 }
 \seealso{
 \code{\link[decisionSupportExtra]{make_gRain_CPT}}.
