@@ -20,14 +20,12 @@ cache:
 #  R_VERSION: stable
 
 build_script:
-##  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
-##  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
-##  - travis-tool.sh install_bioc BiocInstaller
-##  - travis-tool.sh install_deps
-##  - travis-tool.sh install_bioc_deps
-##  - travis-tool.sh r_binary_install curl
-  - Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager', repos=c(CRAN='${CRAN}')); BiocManager::install(c('graph','RBGL','Rgraphviz'))"
-  - Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/gRain/gRain_1.3-0.tar.gz', repos=NULL, type='source')"
+#  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
+#  - Rscript -e "BiocInstaller::biocLite(c('graph','RBGL'))"
+# - travis-tool.sh install_bioc BiocInstaller
+  - travis-tool.sh install_deps
+#  - travis-tool.sh install_bioc_deps
+#  - travis-tool.sh r_binary_install curl
 
 test_script:
   - travis-tool.sh run_tests
