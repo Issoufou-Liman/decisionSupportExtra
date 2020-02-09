@@ -22,7 +22,7 @@ cache:
 build_script:
 - Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager', repo='http://cran.rstudio.com/'); BiocManager::install(c('graph','RBGL','Rgraphviz'))"
 - Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/gRain/gRain_1.3-0.tar.gz', repos=NULL, type='source')"
-- Rscript -e "install.packages(c('rmarkdown', 'decisionSupport', "gridExtra", 'ggplot2', 'scales', 'reshape2', 'bnlearn', 'testthat', 'fitdistrplus', 'rriskDistributions', 'plyr'), dependencies = T)"
+- Rscript -e "install.packages(c('rmarkdown', 'decisionSupport', 'gridExtra', 'ggplot2', 'scales', 'reshape2', 'bnlearn', 'testthat', 'fitdistrplus', 'rriskDistributions', 'plyr'), dependencies = T)"
 - Rscript -e "install.packages('knitr')"
 
 test_script:
