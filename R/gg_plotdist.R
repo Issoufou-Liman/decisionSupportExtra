@@ -140,7 +140,7 @@ gg_plotdist <- function(fitted, title = NULL, hist_bar_size = 0.3, dist_geom_pts
     scale_x_continuous(labels = fmt_dcimals(1), breaks = scales::pretty_breaks(n=3), expand = c(0, 0.015)) +
     scale_y_continuous(labels = fmt_dcimals(1), breaks = scales::pretty_breaks(n=4), expand = c(0, 0.015)) +
 
-    labs(title=paste("Empirical and theoretical dens."), x="Data", y = 'Density')
+    labs(title=paste("Empirical and theoretical density"), x="Data", y = 'Density')
   # plot 2 - plot of the qqplot
   f2 <- function(x){
 
