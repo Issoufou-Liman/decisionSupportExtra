@@ -46,7 +46,7 @@
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @export
 fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method = "mme", start = NULL,
-    fix.arg = NULL, discrete, keepdata = TRUE, keepdata.nb = 100, include_relatives = TRUE, n_run = 1000, ...) {
+                                  fix.arg = NULL, discrete, keepdata = TRUE, keepdata.nb = 100, include_relatives = TRUE, n_run = 1000, ...) {
 
     bn <- check_bn(bn, include_cpt = TRUE)
 
@@ -54,11 +54,12 @@ fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method
                           evidence = NULL, include_relatives = include_relatives, n_run = n_run)
     node <- node$posterior
     if (missing(discrete)) {
-        if (is.element(distr, c("binom", "nbinom", "geom", "hyper", "pois"))) {
-            discrete <- TRUE
-        } else {
-            discrete <- FALSE
-        }
+        # if (is.element(distr, c("binom", "nbinom", "geom", "hyper", "pois"))) {
+        #     discrete <- TRUE
+        # } else {
+        #     discrete <- FALSE
+        # }
+        discrete <- ifelse(is.element(distr, c("binom", "nbinom", "geom", "hyper", "pois")), TRUE, FALSE)
     }
 
     distr <- check_fitdist_args(distr, node)
@@ -71,7 +72,7 @@ fit_node_states_distr <- function(bn, node, op = "proba", distr = "beta", method
 
     tmp <- lapply(as.list(1:ncol(node)), function(i) {
         fitdist(node[, i], distr = distr[i], method = method[i], start = start[i], fix.arg = fix.arg[i],
-            discrete = discrete[i], keepdata = keepdata[i], keepdata.nb = keepdata.nb[i], ...)
+                discrete = discrete[i], keepdata = keepdata[i], keepdata.nb = keepdata.nb[i], ...)
     })
     names(tmp) <- colnames(node)
     return(tmp)

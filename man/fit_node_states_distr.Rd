@@ -33,7 +33,8 @@ fit_node_states_distr(
 
 \item{method}{A character string coding for the fitting method: 
     \code{"mle"} for 'maximum likelihood estimation', \code{"mme"} for 'moment matching estimation', 
-    \code{"qme"} for 'quantile matching estimation' and \code{"mge"} for 'maximum goodness-of-fit estimation'.}
+    \code{"qme"} for 'quantile matching estimation', \code{"mge"} for 'maximum goodness-of-fit estimation'
+    and \code{"mse"} for 'maximum spacing estimation'.}
 
 \item{start}{A named list giving the initial values of parameters of the named distribution
     or a function of data computing initial values and returning a named list.
