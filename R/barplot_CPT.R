@@ -48,7 +48,7 @@
 #' @import ggplot2
 #' @export
 barplot_CPT <- function(bn, target_node, bar_width = 0.25, ncol_facet=NULL, n_pages = 1, show_states_only = FALSE, separator = "\n"){
-    if(is(bn, "CPTgrain")){
+    if(is(bn, "cpt_grain")){
         x <- melt(bn[["cptlist"]][[target_node]])
     } else if (is(bn, "bn.fit")){
         x <- as.data.frame(bn[[target_node]][['prob']])

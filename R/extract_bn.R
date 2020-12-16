@@ -52,7 +52,6 @@
 #' @importFrom bnlearn nodes
 #' @importFrom bnlearn model2network
 #' @importFrom bnlearn root.nodes
-#' @importFrom gRain querygrain
 #' @importFrom bnlearn as.grain
 #' @importFrom bnlearn custom.fit
 #' @importFrom bnlearn as.bn.fit
@@ -78,7 +77,7 @@ extract_bn <- function(bn, string_model) {
     names(other_nodes) <- names_other_nodes
     nods <- c(root_nodes, other_nodes)
     nods <- nods[nodes(bn)[nodes(bn) %in% nodes(string_model)]]
-    
+
     if (is_grain_bn) {
         return(as.grain(custom.fit(string_model, dist = nods)))
     } else {

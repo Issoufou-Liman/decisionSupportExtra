@@ -53,6 +53,7 @@
 #' node = 'Soil_water_holding_capacity', distr = c('beta', 'norm', 'gamma'))
 #' @importFrom stats na.omit
 #' @importFrom fitdistrplus descdist
+#' @import gRain
 #' @export
 make_node_states_estimates <- function(bn, node, op = "proba", distr = "beta", n_run=1000,
                                        state_effects = NULL, evidence = NULL,

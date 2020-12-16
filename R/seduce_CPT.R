@@ -47,7 +47,6 @@
 #' seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Manure_application'))
 #' seduce_CPT (network_bn_fit, 'Soil_water_holding_capacity', c( 'Soil_type', 'Manure_application'))
 #' @importFrom bnlearn as.grain
-#' @importFrom gRain nodeStates querygrain setEvidence nodeNames
 #' @export
 seduce_CPT <- function(bn, target_child = NULL, target_parents = NULL) {
     # checking and converting bn.fit object to grain object

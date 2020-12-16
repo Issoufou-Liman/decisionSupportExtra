@@ -22,9 +22,6 @@ r_packages:
   - testthat
 
 install:
-- R -e 'if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager"); BiocManager::install(c("graph","RBGL","Rgraphviz"))'
-- R -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gRain/gRain_1.3-0.tar.gz", repos=NULL, type="source")'
-- R -e 'install.packages(c("rmarkdown", "decisionSupport", "gridExtra", "ggplot2", "scales", "reshape2", "bnlearn", "testthat", "fitdistrplus", "rriskDistributions", "plyr"), dependencies = T)'
 - R -e 'install.packages("knitr")'
 after_success:
   - Rscript -e 'library(covr); codecov()'

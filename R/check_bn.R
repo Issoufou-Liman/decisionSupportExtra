@@ -1,3 +1,19 @@
+Sys.setenv('_R_CHECK_SYSTEM_CLOCK_' = 0)
+
+nodeNames  <- function(x) UseMethod("nodeNames")
+
+nodeNames.grain  <- function(x)
+  getgrain(x, "universe")$nodes
+
+nodeStates <- function(x, nodes=nodeNames(x)) UseMethod("nodeStates")
+
+nodeStates.grain <- function(x, nodes=nodeNames(x)){
+  getgrain(x, "universe")$levels[nodes]
+}
+
+# `%:::%` = function(pkg, fun) get(fun, envir = asNamespace(pkg),
+#                                  inherits = FALSE)
+
 check_bn <- function(bn, include_cpt = FALSE) {
     if (include_cpt) {
         if (!(inherits(bn, "grain") | inherits(bn, "bn.fit"))) {
@@ -67,7 +83,6 @@ check_bn_nodes <- function(bn, evidence) {
   return(evidence)
 }
 
-
 check_bn_node_states <- function(bn, evidence) {
   ## check node names validity
   evidence <- check_bn_nodes(bn, evidence)
@@ -85,3 +100,4 @@ check_bn_node_states <- function(bn, evidence) {
   }
   return(evidence)
 }
+

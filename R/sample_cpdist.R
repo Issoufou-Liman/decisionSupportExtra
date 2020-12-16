@@ -48,9 +48,7 @@
 #' network <- as.bn.fit(network)
 #' sample_cpdist (network, 'Soil_water_holding_capacity')
 #' @importFrom bnlearn nodes cpdist as.grain parents ancestors
-#' @importFrom gRain nodeStates
-#' @importFrom bnlearn nodes cpdist as.grain parents ancestors
-#' @importFrom gRain nodeStates
+#' @import gRain
 #' @export
 sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
                           n_generation = NULL, include_relatives = TRUE, n_try = 10, n_run =1000) {
