@@ -23,7 +23,7 @@ environment:
 
 build_script:
 - Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager', repo='http://cran.rstudio.com/'); BiocManager::install(c('graph','RBGL','Rgraphviz'))"
-- Rscript -e "install.packages('gRain')"
+- Rscript -e "install.packages('gRain', repo='http://cran.rstudio.com/')"
 - Rscript -e "install.packages(c('rmarkdown', 'decisionSupport', 'gridExtra', 'ggplot2', 'scales', 'reshape2', 'bnlearn', 'testthis', 'fitdistrplus', 'rriskDistributions', 'plyr'), repo='http://cran.rstudio.com/', dependencies = TRUE)"
 - Rscript -e "install.packages('knitr', repo='http://cran.rstudio.com/')"
 
