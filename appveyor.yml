@@ -21,6 +21,26 @@ environment:
   USE_RTOOLS: yes
   _R_CHECK_FORCE_SUGGESTS_: false
 
+r_packages:
+  - decisionSupport
+  - fitdistrplus
+  - grid
+  - gridExtra
+  - ggplot2
+  - scales
+  - reshape2
+  - graph
+  - Rgraphviz
+  - gRain
+  - bnlearn
+  - rriskDistributions
+  - plyr
+  - methods
+  - testthat
+  - knitr
+  - rmarkdown
+  - covr
+
 test_script:
   - travis-tool.sh run_tests
 
