@@ -30,7 +30,8 @@ Imports:
 Suggests:
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 Description: Supporting functions for the decisonSupport package which provides
     utilities for quantitative decision making under uncertainity using  
     Monte Carlo simulations.

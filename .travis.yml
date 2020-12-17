@@ -16,20 +16,6 @@ before_install:
   - export DISPLAY=:99.0
 
 r_packages:
-  - decisionSupport
-  - fitdistrplus
-  - grid
-  - gridExtra
-  - ggplot2
-  - scales
-  - reshape2
-  - graph
-  - Rgraphviz
-  - gRain
-  - bnlearn
-  - rriskDistributions
-  - plyr
-  - methods
   - testthat
   - knitr
   - rmarkdown
