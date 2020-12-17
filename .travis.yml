@@ -12,6 +12,8 @@ addons:
       - tcl8.5-dev
       - tk8.5-dev
 
+install: travis_wait 20 mvn install
+
 before_install:
   - export DISPLAY=:99.0
 
