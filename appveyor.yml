@@ -8,7 +8,6 @@ init:
         Import-Module '..\appveyor-tool.ps1'
 
 install:
-  travis_wait 20 mvn install
   ps: Bootstrap
 
 cache:
