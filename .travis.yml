@@ -13,18 +13,28 @@ addons:
       - tk8.5-dev
 
 before_install:
-- export DISPLAY=:99.0
+  - export DISPLAY=:99.0
 
 r_packages:
+  - decisionSupport
+  - fitdistrplus
+  - grid
+  - gridExtra
+  - ggplot2
+  - scales
+  - reshape2
+  - graph
+  - Rgraphviz
+  - gRain
+  - bnlearn
+  - rriskDistributions
+  - plyr
+  - methods
+  - testthat
+  - knitr
   - rmarkdown
   - covr
-  - testthat
 
-install:
-- R -e 'if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager"); BiocManager::install(c("graph","RBGL","Rgraphviz"))'
-- R -e 'install.packages("gRain")'
-- R -e 'install.packages(c("rmarkdown", "decisionSupport", "gridExtra", "ggplot2", "scales", "reshape2", "bnlearn", "testthat", "fitdistrplus", "rriskDistributions", "plyr"), dependencies = T)'
-- R -e 'install.packages("knitr")'
 after_success:
   - Rscript -e 'library(covr); codecov()'
   - Rscript -e "capabilities()"
