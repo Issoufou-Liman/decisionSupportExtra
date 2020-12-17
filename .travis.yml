@@ -23,7 +23,7 @@ r_packages:
 install:
 - R -e 'if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager"); BiocManager::install(c("graph","RBGL","Rgraphviz"))'
 - R -e 'install.packages("gRain")'
-- R -e 'install.packages(c("rmarkdown", "decisionSupport", "gridExtra", "ggplot2", "scales", "reshape2", "bnlearn", "testthis", "fitdistrplus", "rriskDistributions", "plyr"), dependencies = T)'
+- R -e 'install.packages(c("rmarkdown", "decisionSupport", "gridExtra", "ggplot2", "scales", "reshape2", "bnlearn", "testthat", "fitdistrplus", "rriskDistributions", "plyr"), dependencies = T)'
 - R -e 'install.packages("knitr")'
 after_success:
   - Rscript -e 'library(covr); codecov()'

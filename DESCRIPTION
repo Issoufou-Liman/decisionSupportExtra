@@ -28,7 +28,7 @@ Imports:
     plyr (>= 1.8.4),
     methods
 Suggests:
-    testthis,
+    testthat,
     knitr,
     rmarkdown
 Description: Supporting functions for the decisonSupport package which provides
