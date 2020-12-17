@@ -3,7 +3,6 @@ language: r
 r:
   - release
 cache: packages
-sudo: true
 services:
   - xvfb
 addons:
