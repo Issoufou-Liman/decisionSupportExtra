@@ -42,61 +42,61 @@ Take some data along with other tuning parameters to return the formated estimat
 In decisonSupport package, \code{\link[decisionSupport]{estimate}} assumes the case where hard data are not available and expert can agree on a set of estimated benchmarking (i.e. minimum, mediam, maximun) values and distributions based on which data can generated to support decision making under uncertainity. guess_decisionSupport_estimates () function provide additional ways to derive such estimates from the persepectives where some sort of hard data are available. The function is more useful when intermediate computations are needed to generate the desired the data. For example it can use the data generating function (fun argument) to construct intermediate outputs upon which it derives the recipies required by \code{\link[decisionSupport]{estimate}}. This could be useful for variables that difficult to be directly estimated by experts.
 }
 \examples{
-#' ## - Suppose we have data on yield potential of different crops grown in a given area
-#' ## distributed following a gamma distribution function.
-#' ## - Suppose also we can estimates the proportion of biomass accumulation following the
-#' ## crop development stages
-#' ## - Suppose we also have an idea of the proportion of grains relative to the biomass
-#' ## towards the harvest period.
-#' ## Now we want to construct the decisionSupport estimates of the actual grain yield
-#' ## from these.
-#' ## generate some hypothetical data reporting yield potential of different crops varietie
-#' potential_grain_yield <- rgamma(100, shape=1, rate = 1)
-#' ## checking the distribution shape
-#' hist(potential_grain_yield)
-#' ## proportion of grain yield relative to biomass yield
-#' harvest_index = c(0.2, 0.6)
-#' ## relative biomass accumulation accross over time.
-#' stage_ratio = c(initial_stage = 0.27, mid_stage = 0.68, development_stage = 1, late_stage = 0.86)
-#' ## A function for making an informed guess of biomass yield at each stage
-#' guess_biomass_yield <-  function(observed_grain_yield, harvest_index = c(0.2, 0.6), stage_ratio){
-#'   harvest_index <- runif(1000, harvest_index[1], harvest_index[2])
-#'   actu_bomass <- sapply(harvest_index, function(i){
-#'     observed_grain_yield/i
-#'   })
-#'   actu_bomass <- sapply(stage_ratio, function (i){
-#'     i * actu_bomass
-#'   }, simplify = TRUE, USE.NAMES = TRUE)
-#'   as.data.frame(na.omit(actu_bomass))
-#' }
-#'
-#' ## Try it with gamma distribution and fit method
-#' library (rriskDistributions)
-#' fit_gamma <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
-#'   harvest_index = harvest_index, stage_ratio = stage_ratio),
-#'   fun = guess_biomass_yield, distr = 'gamma', percentiles = c(0.025, 0.5, 0.975),
-#'   plot = FALSE, show.output = FALSE)
-#'
-#'  ## Try it with gamma distribution and calculate method
-#' calc_gamma <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
-#'   harvest_index = harvest_index, stage_ratio = stage_ratio), estimate_method = 'calculate',
-#'   fun = guess_biomass_yield, distr = 'gamma', percentiles = c(0.025, 0.5, 0.975),
-#'   plot = FALSE, show.output = FALSE)
-#'
-#'  ## Try it with normal distribution and calculate method
-#' calc_norm <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
-#'   harvest_index = harvest_index, stage_ratio = stage_ratio), estimate_method = 'calculate',
-#'   fun = guess_biomass_yield, distr = 'norm', percentiles = c(0.025, 0.5, 0.975),
-#'   plot = FALSE, show.output = FALSE)
-#'
-#'  ## Try with a constant with a function
-#'  calc_const_with_fun <- guess_decisionSupport_estimates(data = 1, fun = "sum")
-#'
-#'  ## Try with a constant without function
-#'  calc_const_without_fun <- guess_decisionSupport_estimates(data = 100)
+## - Suppose we have data on yield potential of different crops grown in a given area
+## distributed following a gamma distribution function.
+## - Suppose also we can estimates the proportion of biomass accumulation following the
+## crop development stages
+## - Suppose we also have an idea of the proportion of grains relative to the biomass
+## towards the harvest period.
+## Now we want to construct the decisionSupport estimates of the actual grain yield
+## from these.
+## generate some hypothetical data reporting yield potential of different crops varietie
+potential_grain_yield <- rgamma(100, shape=1, rate = 1)
+## checking the distribution shape
+hist(potential_grain_yield)
+## proportion of grain yield relative to biomass yield
+harvest_index = c(0.2, 0.6)
+## relative biomass accumulation accross over time.
+stage_ratio = c(initial_stage = 0.27, mid_stage = 0.68, development_stage = 1, late_stage = 0.86)
+## A function for making an informed guess of biomass yield at each stage
+guess_biomass_yield <-  function(observed_grain_yield, harvest_index = c(0.2, 0.6), stage_ratio){
+  harvest_index <- runif(1000, harvest_index[1], harvest_index[2])
+  actu_bomass <- sapply(harvest_index, function(i){
+    observed_grain_yield/i
+  })
+  actu_bomass <- sapply(stage_ratio, function (i){
+    i * actu_bomass
+  }, simplify = TRUE, USE.NAMES = TRUE)
+  as.data.frame(na.omit(actu_bomass))
+}
 
-#' ## Check the difference
-#' calc_gamma; fit_gamma; calc_norm; calc_const_with_fun; calc_const_without_fun
+## Try it with gamma distribution and fit method
+library (rriskDistributions)
+fit_gamma <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
+  harvest_index = harvest_index, stage_ratio = stage_ratio),
+  fun = guess_biomass_yield, distr = 'gamma', percentiles = c(0.025, 0.5, 0.975),
+  plot = FALSE, show.output = FALSE)
+
+ ## Try it with gamma distribution and calculate method
+calc_gamma <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
+  harvest_index = harvest_index, stage_ratio = stage_ratio), estimate_method = 'calculate',
+  fun = guess_biomass_yield, distr = 'gamma', percentiles = c(0.025, 0.5, 0.975),
+  plot = FALSE, show.output = FALSE)
+
+ ## Try it with normal distribution and calculate method
+calc_norm <- guess_decisionSupport_estimates (data = list(potential_grain_yield,
+  harvest_index = harvest_index, stage_ratio = stage_ratio), estimate_method = 'calculate',
+  fun = guess_biomass_yield, distr = 'norm', percentiles = c(0.025, 0.5, 0.975),
+  plot = FALSE, show.output = FALSE)
+
+ ## Try with a constant with a function
+ calc_const_with_fun <- guess_decisionSupport_estimates(data = 1, fun = "sum")
+
+ ## Try with a constant without function
+ calc_const_without_fun <- guess_decisionSupport_estimates(data = 100)
+
+## Check the difference
+calc_gamma; fit_gamma; calc_norm; calc_const_with_fun; calc_const_without_fun
 }
 \seealso{
 \code{\link[decisionSupport]{estimate}}.
