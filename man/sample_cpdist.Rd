@@ -73,7 +73,7 @@ network <- compileCPT(list(Soil_type, Manure_application, Soil_water_holding_cap
 network <- grain(network)
 ## converting the grain bayesian network to bn.fit
 network <- as.bn.fit(network)
-sample_cpdist (network, 'Soil_water_holding_capacity')
+sample_cpdist (network, 'Soil_water_holding_capacity', n_try = 10, n_run =10)
 }
 \seealso{
 \code{\link[bnlearn]{cpquery}}

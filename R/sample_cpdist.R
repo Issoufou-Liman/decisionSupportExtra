@@ -46,7 +46,7 @@
 #' network <- grain(network)
 #' ## converting the grain bayesian network to bn.fit
 #' network <- as.bn.fit(network)
-#' sample_cpdist (network, 'Soil_water_holding_capacity')
+#' sample_cpdist (network, 'Soil_water_holding_capacity', n_try = 10, n_run =10)
 #' @importFrom bnlearn nodes cpdist as.grain parents ancestors
 #' @import gRain
 #' @export
@@ -145,7 +145,15 @@ sample_cpdist <- function(bn, node, op = c("sampler", "proba"), evidence = NULL,
     query_list <- sapply(1:n_run, function(i){
         .sample_cpdist(bn=bn, node=node, op = op, n_try = n_try)
     }, simplify = FALSE)
-    query_list <- do.call(rbind, query_list)
+    if (op == "proba") {
+        query_list <- do.call(rbind, query_list)
+    }
+    # else {
+    #     query_list <- sapply(query_list, function(liste){
+    #         do.call(cbind, liste)
+    #     }, simplify = FALSE)
+    # }
+
     query_list <- list(prior = prior, posterior = query_list)
     class(query_list) <- "sample_cpdist"
     return(query_list)
