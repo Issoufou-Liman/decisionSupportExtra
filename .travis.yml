@@ -18,7 +18,9 @@ r_packages:
   - knitr
   - rmarkdown
   - covr
-
+script:
+  - R CMD build .
+  - travis_wait 50 R CMD check *tar.gz --as-cran
 after_success:
   - Rscript -e 'library(covr); codecov()'
   - Rscript -e "capabilities()"
